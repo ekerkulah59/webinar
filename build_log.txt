@@ -1,0 +1,24 @@
+
+> webinar-landing-page@1.0.0 build /Users/emmanuelkerkulah/Desktop/webinar-landing-page
+> vite build
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2 modules transformed.
+✗ Build failed in 35ms
+error during build:
+[vite]: Rollup failed to resolve import "@tanstack/react-query" from "/Users/emmanuelkerkulah/Desktop/webinar-landing-page/client/src/main.tsx".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+    at viteLog (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6/node_modules/vite/dist/node/chunks/dep-Chhhsdoe.js:33989:57)
+    at file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6/node_modules/vite/dist/node/chunks/dep-Chhhsdoe.js:34025:73
+    at onwarn (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/@vitejs+plugin-react@5.0.4_vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6_/node_modules/@vitejs/plugin-react/dist/index.js:55:7)
+    at file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6/node_modules/vite/dist/node/chunks/dep-Chhhsdoe.js:34025:28
+    at onRollupLog (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6/node_modules/vite/dist/node/chunks/dep-Chhhsdoe.js:34020:63)
+    at onLog (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/vite@7.1.9_@types+node@24.7.0_jiti@2.6.1_lightningcss@1.30.1_tsx@4.20.6/node_modules/vite/dist/node/chunks/dep-Chhhsdoe.js:33821:4)
+    at file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/rollup@4.52.4/node_modules/rollup/dist/es/shared/node-entry.js:20937:32
+    at Object.logger [as onLog] (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/rollup@4.52.4/node_modules/rollup/dist/es/shared/node-entry.js:22823:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/rollup@4.52.4/node_modules/rollup/dist/es/shared/node-entry.js:21567:26)
+    at file:///Users/emmanuelkerkulah/Desktop/webinar-landing-page/node_modules/.pnpm/rollup@4.52.4/node_modules/rollup/dist/es/shared/node-entry.js:21525:26
+ ELIFECYCLE  Command failed with exit code 1.
