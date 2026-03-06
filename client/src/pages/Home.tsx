@@ -43,6 +43,22 @@ const pastWebinars = [
     ],
     status: "completed" as const,
   },
+  {
+    id: 2,
+    title: "AI Tools You Can Start Using Today",
+    date: "February 28, 2026",
+    attendees: "75+",
+    duration: "1 hour",
+    description:
+      "Hands-on walkthrough of real AI tools — ChatGPT, Claude, Canva AI, and more — with live demos and practical workflows you can apply immediately.",
+    outcomes: [
+      "Hands-on AI tool demonstrations",
+      "Practical workflows you can use today",
+      "Live Q&A with real-time answers",
+      "Resources to continue learning",
+    ],
+    status: "completed" as const,
+  },
 ];
 
 // ─── Countdown Hook ──────────────────────────────────────────────
@@ -208,8 +224,8 @@ export default function Home() {
     window.open(GOOGLE_FORM_URL, "_blank");
   };
 
-  // Upcoming webinar: February 28, 2026 (10 days from now)
-  const upcomingDate = new Date("2026-02-28T15:00:00Z");
+  // Upcoming webinar: Prompt Engineering — March 15, 2026
+  const upcomingDate = new Date("2026-03-15T15:00:00Z");
 
   return (
     <div className="min-h-screen bg-background">
@@ -297,23 +313,23 @@ export default function Home() {
                 {/* Badge */}
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    February 28, 2026
+                    March 14, 2026
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    Webinar #2
+                    Webinar #3
                   </span>
                 </div>
 
                 <div className="space-y-4">
                   <h3 className="text-3xl font-bold text-foreground">
-                    AI Tools You Can Start Using Today
+                    Prompt Engineering: Get Better Results From AI
                   </h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Webinar #1 gave you the foundation. Now it's time to get
-                    hands-on. This session walks you through real AI tools —
-                    ChatGPT, Claude, Canva AI, and more — with live
-                    demonstrations and practical workflows you can apply
-                    immediately.
+                    You have the tools — now master how to talk to them. This
+                    session is all about writing prompts that get you the results
+                    you want. We'll cover structure, clarity, examples, and
+                    common pitfalls so you can use ChatGPT, Claude, and other
+                    AI assistants more effectively every day.
                   </p>
                 </div>
 
@@ -321,7 +337,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
-                    February 28, 2026
+                    March 14, 2026
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
@@ -345,10 +361,10 @@ export default function Home() {
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
-                      "Hands-on AI tool demonstrations",
-                      "Practical workflows you can use today",
-                      "Live Q&A with real-time answers",
-                      "Resources to continue learning",
+                      "How to structure prompts for clarity and consistency",
+                      "Using examples and context to improve outputs",
+                      "Common mistakes and how to avoid them",
+                      "Live Q&A and practice prompts together",
                     ].map((item, idx) => (
                       <li
                         key={idx}

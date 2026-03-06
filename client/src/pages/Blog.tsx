@@ -321,7 +321,7 @@ export default function Blog() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xs">Ei</span>
+                <span className="text-accent-foreground font-bold text-xs">EI</span>
               </div>
               <span className="text-sm font-semibold text-foreground">
                 EaseIntoAI
