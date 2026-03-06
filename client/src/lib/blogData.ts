@@ -18,35 +18,86 @@ export const CATEGORIES: Record<BlogPost["category"], { label: string; color: st
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "openai-gpt5-what-it-means",
-    title: "GPT-5 Is Here — What It Actually Means for Everyday Users",
+    slug: "ai-productivity-myth-vs-reality",
+    title: "AI and Productivity: Myth vs. Reality",
     excerpt:
-      "OpenAI's latest model is making headlines. But beyond the hype, what does it change for people who aren't developers? Here's my honest breakdown.",
+      "Everyone says AI makes you more productive. But what does that actually look like in practice? And where do people get it wrong?",
     content: `
-## The Headlines vs. Reality
+## The Myth: "AI Does the Work for You"
 
-Every major AI release comes with a wave of breathless headlines. GPT-5 is no different. You'll see claims about it being "nearly human" or "revolutionary." Let me cut through that.
+Headlines love to claim that AI will 10x your productivity, finish your reports in seconds, and handle your inbox while you sleep. That's only half true.
 
-**What actually improved:**
-GPT-5 is significantly better at understanding context over long conversations, following complex instructions, and reasoning through multi-step problems. For everyday users, this means fewer moments where the AI "forgets" what you asked or gives you an off-topic answer.
+AI can draft, suggest, and automate — but it can't decide what's worth doing, spot when an output is wrong, or align work with your goals. The "productivity gain" only happens when you use AI as a partner, not a replacement for thinking.
 
-**What didn't change:**
-AI still doesn't "understand" anything the way humans do. It still makes confident-sounding mistakes. It still needs you to be specific about what you want.
+## The Reality: It Shifts Where You Spend Time
 
-## What This Means for You
+What actually changes when you use AI well isn't the number of hours you work. It's what you do in those hours.
 
-If you're already using AI tools at work or in your personal life, GPT-5 makes those tools more reliable. Think of it like upgrading from a decent calculator to a better one — it doesn't change what math is, but it makes fewer errors.
+Before: You spend 45 minutes writing a first draft, then 15 minutes editing.
+After: You spend 10 minutes prompting and refining, then 30 minutes editing and adding your own voice.
 
-If you haven't started using AI yet, this is actually a good time to begin. The tools are getting easier to use, and the gap between "AI expert" and "AI beginner" is shrinking.
+The total time might be similar. But you're spending less time on the mechanical part and more on the part that actually requires you — judgment, tone, accuracy, and creativity.
 
-## My Recommendation
+## Where People Go Wrong
 
-Don't chase every new model release. Instead, focus on building good habits with whatever AI tool you're currently using. Learn to write clear prompts, verify outputs, and understand the limitations.
+**Over-trusting the output.** AI sounds confident even when it's wrong. Always fact-check, especially for numbers, dates, and citations.
 
-The best AI user isn't the one with the newest model — it's the one who knows how to ask good questions.
+**Under-specifying.** "Write a blog post" gets you generic fluff. "Write a 500-word blog post for [audience], arguing that [point], with a friendly but professional tone" gets you something you can actually use.
+
+**Using it for the wrong tasks.** AI is great at drafting, summarizing, and brainstorming. It's not great at making final decisions, representing your personal brand, or replacing genuine expertise.
+
+## The Honest Takeaway
+
+AI can make you more productive — if you're willing to learn how to direct it, verify its work, and keep yourself in the loop. The people who get the most out of it are the ones who treat it like a sharp tool, not a magic wand.
+
+If you want to see this in action, join one of our webinars. We focus on real workflows and real limitations, so you can separate the hype from what actually helps.
     `.trim(),
-    category: "ai-news",
-    date: "February 10, 2026",
+    category: "opinion",
+    date: "March 3, 2026",
+    readTime: "4 min read",
+  },
+  {
+    slug: "prompt-engineering-beginners-guide",
+    title: "Prompt Engineering for Beginners: Get Better Results in 3 Steps",
+    excerpt:
+      "You don't need fancy formulas. A few simple habits will dramatically improve how AI responds to you. Here's what actually works.",
+    content: `
+## Why Your Prompts Might Be Falling Flat
+
+If you've ever asked an AI for something and gotten a generic or off-topic reply, you're not alone. The issue usually isn't the tool — it's that we're used to talking to humans, and AI needs a slightly different approach.
+
+The good news: you don't need to memorize templates or learn a new language. You just need to be a bit more explicit.
+
+## Step 1: Give Context First
+
+Instead of: "Write me an email."
+
+Try: "I need to decline a meeting invite from a senior colleague. Keep it polite and professional, and suggest we find another time. Tone should be warm but brief."
+
+The AI doesn't know your relationship, your tone, or your goal. Tell it. The more context you give upfront, the less back-and-forth you'll need.
+
+## Step 2: Specify the Format and Length
+
+Instead of: "Summarize this article."
+
+Try: "Summarize this article in 3 bullet points. Each point should be one sentence. Focus on the main argument and the evidence used."
+
+Length and format constraints force the AI to be precise. "Keep it short" is vague; "in 3 bullet points" is clear.
+
+## Step 3: Iterate Instead of Starting Over
+
+Your first prompt rarely needs to be perfect. If the output isn't quite right, don't scrap it — refine it. Say: "That's close, but make the tone more formal" or "Add a second paragraph that addresses [X]."
+
+Treat it like a conversation. The AI has no memory of your tone of voice or your preferences unless you tell it.
+
+## The One Rule to Remember
+
+The best prompt is the one that leaves the least to guesswork. Assume the AI knows nothing about your situation, your audience, or your style. When in doubt, add one more sentence of context.
+
+Start with your next request. You might be surprised how much difference a few extra words make.
+    `.trim(),
+    category: "tutorial",
+    date: "March 1, 2026",
     readTime: "4 min read",
     featured: true,
   },
@@ -101,6 +152,79 @@ Notice something? Every tool on this list works alongside something you probably
     readTime: "5 min read",
   },
   {
+    slug: "webinar-1-recap-understand-ai",
+    title: "Webinar Recap: Understand AI Without the Confusion",
+    excerpt:
+      "A look back at our first webinar — what we covered, what people asked, and the key takeaways that stuck with attendees.",
+    content: `
+## What We Covered
+
+Our first webinar, "Understand AI Without the Confusion," was held on February 14, 2025. Over 50 people joined live, and the recording has been shared with dozens more since.
+
+The session was structured around four key questions:
+
+**1. What is AI, really?**
+We broke down the difference between AI as a concept, machine learning as a method, and tools like ChatGPT as products. Most people conflate all three, and separating them is the first step to real understanding.
+
+**2. How does AI show up in everyday life?**
+From Netflix recommendations to email spam filters to Google Maps routing — AI is already everywhere. We walked through specific examples so attendees could connect the abstract concept to their daily experience.
+
+**3. What are the biggest misconceptions?**
+We tackled the idea that AI "thinks," that it's always right, that it will replace all jobs, and that you need to be technical to use it. Every one of these is either false or far more nuanced than headlines suggest.
+
+**4. Where do you go from here?**
+We closed with a practical roadmap: try one tool, build one habit, and stay curious. No 10-step program, no course to buy.
+
+## The Most-Asked Questions
+
+- "Is AI safe to use for work?" — Yes, with caveats about not sharing sensitive data and always reviewing outputs.
+- "What's the difference between ChatGPT and AI?" — ChatGPT is one AI product. AI is the broader technology.
+- "Will AI take my job?" — It will change your job. Learning to work with AI is the best defense.
+
+## What's Next
+
+Webinar #2 is in the works: "AI Tools You Can Start Using Today." It builds directly on the foundation we set in the first session, with hands-on demonstrations and practical workflows.
+
+Stay tuned — registration opens soon.
+    `.trim(),
+    category: "webinar-recap",
+    date: "February 16, 2026",
+    readTime: "4 min read",
+  },
+  {
+    slug: "openai-gpt5-what-it-means",
+    title: "GPT-5 Is Here — What It Actually Means for Everyday Users",
+    excerpt:
+      "OpenAI's latest model is making headlines. But beyond the hype, what does it change for people who aren't developers? Here's my honest breakdown.",
+    content: `
+## The Headlines vs. Reality
+
+Every major AI release comes with a wave of breathless headlines. GPT-5 is no different. You'll see claims about it being "nearly human" or "revolutionary." Let me cut through that.
+
+**What actually improved:**
+GPT-5 is significantly better at understanding context over long conversations, following complex instructions, and reasoning through multi-step problems. For everyday users, this means fewer moments where the AI "forgets" what you asked or gives you an off-topic answer.
+
+**What didn't change:**
+AI still doesn't "understand" anything the way humans do. It still makes confident-sounding mistakes. It still needs you to be specific about what you want.
+
+## What This Means for You
+
+If you're already using AI tools at work or in your personal life, GPT-5 makes those tools more reliable. Think of it like upgrading from a decent calculator to a better one — it doesn't change what math is, but it makes fewer errors.
+
+If you haven't started using AI yet, this is actually a good time to begin. The tools are getting easier to use, and the gap between "AI expert" and "AI beginner" is shrinking.
+
+## My Recommendation
+
+Don't chase every new model release. Instead, focus on building good habits with whatever AI tool you're currently using. Learn to write clear prompts, verify outputs, and understand the limitations.
+
+The best AI user isn't the one with the newest model — it's the one who knows how to ask good questions.
+    `.trim(),
+    category: "ai-news",
+    date: "February 10, 2026",
+    readTime: "4 min read",
+    featured: true,
+  },
+  {
     slug: "stop-fearing-ai-start-learning",
     title: "Stop Fearing AI. Start Learning It.",
     excerpt:
@@ -144,46 +268,6 @@ If this resonates, check out my upcoming webinar or browse the past sessions on 
     category: "opinion",
     date: "January 28, 2026",
     readTime: "3 min read",
-  },
-  {
-    slug: "webinar-1-recap-understand-ai",
-    title: "Webinar Recap: Understand AI Without the Confusion",
-    excerpt:
-      "A look back at our first webinar — what we covered, what people asked, and the key takeaways that stuck with attendees.",
-    content: `
-## What We Covered
-
-Our first webinar, "Understand AI Without the Confusion," was held on February 14, 2025. Over 50 people joined live, and the recording has been shared with dozens more since.
-
-The session was structured around four key questions:
-
-**1. What is AI, really?**
-We broke down the difference between AI as a concept, machine learning as a method, and tools like ChatGPT as products. Most people conflate all three, and separating them is the first step to real understanding.
-
-**2. How does AI show up in everyday life?**
-From Netflix recommendations to email spam filters to Google Maps routing — AI is already everywhere. We walked through specific examples so attendees could connect the abstract concept to their daily experience.
-
-**3. What are the biggest misconceptions?**
-We tackled the idea that AI "thinks," that it's always right, that it will replace all jobs, and that you need to be technical to use it. Every one of these is either false or far more nuanced than headlines suggest.
-
-**4. Where do you go from here?**
-We closed with a practical roadmap: try one tool, build one habit, and stay curious. No 10-step program, no course to buy.
-
-## The Most-Asked Questions
-
-- "Is AI safe to use for work?" — Yes, with caveats about not sharing sensitive data and always reviewing outputs.
-- "What's the difference between ChatGPT and AI?" — ChatGPT is one AI product. AI is the broader technology.
-- "Will AI take my job?" — It will change your job. Learning to work with AI is the best defense.
-
-## What's Next
-
-Webinar #2 is in the works: "AI Tools You Can Start Using Today." It builds directly on the foundation we set in the first session, with hands-on demonstrations and practical workflows.
-
-Stay tuned — registration opens soon.
-    `.trim(),
-    category: "webinar-recap",
-    date: "February 16, 2026",
-    readTime: "4 min read",
   },
 ];
 
