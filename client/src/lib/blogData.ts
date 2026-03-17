@@ -152,6 +152,53 @@ Notice something? Every tool on this list works alongside something you probably
     readTime: "5 min read",
   },
   {
+    slug: "webinar-3-recap-prompt-engineering",
+    title: "Webinar Recap: Prompt Engineering — Get Better Results From AI",
+    excerpt:
+      "Our best session yet. Here's what we covered, the questions that sparked the most discussion, and the prompt habits that will stick with attendees.",
+    content: `
+## What We Covered
+
+Webinar #3, "Prompt Engineering: Get Better Results From AI," ran on March 14, 2026 with over 100 attendees — our biggest live session yet.
+
+The goal was simple: take the tools people discovered in Webinar #2 and teach them how to actually talk to those tools. Because knowing about AI and knowing how to use it well are two very different things.
+
+**The four things we focused on:**
+
+**1. Structure your prompt before you send it**
+Most vague results come from vague prompts. We walked through a simple framework: role + task + context + format. Example: "You are a writing coach. Help me tighten this email so it's under 100 words. Keep a professional but warm tone. Return only the revised version."
+
+**2. Use examples and context**
+AI has no idea what you've written before, who your audience is, or what "good" looks like to you. Telling it takes 10 extra seconds and makes a massive difference. We did live before/after demos that made this concrete.
+
+**3. Common mistakes to stop making**
+- Asking AI to do multiple unrelated things in one prompt
+- Accepting the first output without refining
+- Forgetting to specify length, tone, or format
+- Treating AI like a search engine instead of a collaborator
+
+**4. Practice prompts — live**
+We took real tasks from attendees in the chat and rewrote their prompts together. Watching a prompt improve in real-time is worth more than any tutorial.
+
+## The Questions That Stood Out
+
+- *"How do I get AI to write in my voice?"* — Give it samples of your own writing and ask it to match the tone. Three examples is usually enough.
+- *"Does the order of instructions matter?"* — Yes, somewhat. Put the most important constraints first.
+- *"What if the AI keeps going off-track?"* — Start a new conversation. Context from earlier in the thread can confuse later responses.
+
+## What's Next
+
+Webinar #4 is coming April 11, 2026: **"Build Your AI Workflow: Make AI Part of Your Daily Life."**
+
+We've covered what AI is, which tools to use, and how to prompt. Now it's time to build a system — so AI becomes a reliable daily habit, not just something you try occasionally.
+
+Registration is open now.
+    `.trim(),
+    category: "webinar-recap",
+    date: "March 16, 2026",
+    readTime: "5 min read",
+  },
+  {
     slug: "webinar-1-recap-understand-ai",
     title: "Webinar Recap: Understand AI Without the Confusion",
     excerpt:
