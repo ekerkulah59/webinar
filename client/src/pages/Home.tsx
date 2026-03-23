@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 
-const GOOGLE_FORM_URL = "https://forms.gle/8NRpnCz9jaCcRYmTA";
+const GOOGLE_FORM_URL = "https://forms.gle/MFitnk4716M6groz9";
 /** Newsletter signup form – "Our Newsletter" (Option A). */
 const NEWSLETTER_FORM_URL = "https://forms.gle/2f8fNRdqP7yjC5Gc9";
 
@@ -240,8 +240,8 @@ export default function Home() {
     window.open(GOOGLE_FORM_URL, "_blank");
   };
 
-  // Upcoming webinar: Build Your AI Workflow — April 11, 2026
-  const upcomingDate = new Date("2026-04-11T15:00:00Z");
+  // Upcoming webinar: Build Your AI Workflow — March 28, 2026
+  const upcomingDate = new Date("2026-03-28T15:00:00Z");
 
   return (
     <div className="min-h-screen bg-background">
@@ -329,7 +329,7 @@ export default function Home() {
                 {/* Badge */}
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    April 11, 2026
+                    March 28, 2026
                   </span>
                   <span className="text-sm text-muted-foreground">
                     Webinar #4
@@ -353,7 +353,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
-                    April 11, 2026
+                    March 28, 2026
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
