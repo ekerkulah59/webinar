@@ -75,6 +75,22 @@ const pastWebinars = [
     ],
     status: "completed" as const,
   },
+  {
+    id: 4,
+    title: "Build Your AI Workflow: Make AI Part of Your Daily Life",
+    date: "March 28, 2026",
+    attendees: "100+",
+    duration: "1 hour",
+    description:
+      "A hands-on session on turning occasional AI use into a reliable daily habit — mapping your week, identifying where AI saves real time, and building prompt templates you'll actually use.",
+    outcomes: [
+      "Map your week — spot where AI saves you real time",
+      "Build a simple morning or weekly AI routine",
+      "Combine ChatGPT, Claude & Canva AI on one real project",
+      "Walk away with ready-to-save prompt templates",
+    ],
+    status: "completed" as const,
+  },
 ];
 
 // ─── Countdown Hook ──────────────────────────────────────────────
@@ -240,8 +256,8 @@ export default function Home() {
     window.open(GOOGLE_FORM_URL, "_blank");
   };
 
-  // Upcoming webinar: Build Your AI Workflow — March 28, 2026
-  const upcomingDate = new Date("2026-03-28T15:00:00Z");
+  // Upcoming webinar: Hallucinations & Fact-Checking — April 11, 2026
+  const upcomingDate = new Date("2026-04-11T15:00:00Z");
 
   return (
     <div className="min-h-screen bg-background">
@@ -329,23 +345,22 @@ export default function Home() {
                 {/* Badge */}
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    March 28, 2026
+                    April 11, 2026
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    Webinar #4
+                    Webinar #5
                   </span>
                 </div>
 
                 <div className="space-y-4">
                   <h3 className="text-3xl font-bold text-foreground">
-                    Build Your AI Workflow: Make AI Part of Your Daily Life
+                    Hallucinations & Fact-Checking: When AI Gets It Wrong
                   </h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    You know the tools. You know how to prompt. Now let's build
-                    a system. This session is about turning occasional AI use
-                    into a reliable daily habit — mapping your week, identifying
-                    where AI saves you real time, and walking away with prompt
-                    templates you'll actually use.
+                    AI can sound confident and still be completely wrong. This
+                    session breaks down what hallucinations are, why they
+                    happen, and how to build simple habits to verify AI output —
+                    so you can use AI more effectively without being misled.
                   </p>
                 </div>
 
@@ -353,7 +368,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
-                    March 28, 2026
+                    April 11, 2026
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
@@ -377,10 +392,10 @@ export default function Home() {
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
-                      "Map your week — spot where AI saves you real time",
-                      "Build a simple morning or weekly AI routine",
-                      "Combine ChatGPT, Claude & Canva AI on one real project",
-                      "Walk away with ready-to-save prompt templates",
+                      "What AI hallucinations are and why they happen",
+                      "How to spot unreliable or fabricated AI output",
+                      "Simple fact-checking habits to verify AI responses",
+                      "Tools and strategies for safer AI use",
                     ].map((item, idx) => (
                       <li
                         key={idx}
