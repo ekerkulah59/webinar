@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 
-const GOOGLE_FORM_URL = "https://forms.gle/MFitnk4716M6groz9";
+const GOOGLE_FORM_URL = "https://forms.gle/XddHeTD8VfPDSDzb6";
 /** Newsletter signup form – "Our Newsletter" (Option A). */
 const NEWSLETTER_FORM_URL = "https://forms.gle/2f8fNRdqP7yjC5Gc9";
 
