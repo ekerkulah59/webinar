@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 
-const GOOGLE_FORM_URL = "https://forms.gle/XddHeTD8VfPDSDzb6";
+const GOOGLE_FORM_URL = "https://forms.gle/LCyyQECaFynLEy596";
 /** Newsletter signup form – "Our Newsletter" (Option A). */
 const NEWSLETTER_FORM_URL = "https://forms.gle/2f8fNRdqP7yjC5Gc9";
 
@@ -88,6 +88,22 @@ const pastWebinars = [
       "Build a simple morning or weekly AI routine",
       "Combine ChatGPT, Claude & Canva AI on one real project",
       "Walk away with ready-to-save prompt templates",
+    ],
+    status: "completed" as const,
+  },
+  {
+    id: 5,
+    title: "Hallucinations & Fact-Checking: When AI Gets It Wrong",
+    date: "April 11, 2026",
+    attendees: "100+",
+    duration: "1 hour",
+    description:
+      "AI can sound confident and still be completely wrong. This session broke down what hallucinations are, why they happen, and how to build simple habits to verify AI output — so you can use AI more effectively without being misled.",
+    outcomes: [
+      "What AI hallucinations are and why they happen",
+      "How to spot unreliable or fabricated AI output",
+      "Simple fact-checking habits to verify AI responses",
+      "Tools and strategies for safer AI use",
     ],
     status: "completed" as const,
   },
@@ -256,8 +272,8 @@ export default function Home() {
     window.open(GOOGLE_FORM_URL, "_blank");
   };
 
-  // Upcoming webinar: Hallucinations & Fact-Checking — April 11, 2026
-  const upcomingDate = new Date("2026-04-11T15:00:00Z");
+  // Upcoming webinar: AI at Work — May 23, 2026
+  const upcomingDate = new Date("2026-05-23T15:00:00Z");
 
   return (
     <div className="min-h-screen bg-background">
@@ -345,22 +361,23 @@ export default function Home() {
                 {/* Badge */}
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    April 11, 2026
+                    May 23, 2026
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    Webinar #5
+                    Webinar #6
                   </span>
                 </div>
 
                 <div className="space-y-4">
                   <h3 className="text-3xl font-bold text-foreground">
-                    Hallucinations & Fact-Checking: When AI Gets It Wrong
+                    AI at Work: Using AI Confidently in Your Job (Without Getting in Trouble)
                   </h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    AI can sound confident and still be completely wrong. This
-                    session breaks down what hallucinations are, why they
-                    happen, and how to build simple habits to verify AI output —
-                    so you can use AI more effectively without being misled.
+                    You've learned the tools. Now let's put them to work —
+                    professionally. This session covers what's safe to share
+                    with AI at work, the most useful workplace use cases, and
+                    how to use AI output responsibly so you can move faster
+                    without cutting corners.
                   </p>
                 </div>
 
@@ -368,7 +385,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
-                    April 11, 2026
+                    May 23, 2026
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
@@ -392,10 +409,10 @@ export default function Home() {
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
-                      "What AI hallucinations are and why they happen",
-                      "How to spot unreliable or fabricated AI output",
-                      "Simple fact-checking habits to verify AI responses",
-                      "Tools and strategies for safer AI use",
+                      "What's safe to share with AI at work — and what's not",
+                      "AI for emails, reports, meeting summaries & brainstorming",
+                      "How to use AI output responsibly in a professional setting",
+                      "Build your own simple personal AI policy",
                     ].map((item, idx) => (
                       <li
                         key={idx}
