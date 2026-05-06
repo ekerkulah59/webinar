@@ -87,16 +87,16 @@ function NewsletterSection() {
   };
 
   return (
-    <section className="py-24 bg-secondary/40">
+    <section className="py-24 bg-foreground">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <div className="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto">
-            <Mail className="w-7 h-7 text-accent" />
+          <div className="w-14 h-14 bg-background/10 rounded-2xl flex items-center justify-center mx-auto">
+            <Mail className="w-7 h-7 text-background" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-background">
             Stay in the Loop
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-background/70">
             Get notified about new webinars, resources, and insights on AI.
             No spam — just value.
           </p>
@@ -110,7 +110,7 @@ function NewsletterSection() {
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-background/40">
             Your privacy is respected. Unsubscribe at any time.
           </p>
         </div>
@@ -135,13 +135,14 @@ export default function Home() {
       {/* ── Hero Section ─────────────────────────────────────── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[100px]" />
+          <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
+          <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
         </div>
 
         <div className="container py-24 md:py-36">
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-sm font-medium text-accent">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
               <Award className="w-4 h-4" />
               AI Educator &amp; Builder
             </div>
@@ -197,7 +198,7 @@ export default function Home() {
       <div className="section-divider" />
 
         {/* ── Upcoming Webinar ─────────────────────────────────── */}
-        <section id="upcoming" className="py-24 bg-secondary/40">
+        <section id="upcoming" className="py-24 bg-accent/8">
         <div className="container">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
@@ -300,16 +301,16 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── Past Webinars Teaser ─────────────────────────────── */}
-      <section id="past-webinars" className="py-24 bg-secondary/40">
+      <section id="past-webinars" className="py-24 bg-accent">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest">
+            <p className="text-sm font-semibold text-accent-foreground/70 uppercase tracking-widest">
               Track Record
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+            <h2 className="text-4xl md:text-5xl font-bold text-accent-foreground">
               Past Webinars
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-accent-foreground/80 leading-relaxed">
               {pastWebinars.length} sessions completed. 400+ attendees. Every session free, practical, and built for everyday people.
             </p>
             <div className="flex justify-center gap-10 py-4">
@@ -319,13 +320,13 @@ export default function Home() {
                 { value: "Free", label: "Always" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-bold text-accent">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-3xl font-bold text-accent-foreground">{stat.value}</p>
+                  <p className="text-sm text-accent-foreground/70">{stat.label}</p>
                 </div>
               ))}
             </div>
             <Link href="/past-webinars">
-              <Button variant="outline" size="lg" className="font-semibold border-border px-8">
+              <Button size="lg" className="font-semibold px-8 bg-accent-foreground text-accent hover:bg-accent-foreground/90">
                 View All Past Webinars
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

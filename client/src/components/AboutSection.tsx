@@ -22,7 +22,7 @@ export default function AboutSection() {
           </div>
 
           {/* Empathy-first statement */}
-          <div className="mb-20 p-8 md:p-10 rounded-2xl bg-accent/5 border border-accent/20">
+          <div className="mb-20 p-8 md:p-10 rounded-2xl bg-accent/10 border border-accent/30">
             <div className="max-w-3xl mx-auto text-center space-y-4">
               <p className="text-xl md:text-2xl text-foreground leading-relaxed">
                 The fear is real — fear of being replaced, fear of falling
@@ -125,8 +125,8 @@ export default function AboutSection() {
                 },
               ].map((pillar) => (
                 <div key={pillar.title} className="space-y-3 text-center">
-                  <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mx-auto">
-                    <pillar.icon className="w-5 h-5 text-accent" />
+                  <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center mx-auto">
+                    <pillar.icon className="w-5 h-5 text-accent-foreground" />
                   </div>
                   <p className="text-sm font-semibold text-foreground">
                     {pillar.title}
