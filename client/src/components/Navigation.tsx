@@ -41,6 +41,12 @@ export default function Navigation() {
           >
             Past Webinars
           </Link>
+          <Link
+            href="/courses"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Courses
+          </Link>
           <button
             onClick={() => scrollTo("upcoming")}
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
