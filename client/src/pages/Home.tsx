@@ -184,13 +184,12 @@ function Navigation() {
       }`}
     >
       <div className="container py-4 flex items-center justify-between">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-            <span className="text-accent-foreground font-bold text-sm">Ei</span>
-          </div>
-          <span className="text-lg font-bold text-foreground tracking-tight">
-            EaseIntoAI
-          </span>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="flex items-center"
+          aria-label="EaseIntoAI — home"
+        >
+          <img src="/logo.svg" alt="EaseIntoAI" className="h-9 w-auto" />
         </button>
 
         <div className="hidden md:flex items-center gap-8">
@@ -606,22 +605,13 @@ export default function Home() {
       <NewsletterSection />
 
       {/* ── Footer ───────────────────────────────────────────── */}
-      <footer className="border-t border-border bg-background">
+      <footer className="border-t-2 border-accent/50 bg-foreground">
         <div className="container py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Brand */}
             <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-                  <span className="text-accent-foreground font-bold text-sm">
-                    Ei
-                  </span>
-                </div>
-                <span className="text-lg font-bold text-foreground tracking-tight">
-                  EaseIntoAI
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
+              <img src="/logo-full.svg" alt="EaseIntoAI" className="h-14 w-auto brightness-0 invert" />
+              <p className="text-sm text-background/60 leading-relaxed max-w-sm">
                 AI Educator &amp; Builder. Hosting free, practical webinars to
                 help people navigate the world of artificial intelligence with
                 clarity and confidence.
@@ -631,26 +621,26 @@ export default function Home() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent/10 transition-colors"
+                  className="w-9 h-9 bg-background/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-4 h-4 text-muted-foreground" />
+                  <Linkedin className="w-4 h-4 text-background/60" />
                 </a>
                 <a
                   href="https://x.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent/10 transition-colors"
+                  className="w-9 h-9 bg-background/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors"
                   aria-label="Twitter / X"
                 >
-                  <Twitter className="w-4 h-4 text-muted-foreground" />
+                  <Twitter className="w-4 h-4 text-background/60" />
                 </a>
               </div>
             </div>
 
             {/* Quick links */}
             <div className="space-y-4">
-              <p className="text-sm font-semibold text-foreground">
+              <p className="text-sm font-semibold text-background">
                 Quick Links
               </p>
               <ul className="space-y-2.5">
@@ -666,7 +656,7 @@ export default function Home() {
                           .getElementById(link.id)
                           ?.scrollIntoView({ behavior: "smooth" })
                       }
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-background/60 hover:text-background transition-colors"
                     >
                       {link.label}
                     </button>
@@ -677,12 +667,12 @@ export default function Home() {
 
             {/* Contact */}
             <div className="space-y-4">
-              <p className="text-sm font-semibold text-foreground">Contact</p>
+              <p className="text-sm font-semibold text-background">Contact</p>
               <ul className="space-y-2.5">
                 <li>
                   <a
                     href="mailto:theaibootcamp09@gmail.com"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-sm text-background/60 hover:text-background transition-colors"
                   >
                     theaibootcamp09@gmail.com
                   </a>
@@ -701,12 +691,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-muted-foreground">
+          <div className="mt-12 pt-8 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-background/40">
               &copy; {new Date().getFullYear()} EaseIntoAI. All rights
               reserved.
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-background/40">
               Built with purpose. Powered by curiosity.
             </p>
           </div>
