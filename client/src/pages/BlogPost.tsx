@@ -7,12 +7,14 @@ import {
   ArrowRight,
   Calendar,
   Clock,
-  Linkedin,
-  Twitter,
   Share2,
   LinkIcon,
   Check,
+  Linkedin,
+  Twitter,
 } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { getPostBySlug, blogPosts, CATEGORIES } from "@/lib/blogData";
 import { useSEO } from "@/hooks/useSEO";
 
@@ -174,44 +176,7 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
-        <div className="container py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-              <span className="text-accent-foreground font-bold text-sm">
-                Ei
-              </span>
-            </div>
-            <span className="text-lg font-bold text-foreground tracking-tight">
-              EaseIntoAI
-            </span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/insights"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Insights
-            </Link>
-            <Link href="/">
-              <Button
-                size="sm"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
-              >
-                Next Webinar
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Article */}
       <article className="py-16 md:py-24">
@@ -339,26 +304,7 @@ export default function BlogPost() {
         </div>
       </article>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-background">
-        <div className="container py-12">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xs">
-                  Ei
-                </span>
-              </div>
-              <span className="text-sm font-semibold text-foreground">
-                EaseIntoAI
-              </span>
-            </Link>
-            <p className="text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} EaseIntoAI
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

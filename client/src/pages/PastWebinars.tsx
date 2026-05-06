@@ -1,6 +1,7 @@
 import { Calendar, Clock, Users, CheckCircle2, Play } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { pastWebinars } from "@/lib/webinarData";
 
 export default function PastWebinars() {
@@ -118,6 +119,7 @@ export default function PastWebinars() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
