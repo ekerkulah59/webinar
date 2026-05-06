@@ -1,4 +1,4 @@
-import { Clock, BookOpen, CheckCircle2, Lock, Gift, ArrowRight } from "lucide-react";
+import { Clock, BookOpen, CheckCircle2, Lock, Gift, ArrowRight, GraduationCap } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
@@ -13,6 +13,8 @@ interface Course {
   duration: string;
   modules: string[];
   status: "coming-soon";
+  audience?: string;
+  featured?: boolean;
 }
 
 const courses: Course[] = [
@@ -83,11 +85,32 @@ const courses: Course[] = [
     ],
     status: "coming-soon",
   },
+  {
+    id: 5,
+    title: "AI Basics for Teachers",
+    description:
+      "A practical, six-module course built specifically for educators. Learn how to use AI to plan lessons, create worksheets, give feedback, communicate with parents, build classroom resources, and automate time-consuming tasks — so you can focus on what matters most: teaching.",
+    type: "paid",
+    price: "$49",
+    duration: "6 modules",
+    audience: "Teachers & Educators",
+    featured: true,
+    modules: [
+      "Module 1 — AI Basics for Teachers",
+      "Module 2 — Lesson Planning with AI",
+      "Module 3 — Worksheets, Assessments & Differentiation",
+      "Module 4 — Grading, Feedback & Parent Communication",
+      "Module 5 — Presentations, Visuals & Classroom Resources",
+      "Module 6 — Automation & Advanced Time-Saving Systems",
+    ],
+    status: "coming-soon",
+  },
 ];
 
 export default function Courses() {
   const freeCourse = courses.find((c) => c.type === "free");
-  const paidCourses = courses.filter((c) => c.type === "paid");
+  const featuredCourse = courses.find((c) => c.featured);
+  const paidCourses = courses.filter((c) => c.type === "paid" && !c.featured);
 
   return (
     <div className="min-h-screen bg-background">
@@ -280,6 +303,87 @@ export default function Courses() {
           </div>
         </div>
       </section>
+
+      <div className="section-divider" />
+
+      {/* ── Featured: AI Basics for Teachers ────────────────── */}
+      {featuredCourse && (
+        <section className="py-20">
+          <div className="container">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center gap-3 mb-8">
+                <GraduationCap className="w-5 h-5 text-accent" />
+                <p className="text-sm font-semibold text-accent uppercase tracking-widest">
+                  Specialty Course
+                </p>
+              </div>
+
+              <Card className="overflow-hidden border-accent/40 shadow-lg ring-1 ring-accent/20">
+                <div className="p-8 md:p-10">
+                  <div className="flex flex-col md:flex-row md:items-start gap-8">
+                    <div className="flex-1 space-y-5">
+                      {/* Badges */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
+                          {featuredCourse.price}
+                        </span>
+                        <span className="px-3 py-1 bg-violet-100 text-violet-700 text-xs font-semibold rounded-full uppercase tracking-wide flex items-center gap-1.5">
+                          <GraduationCap className="w-3 h-3" />
+                          {featuredCourse.audience}
+                        </span>
+                        <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                          Coming Soon
+                        </span>
+                      </div>
+
+                      <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
+                        {featuredCourse.title}
+                      </h2>
+                      <p className="text-muted-foreground leading-relaxed text-lg">
+                        {featuredCourse.description}
+                      </p>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Clock className="w-4 h-4 text-accent" />
+                        {featuredCourse.duration}
+                      </div>
+                    </div>
+
+                    {/* Modules */}
+                    <div className="md:w-72 flex-shrink-0 bg-secondary/50 rounded-xl p-5 space-y-3">
+                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        What's Inside
+                      </p>
+                      <ul className="space-y-2.5">
+                        {featuredCourse.modules.map((mod, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
+                            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                            {mod}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <Button
+                      disabled
+                      size="lg"
+                      className="bg-accent/50 text-accent-foreground font-semibold px-8 cursor-not-allowed"
+                    >
+                      Coming Soon
+                      <Clock className="w-4 h-4 ml-2" />
+                    </Button>
+                    <p className="text-sm text-muted-foreground">
+                      Designed for K–12 and higher-ed teachers at any tech comfort level.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className="section-divider" />
 
