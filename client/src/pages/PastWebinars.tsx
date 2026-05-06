@@ -29,7 +29,7 @@ export default function PastWebinars() {
                 <p className="text-sm text-muted-foreground">Sessions</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-accent">400+</p>
+                <p className="text-3xl font-bold text-accent">100+</p>
                 <p className="text-sm text-muted-foreground">Attendees</p>
               </div>
               <div className="text-center">

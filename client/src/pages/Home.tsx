@@ -310,12 +310,12 @@ export default function Home() {
               Past Webinars
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              {pastWebinars.length} sessions completed. 400+ attendees. Every session free, practical, and built for everyday people.
+              {pastWebinars.length} sessions completed. 100+ attendees. Every session free, practical, and built for everyday people.
             </p>
             <div className="flex justify-center gap-10 py-4">
               {[
                 { value: `${pastWebinars.length}`, label: "Sessions" },
-                { value: "400+", label: "Attendees" },
+                { value: "100+", label: "Attendees" },
                 { value: "Free", label: "Always" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
