@@ -7,107 +7,23 @@ import {
   MapPin,
   ExternalLink,
   CheckCircle2,
-  Play,
-  Users,
   ArrowRight,
   Mail,
   Award,
-  Linkedin,
-  Twitter,
   ChevronDown,
 } from "lucide-react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
+import { pastWebinars } from "@/lib/webinarData";
 
 const GOOGLE_FORM_URL = "https://forms.gle/LCyyQECaFynLEy596";
 /** Newsletter signup form – "Our Newsletter" (Option A). */
 const NEWSLETTER_FORM_URL = "https://forms.gle/2f8fNRdqP7yjC5Gc9";
 
-// ─── Past Webinars Data ──────────────────────────────────────────
-const pastWebinars = [
-  {
-    id: 1,
-    title: "Understand AI Without the Confusion",
-    date: "February 14, 2025",
-    attendees: "50+",
-    duration: "1 hour",
-    description:
-      "A practical introduction to artificial intelligence designed for people who are curious but unsure where to start. No technical background required.",
-    outcomes: [
-      "What AI actually is and what it is not",
-      "How AI works in everyday life",
-      "Common misconceptions vs reality",
-      "A roadmap for continued learning",
-    ],
-    status: "completed" as const,
-  },
-  {
-    id: 2,
-    title: "AI Tools You Can Start Using Today",
-    date: "February 28, 2026",
-    attendees: "75+",
-    duration: "1 hour",
-    description:
-      "Hands-on walkthrough of real AI tools — ChatGPT, Claude, Canva AI, and more — with live demos and practical workflows you can apply immediately.",
-    outcomes: [
-      "Hands-on AI tool demonstrations",
-      "Practical workflows you can use today",
-      "Live Q&A with real-time answers",
-      "Resources to continue learning",
-    ],
-    status: "completed" as const,
-  },
-  {
-    id: 3,
-    title: "Prompt Engineering: Get Better Results From AI",
-    date: "March 14, 2026",
-    attendees: "100+",
-    duration: "1 hour",
-    description:
-      "A hands-on session on writing prompts that actually work. We covered structure, clarity, context, and common mistakes — so attendees can get better results from ChatGPT, Claude, and any AI assistant.",
-    outcomes: [
-      "How to structure prompts for clarity and consistency",
-      "Using examples and context to improve outputs",
-      "Common mistakes and how to avoid them",
-      "Live Q&A and practice prompts together",
-    ],
-    status: "completed" as const,
-  },
-  {
-    id: 4,
-    title: "Build Your AI Workflow: Make AI Part of Your Daily Life",
-    date: "March 28, 2026",
-    attendees: "100+",
-    duration: "1 hour",
-    description:
-      "A hands-on session on turning occasional AI use into a reliable daily habit — mapping your week, identifying where AI saves real time, and building prompt templates you'll actually use.",
-    outcomes: [
-      "Map your week — spot where AI saves you real time",
-      "Build a simple morning or weekly AI routine",
-      "Combine ChatGPT, Claude & Canva AI on one real project",
-      "Walk away with ready-to-save prompt templates",
-    ],
-    status: "completed" as const,
-  },
-  {
-    id: 5,
-    title: "Hallucinations & Fact-Checking: When AI Gets It Wrong",
-    date: "April 11, 2026",
-    attendees: "100+",
-    duration: "1 hour",
-    description:
-      "AI can sound confident and still be completely wrong. This session broke down what hallucinations are, why they happen, and how to build simple habits to verify AI output — so you can use AI more effectively without being misled.",
-    outcomes: [
-      "What AI hallucinations are and why they happen",
-      "How to spot unreliable or fabricated AI output",
-      "Simple fact-checking habits to verify AI responses",
-      "Tools and strategies for safer AI use",
-    ],
-    status: "completed" as const,
-  },
-];
 
 // ─── Countdown Hook ──────────────────────────────────────────────
 function useCountdown(targetDate: Date) {
@@ -161,70 +77,6 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
   );
 }
 
-// ─── Navigation ──────────────────────────────────────────────────
-function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container py-4 flex items-center justify-between">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-            <span className="text-accent-foreground font-bold text-sm">Ei</span>
-          </div>
-          <span className="text-lg font-bold text-foreground tracking-tight">
-            EaseIntoAI
-          </span>
-        </button>
-
-        <div className="hidden md:flex items-center gap-8">
-          {[
-            { label: "About", id: "about" },
-            { label: "Past Webinars", id: "past-webinars" },
-            { label: "Upcoming", id: "upcoming" },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollTo(item.id)}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {item.label}
-            </button>
-          ))}
-          <Link
-            href="/insights"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Insights
-          </Link>
-          <Button
-            onClick={() => scrollTo("upcoming")}
-            size="sm"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
-          >
-            Next Webinar
-          </Button>
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 // ─── Newsletter Section (Option A: Google Form) ───────────────────
 function NewsletterSection() {
@@ -234,16 +86,16 @@ function NewsletterSection() {
   };
 
   return (
-    <section className="py-24 bg-secondary/40">
+    <section className="py-24 bg-foreground">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <div className="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto">
-            <Mail className="w-7 h-7 text-accent" />
+          <div className="w-14 h-14 bg-background/10 rounded-2xl flex items-center justify-center mx-auto">
+            <Mail className="w-7 h-7 text-background" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-background">
             Stay in the Loop
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-background/70">
             Get notified about new webinars, resources, and insights on AI.
             No spam — just value.
           </p>
@@ -257,7 +109,7 @@ function NewsletterSection() {
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
           </div>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-background/40">
             Your privacy is respected. Unsubscribe at any time.
           </p>
         </div>
@@ -282,13 +134,14 @@ export default function Home() {
       {/* ── Hero Section ─────────────────────────────────────── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[100px]" />
+          <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
+          <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
         </div>
 
         <div className="container py-24 md:py-36">
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-sm font-medium text-accent">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
               <Award className="w-4 h-4" />
               AI Educator &amp; Builder
             </div>
@@ -344,7 +197,7 @@ export default function Home() {
       <div className="section-divider" />
 
         {/* ── Upcoming Webinar ─────────────────────────────────── */}
-        <section id="upcoming" className="py-24 bg-secondary/40">
+        <section id="upcoming" className="py-24 bg-accent/8">
         <div className="container">
           <div className="text-center mb-16">
             <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
@@ -446,101 +299,40 @@ export default function Home() {
       </section>
       <div className="section-divider" />
 
-      {/* ── Past Webinars ────────────────────────────────────── */}
-      <section id="past-webinars" className="py-24">
+      {/* ── Past Webinars Teaser ─────────────────────────────── */}
+      <section id="past-webinars" className="py-24 bg-accent">
         <div className="container">
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <p className="text-sm font-semibold text-accent-foreground/70 uppercase tracking-widest">
               Track Record
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+            <h2 className="text-4xl md:text-5xl font-bold text-accent-foreground">
               Past Webinars
             </h2>
-            <p className="text-lg text-muted-foreground mt-4 max-w-xl mx-auto">
-              Every session is designed to deliver real understanding, not just
-              information.
+            <p className="text-lg text-accent-foreground/80 leading-relaxed">
+              {pastWebinars.length} sessions completed. 100+ attendees. Every session free, practical, and built for everyday people.
             </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto space-y-8">
-            {pastWebinars.map((webinar) => (
-              <Card
-                key={webinar.id}
-                className="overflow-hidden border-border/60 hover:border-accent/30 transition-colors"
-              >
-                <div className="p-8 md:p-10">
-                  <div className="flex flex-col md:flex-row md:items-start gap-8">
-                    {/* Left: Info */}
-                    <div className="flex-1 space-y-5">
-                      <div className="flex items-center gap-3">
-                        <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                          Completed
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          Webinar #{webinar.id}
-                        </span>
-                      </div>
-
-                      <h3 className="text-2xl font-bold text-foreground">
-                        {webinar.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {webinar.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-accent" />
-                          {webinar.date}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-accent" />
-                          {webinar.duration}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-accent" />
-                          {webinar.attendees} attendees
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Right: Outcomes */}
-                    <div className="md:w-72 flex-shrink-0">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                        Key Outcomes
-                      </p>
-                      <ul className="space-y-2.5">
-                        {webinar.outcomes.map((outcome, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2.5 text-sm text-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                            {outcome}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Replay hint */}
-                  <div className="mt-8 pt-6 border-t border-border flex items-center gap-3">
-                    <Play className="w-5 h-5 text-accent" />
-                    <span className="text-sm text-muted-foreground">
-                      Replay available for registered attendees
-                    </span>
-                  </div>
+            <div className="flex justify-center gap-10 py-4">
+              {[
+                { value: `${pastWebinars.length}`, label: "Sessions" },
+                { value: "100+", label: "Attendees" },
+                { value: "Free", label: "Always" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-bold text-accent-foreground">{stat.value}</p>
+                  <p className="text-sm text-accent-foreground/70">{stat.label}</p>
                 </div>
-              </Card>
-            ))}
+              ))}
+            </div>
+            <Link href="/past-webinars">
+              <Button size="lg" className="font-semibold px-8 bg-accent-foreground text-accent hover:bg-accent-foreground/90">
+                View All Past Webinars
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
-
-    
-
-    
-
 
       <div className="section-divider" />
 
@@ -605,113 +397,7 @@ export default function Home() {
       {/* ── Newsletter / Final CTA ───────────────────────────── */}
       <NewsletterSection />
 
-      {/* ── Footer ───────────────────────────────────────────── */}
-      <footer className="border-t border-border bg-background">
-        <div className="container py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-            {/* Brand */}
-            <div className="md:col-span-2 space-y-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
-                  <span className="text-accent-foreground font-bold text-sm">
-                    Ei
-                  </span>
-                </div>
-                <span className="text-lg font-bold text-foreground tracking-tight">
-                  EaseIntoAI
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-                AI Educator &amp; Builder. Hosting free, practical webinars to
-                help people navigate the world of artificial intelligence with
-                clarity and confidence.
-              </p>
-              <div className="flex gap-3 pt-2">
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent/10 transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4 text-muted-foreground" />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent/10 transition-colors"
-                  aria-label="Twitter / X"
-                >
-                  <Twitter className="w-4 h-4 text-muted-foreground" />
-                </a>
-              </div>
-            </div>
-
-            {/* Quick links */}
-            <div className="space-y-4">
-              <p className="text-sm font-semibold text-foreground">
-                Quick Links
-              </p>
-              <ul className="space-y-2.5">
-                {[
-                  { label: "About", id: "about" },
-                  { label: "Past Webinars", id: "past-webinars" },
-                  { label: "Upcoming", id: "upcoming" },
-                ].map((link) => (
-                  <li key={link.id}>
-                    <button
-                      onClick={() =>
-                        document
-                          .getElementById(link.id)
-                          ?.scrollIntoView({ behavior: "smooth" })
-                      }
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div className="space-y-4">
-              <p className="text-sm font-semibold text-foreground">Contact</p>
-              <ul className="space-y-2.5">
-                <li>
-                  <a
-                    href="mailto:theaibootcamp09@gmail.com"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    theaibootcamp09@gmail.com
-                  </a>
-                </li>
-              </ul>
-              <div className="pt-4">
-                <a
-                  href="https://www.easetranslate.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-accent hover:text-accent/80 transition-colors font-medium"
-                >
-                  Check out EaseTranslate →
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} EaseIntoAI. All rights
-              reserved.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Built with purpose. Powered by curiosity.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
