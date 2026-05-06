@@ -610,7 +610,12 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             {/* Brand */}
             <div className="md:col-span-2 space-y-4">
-              <img src="/logo-full.svg" alt="EaseIntoAI" className="h-14 w-auto brightness-0 invert" />
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
+                  <span className="text-accent-foreground font-bold text-sm">Ei</span>
+                </div>
+                <span className="text-lg font-bold text-background tracking-tight">EaseIntoAI</span>
+              </div>
               <p className="text-sm text-background/60 leading-relaxed max-w-sm">
                 AI Educator &amp; Builder. Hosting free, practical webinars to
                 help people navigate the world of artificial intelligence with
