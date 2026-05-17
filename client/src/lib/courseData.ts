@@ -68,8 +68,8 @@ export const courses: Course[] = [
       "Module 5 — Hallucinations & Fact-Checking",
       "Bonus: Prompt templates & cheat sheets",
     ],
-    status: "coming-soon",
-    enrollUrl: undefined,
+    status: "available",
+    enrollUrl: "https://easeintoai.gumroad.com/l/ai-foundations-curious-to-confident",
     whoIsItFor: [
       "Beginners who want a structured, end-to-end AI education",
       "Professionals looking to integrate AI into their daily work",
