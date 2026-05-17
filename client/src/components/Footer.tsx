@@ -2,6 +2,14 @@ import { Link } from "wouter";
 import { Linkedin, Twitter } from "lucide-react";
 
 export default function Footer() {
+  const handleHomeLinkClick = () => {
+    if (window.location.pathname !== "/") return;
+    if (window.location.hash) {
+      window.history.replaceState(null, "", "/");
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <footer className="border-t-2 border-accent/50 bg-foreground">
       <div className="container py-16">
@@ -41,7 +49,11 @@ export default function Footer() {
             <p className="text-sm font-semibold text-background">Quick Links</p>
             <ul className="space-y-2.5">
               <li>
-                <Link href="/" className="text-sm text-background/60 hover:text-background transition-colors">
+                <Link
+                  href="/"
+                  onClick={handleHomeLinkClick}
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
                   Home
                 </Link>
               </li>
