@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
+import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -27,6 +28,28 @@ function Router() {
   );
 }
 
+function ScrollManager() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.requestAnimationFrame(() => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetId = decodeURIComponent(hash.replace("#", ""));
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          return;
+        }
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+  }, [location]);
+
+  return null;
+}
+
 function App() {
   return (
     <ErrorBoundary>
@@ -36,6 +59,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <ScrollManager />
           <Router />
         </TooltipProvider>
       </ThemeProvider>

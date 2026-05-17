@@ -11,6 +11,7 @@ import {
   Mail,
   Award,
   ChevronDown,
+  Users,
 } from "lucide-react";
 import { Link } from "wouter";
 import { toast } from "sonner";
@@ -139,50 +140,98 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
         </div>
 
-        <div className="container py-24 md:py-36">
-          <div className="max-w-3xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
-              <Award className="w-4 h-4" />
-              AI Educator &amp; Builder
+        <div className="container py-20 md:py-28">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left: text content */}
+            <div className="space-y-8 text-center md:text-left order-2 md:order-1">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
+                <Award className="w-4 h-4" />
+                AI Educator &amp; Builder
+              </div>
+
+              <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
+                Making AI
+                <br />
+                <span className="text-accent">Accessible</span> to Everyone
+              </h1>
+
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                I host practical, no-hype webinars that help everyday people
+                understand and use artificial intelligence with confidence.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                <Button
+                  onClick={() =>
+                    document
+                      .getElementById("upcoming")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  size="lg"
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-3 text-base"
+                >
+                  Register for Next Webinar
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+                <Button
+                  onClick={() =>
+                    document
+                      .getElementById("past-webinars")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  variant="outline"
+                  size="lg"
+                  className="font-semibold px-8 py-3 text-base border-border"
+                >
+                  View Past Webinars
+                  <ChevronDown className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-[1.1] tracking-tight">
-              Making AI
-              <br />
-              <span className="text-accent">Accessible</span> to Everyone
-            </h1>
+            {/* Right: brand intro video (visible on all breakpoints — replaces stock collage) */}
+            <div className="relative order-1 md:order-2 flex flex-col justify-center w-full max-w-[540px] mx-auto md:mx-0 md:justify-self-end">
+              <p className="text-center md:text-left text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">
+                See what EaseIntoAI is about
+              </p>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-black ring-1 ring-black/5">
+                <div className="aspect-video w-full">
+                  <video
+                    className="h-full w-full object-contain"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    aria-label="EaseIntoAI introduction — practical AI webinars for everyday people"
+                  >
+                    <source src="/EaseIntoAI.mp4" type="video/mp4" />
+                  </video>
+                </div>
 
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              I host practical, no-hype webinars that help everyday people
-              understand and use artificial intelligence with confidence.
-            </p>
+                {/* Floating badge — top right: Always Free */}
+                <div className="pointer-events-none absolute top-3 right-3 z-10 max-w-[calc(100%-1.5rem)] rounded-xl border border-border bg-background/95 px-3 py-2.5 shadow-lg backdrop-blur-sm flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                    <CheckCircle2 className="h-4 w-4 text-accent" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold leading-tight text-foreground">Always Free</p>
+                    <p className="text-[10px] leading-tight text-muted-foreground">No credit card needed</p>
+                  </div>
+                </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                onClick={() =>
-                  document
-                    .getElementById("upcoming")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-3 text-base"
-              >
-                Register for Next Webinar
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-              <Button
-                onClick={() =>
-                  document
-                    .getElementById("past-webinars")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                variant="outline"
-                size="lg"
-                className="font-semibold px-8 py-3 text-base border-border"
-              >
-                View Past Webinars
-                <ChevronDown className="w-4 h-4 ml-2" />
-              </Button>
+              </div>
+              {/* Social proof below player — avoids overlapping native video controls */}
+              <div className="mt-4 flex justify-center md:justify-start">
+                <div className="inline-flex max-w-full items-center gap-2.5 rounded-xl border border-border bg-background/80 px-3 py-2.5 shadow-sm backdrop-blur-sm">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                    <Users className="h-4 w-4 text-accent" />
+                  </div>
+                  <div className="min-w-0 text-left">
+                    <p className="text-xs font-bold leading-tight text-foreground">100+ Attendees</p>
+                    <p className="text-[10px] leading-tight text-muted-foreground">Across 5 live sessions</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
