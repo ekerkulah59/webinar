@@ -199,8 +199,9 @@ export default function Courses() {
                   <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <Button
                       disabled
+                      variant="primary"
                       size="lg"
-                      className="bg-accent/50 text-accent-foreground font-semibold px-8 cursor-not-allowed"
+                      className="font-semibold px-8 cursor-not-allowed"
                     >
                       Coming Soon
                       <Clock className="w-4 h-4 ml-2" />
@@ -208,9 +209,7 @@ export default function Courses() {
                     <p className="text-sm text-muted-foreground">
                       Be the first to know —{" "}
                       <a
-                        href="https://forms.gle/2f8fNRdqP7yjC5Gc9"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/#newsletter"
                         className="text-accent hover:text-accent/80 font-medium transition-colors"
                       >
                         join the newsletter
@@ -289,7 +288,7 @@ export default function Courses() {
                     <div className="mt-8 pt-6 border-t border-border">
                       <Button
                         disabled
-                        variant="outline"
+                      variant="secondary"
                         className="font-semibold cursor-not-allowed opacity-60"
                       >
                         Coming Soon
@@ -368,8 +367,9 @@ export default function Courses() {
                   <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     <Button
                       disabled
+                      variant="primary"
                       size="lg"
-                      className="bg-accent/50 text-accent-foreground font-semibold px-8 cursor-not-allowed"
+                      className="font-semibold px-8 cursor-not-allowed"
                     >
                       Coming Soon
                       <Clock className="w-4 h-4 ml-2" />
@@ -398,14 +398,11 @@ export default function Courses() {
               Courses are being built now. Join the newsletter and you'll be the
               first to know — plus get early access and launch pricing.
             </p>
-            <a
-              href="https://forms.gle/2f8fNRdqP7yjC5Gc9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="/#newsletter">
               <Button
                 size="lg"
-                className="bg-accent-foreground text-accent hover:bg-accent-foreground/90 font-semibold px-10"
+                variant="secondary"
+                className="font-semibold px-10"
               >
                 Join the Newsletter
                 <ArrowRight className="w-4 h-4 ml-2" />

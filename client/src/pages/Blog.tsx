@@ -111,7 +111,8 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
   if (featured) {
     return (
       <Link href={`/insights/${post.slug}`}>
-        <Card className="overflow-hidden border-accent/20 hover:border-accent/40 transition-colors cursor-pointer group">
+        <Card className="overflow-hidden border-accent/20 surface-card surface-card-hover cursor-pointer group">
+          <div className="h-52 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent border-b border-border/60" aria-hidden />
           <div className="p-8 md:p-10 space-y-5">
             <div className="flex items-center gap-3">
               <span
@@ -158,7 +159,8 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
 
   return (
     <Link href={`/insights/${post.slug}`}>
-      <Card className="overflow-hidden border-border/60 hover:border-accent/20 transition-colors cursor-pointer group h-full">
+      <Card className="overflow-hidden border-border/60 surface-card surface-card-hover cursor-pointer group h-full">
+        <div className="h-36 bg-gradient-to-br from-accent/15 via-accent/8 to-transparent border-b border-border/60" aria-hidden />
         <div className="p-6 space-y-4 flex flex-col h-full">
           <div className="flex items-center gap-3">
             <span

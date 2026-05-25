@@ -78,6 +78,8 @@
   --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.623 0.214 259.815);
+  --shadow-soft: 0 2px 8px rgba(21, 38, 100, 0.06);
+  --shadow-elevated: 0 14px 30px rgba(21, 38, 100, 0.12);
 }
 
 .dark {
@@ -169,5 +171,21 @@
   .section-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  }
+
+  .surface-card {
+    border: 1px solid color-mix(in oklab, var(--border), transparent 15%);
+    background: color-mix(in oklab, var(--card), var(--background) 12%);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .surface-card-hover {
+    transition: box-shadow 140ms ease-out, border-color 140ms ease-out, transform 140ms ease-out;
+  }
+
+  .surface-card-hover:hover {
+    box-shadow: var(--shadow-elevated);
+    border-color: color-mix(in oklab, var(--accent), white 68%);
+    transform: translateY(-2px);
   }
 }

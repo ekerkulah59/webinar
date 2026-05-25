@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,7 @@ const navLinks = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [location] = useLocation();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -29,6 +31,15 @@ export default function Navigation() {
   }, []);
 
   const closeMobile = () => setMobileOpen(false);
+  const currentHash = typeof window !== "undefined" ? window.location.hash : "";
+
+  const isActiveLink = (href: string) => {
+    if (href.startsWith("/#")) {
+      if (location !== "/") return false;
+      return currentHash === href.slice(1);
+    }
+    return location === href;
+  };
   const handleHomeLinkClick = () => {
     if (window.location.pathname !== "/") return;
     if (window.location.hash) {
@@ -61,16 +72,17 @@ export default function Navigation() {
             <Link
               key={label}
               href={href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className={`text-sm font-medium transition-colors ${
+                isActiveLink(href)
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
             >
               {label}
             </Link>
           ))}
           <Link href="/#upcoming">
-            <Button
-              size="sm"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
-            >
+            <Button size="sm" variant="primary">
               Next Webinar
             </Button>
           </Link>
@@ -82,7 +94,7 @@ export default function Navigation() {
             <SheetTrigger asChild>
               <Button
                 type="button"
-                variant="outline"
+                variant="secondary"
                 size="icon"
                 className="size-10 border-border bg-background text-foreground shadow-sm"
                 aria-label="Open menu"
@@ -99,14 +111,18 @@ export default function Navigation() {
                     key={label}
                     href={href}
                     onClick={closeMobile}
-                    className="text-base font-medium px-3 py-3 rounded-md text-foreground hover:bg-muted transition-colors"
+                    className={`text-base font-medium px-3 py-3 rounded-md transition-colors ${
+                      isActiveLink(href)
+                        ? "bg-accent/10 text-foreground"
+                        : "text-foreground hover:bg-muted"
+                    }`}
                   >
                     {label}
                   </Link>
                 ))}
                 <div className="mt-4 px-3">
                   <Link href="/#upcoming" onClick={closeMobile}>
-                    <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium">
+                    <Button className="w-full" variant="primary">
                       Next Webinar
                     </Button>
                   </Link>
