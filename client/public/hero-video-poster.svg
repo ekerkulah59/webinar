@@ -1,0 +1,25 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EEF2FF"/>
+      <stop offset="1" stop-color="#DCE6FF"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="286" y1="128" x2="986" y2="592" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2541E0"/>
+      <stop offset="1" stop-color="#14237A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1150" cy="120" r="120" fill="#2541E0" fill-opacity="0.14"/>
+  <circle cx="120" cy="620" r="170" fill="#2541E0" fill-opacity="0.08"/>
+  <rect x="286" y="128" width="708" height="464" rx="24" fill="url(#panel)"/>
+  <rect x="318" y="160" width="644" height="400" rx="16" fill="#0D1433" fill-opacity="0.45"/>
+  <circle cx="640" cy="360" r="64" fill="white" fill-opacity="0.2"/>
+  <path d="M620 325L680 360L620 395V325Z" fill="white"/>
+  <text x="640" y="620" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">
+    EaseIntoAI Webinar Introduction
+  </text>
+  <text x="640" y="658" text-anchor="middle" fill="#4B5563" font-family="Inter, Arial, sans-serif" font-size="22">
+    Practical AI literacy for everyday people
+  </text>
+</svg>

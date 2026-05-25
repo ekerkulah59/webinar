@@ -5,25 +5,32 @@ import {
   Calendar,
   Clock,
   MapPin,
-  ExternalLink,
   CheckCircle2,
   ArrowRight,
   Mail,
   Award,
   ChevronDown,
-  Users,
+  PlayCircle,
 } from "lucide-react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
+import WhatWeCoverSection from "@/components/WhatWeCoverSection";
+import FluencyFrameworkSection from "@/components/FluencyFrameworkSection";
+import SafeCheckSection from "@/components/SafeCheckSection";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { LeadForm } from "@/components/LeadForm";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 import { pastWebinars } from "@/lib/webinarData";
 
-const GOOGLE_FORM_URL = "https://forms.gle/LCyyQECaFynLEy596";
-/** Newsletter signup form – "Our Newsletter" (Option A). */
-const NEWSLETTER_FORM_URL = "https://forms.gle/2f8fNRdqP7yjC5Gc9";
+/** Upcoming webinar metadata used for registration + countdown */
+const UPCOMING_WEBINAR = {
+  slug: "ai-at-work-june-2026",
+  dateLabel: "June 13, 2026",
+  startIso: "2026-06-13T15:00:00-04:00",
+  timeLabel: "3:00 PM ET",
+};
 
 
 // ─── Countdown Hook ──────────────────────────────────────────────
@@ -32,26 +39,29 @@ function useCountdown(targetDate: Date) {
 
   function calculateTimeLeft() {
     const difference = targetDate.getTime() - new Date().getTime();
-    if (difference <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isComplete: true };
+    }
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
       minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60),
+      isComplete: false,
     };
   }
 
   useEffect(() => {
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
 
   return timeLeft;
 }
 
 // ─── Countdown Display ───────────────────────────────────────────
 function CountdownTimer({ targetDate }: { targetDate: Date }) {
-  const { days, hours, minutes, seconds } = useCountdown(targetDate);
+  const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
 
   const blocks = [
     { value: days, label: "Days" },
@@ -60,8 +70,19 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
     { value: seconds, label: "Sec" },
   ];
 
+  if (isComplete) {
+    return (
+      <div className="rounded-xl border border-accent/25 bg-accent/8 px-5 py-4 text-center">
+        <p className="text-base font-semibold text-foreground">Starting soon</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Registration is still open. Save your spot and we will send your Zoom details.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex gap-3 justify-center">
+    <div className="flex gap-3 justify-center" aria-live="polite">
       {blocks.map((block) => (
         <div key={block.label} className="text-center">
           <div className="w-16 h-16 bg-accent/10 border border-accent/20 rounded-lg flex items-center justify-center mb-1">
@@ -79,15 +100,10 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
 }
 
 
-// ─── Newsletter Section (Option A: Google Form) ───────────────────
+// ─── Newsletter Section ───────────────────────────────────────────
 function NewsletterSection() {
-  const handleSubscribe = () => {
-    window.open(NEWSLETTER_FORM_URL, "_blank", "noopener,noreferrer");
-    toast.success("Opening signup form…");
-  };
-
   return (
-    <section className="py-24 bg-foreground">
+    <section id="newsletter" className="py-24 bg-foreground">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           <div className="w-14 h-14 bg-background/10 rounded-2xl flex items-center justify-center mx-auto">
@@ -100,15 +116,13 @@ function NewsletterSection() {
             Get notified about new webinars, resources, and insights on AI.
             No spam — just value.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2 justify-center">
-            <Button
-              type="button"
-              onClick={handleSubscribe}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-3"
-            >
-              Subscribe
-              <ExternalLink className="w-4 h-4 ml-2" />
-            </Button>
+          <div className="max-w-md mx-auto pt-2 text-left">
+            <LeadForm
+              source="newsletter"
+              variant="inverted"
+              submitLabel="Subscribe"
+              onSuccess={() => toast.success("You're on the list!")}
+            />
           </div>
           <p className="text-xs text-background/40">
             Your privacy is respected. Unsubscribe at any time.
@@ -121,12 +135,9 @@ function NewsletterSection() {
 
 // ─── Main Page ───────────────────────────────────────────────────
 export default function Home() {
-  const handleRegisterClick = () => {
-    window.open(GOOGLE_FORM_URL, "_blank");
-  };
-
-  // Upcoming webinar: AI at Work — May 23, 2026
-  const upcomingDate = new Date("2026-05-23T15:00:00Z");
+  const [videoUnavailable, setVideoUnavailable] = useState(false);
+  const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
+  const sessionCount = pastWebinars.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,14 +162,15 @@ export default function Home() {
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-                Making AI
-                <br />
-                <span className="text-accent">Accessible</span> to Everyone
+                AI Doesn&apos;t Have to Feel This{" "}
+                <span className="text-accent">Overwhelming.</span>
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                I host practical, no-hype webinars that help everyday people
-                understand and use artificial intelligence with confidence.
+                EaseIntoAI hosts live, practical webinars that help everyday
+                people understand artificial intelligence — clearly, honestly,
+                and without the hype. No tech background. No jargon. Real
+                questions answered.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
@@ -168,10 +180,11 @@ export default function Home() {
                       .getElementById("upcoming")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
+                  variant="primary"
                   size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-3 text-base"
+                  className="px-8 py-3 text-base"
                 >
-                  Register for Next Webinar
+                  Register for the Next Webinar
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
@@ -180,11 +193,11 @@ export default function Home() {
                       .getElementById("past-webinars")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
-                  variant="outline"
+                  variant="secondary"
                   size="lg"
-                  className="font-semibold px-8 py-3 text-base border-border"
+                  className="px-8 py-3 text-base"
                 >
-                  View Past Webinars
+                  Browse Past Sessions
                   <ChevronDown className="w-4 h-4 ml-2" />
                 </Button>
               </div>
@@ -195,41 +208,34 @@ export default function Home() {
               <p className="text-center md:text-left text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">
                 See what EaseIntoAI is about
               </p>
-              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-black ring-1 ring-black/5">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-card ring-1 ring-black/5">
                 <div className="aspect-video w-full">
-                  <video
-                    className="h-full w-full object-contain"
-                    controls
-                    playsInline
-                    preload="metadata"
-                    aria-label="EaseIntoAI introduction — practical AI webinars for everyday people"
-                  >
-                    <source src="/EaseIntoAI.mp4" type="video/mp4" />
-                  </video>
-                </div>
-
-                {/* Floating badge — top right: Always Free */}
-                <div className="pointer-events-none absolute top-3 right-3 z-10 max-w-[calc(100%-1.5rem)] rounded-xl border border-border bg-background/95 px-3 py-2.5 shadow-lg backdrop-blur-sm flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                    <CheckCircle2 className="h-4 w-4 text-accent" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold leading-tight text-foreground">Always Free</p>
-                    <p className="text-[10px] leading-tight text-muted-foreground">No credit card needed</p>
-                  </div>
-                </div>
-
-              </div>
-              {/* Social proof below player — avoids overlapping native video controls */}
-              <div className="mt-4 flex justify-center md:justify-start">
-                <div className="inline-flex max-w-full items-center gap-2.5 rounded-xl border border-border bg-background/80 px-3 py-2.5 shadow-sm backdrop-blur-sm">
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                    <Users className="h-4 w-4 text-accent" />
-                  </div>
-                  <div className="min-w-0 text-left">
-                    <p className="text-xs font-bold leading-tight text-foreground">100+ Attendees</p>
-                    <p className="text-[10px] leading-tight text-muted-foreground">Across 5 live sessions</p>
-                  </div>
+                  {!videoUnavailable ? (
+                    <video
+                      className="h-full w-full object-cover"
+                      controls
+                      playsInline
+                      preload="none"
+                      poster="/hero-video-poster.svg"
+                      aria-label="EaseIntoAI introduction video"
+                      onError={() => setVideoUnavailable(true)}
+                    >
+                      <source src="/EaseIntoAI.mp4" type="video/mp4" />
+                    </video>
+                  ) : (
+                    <div className="h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-accent/70 text-white p-6 flex flex-col justify-between">
+                      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                        Preview
+                      </div>
+                      <div>
+                        <PlayCircle className="w-10 h-10 mb-3 text-white/90" aria-hidden />
+                        <p className="text-lg font-semibold">Intro video is coming soon</p>
+                        <p className="mt-2 text-sm text-white/80">
+                          Register now and join live to get the full walkthrough.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -238,12 +244,64 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Trust Bar ────────────────────────────────────────── */}
+      <div className="border-y border-border bg-accent/[0.07]">
+        <div className="container">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-border">
+            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+                Free
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground leading-snug">
+                Always. No credit card.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+                100+
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground leading-snug">
+                Attendees across {sessionCount} sessions
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
+              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
+                {sessionCount}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground leading-snug">
+                Sessions completed
+              </p>
+            </div>
+
+            <div className="col-span-2 lg:col-span-1 flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
+              <span className="inline-block rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
+                DOL Aligned
+              </span>
+              <p className="mt-3 max-w-[220px] text-sm text-muted-foreground leading-snug">
+                Curriculum aligned with the U.S. Department of Labor&apos;s AI
+                Literacy Framework (2026)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="section-divider" />
 
       {/* ── About Section ────────────────────────────────────── */}
       <AboutSection />
 
       <div className="section-divider" />
+
+      <WhatWeCoverSection />
+
+      <div className="section-divider" />
+
+      <FluencyFrameworkSection />
+
+     
 
         {/* ── Upcoming Webinar ─────────────────────────────────── */}
         <section id="upcoming" className="py-24 bg-accent/8">
@@ -258,12 +316,12 @@ export default function Home() {
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <Card className="overflow-hidden border-accent/20 shadow-lg">
+            <Card className="overflow-hidden border-accent/20 shadow-lg surface-card">
               <div className="p-8 md:p-12 space-y-8">
                 {/* Badge */}
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    May 23, 2026
+                    {UPCOMING_WEBINAR.dateLabel}
                   </span>
                   <span className="text-sm text-muted-foreground">
                     Webinar #6
@@ -287,11 +345,11 @@ export default function Home() {
                 <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-accent" />
-                    May 23, 2026
+                    {UPCOMING_WEBINAR.dateLabel}
                   </span>
                   <span className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-accent" />
-                    Time in confirmation email
+                    {UPCOMING_WEBINAR.timeLabel}
                   </span>
                   <span className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-accent" />
@@ -327,16 +385,20 @@ export default function Home() {
                   </ul>
                 </div>
 
-                {/* CTA */}
-                <div className="pt-4">
-                  <Button
-                    onClick={handleRegisterClick}
-                    size="lg"
-                    className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-10 py-3 text-base"
-                  >
-                    Register Now
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </Button>
+                {/* Registration */}
+                <div className="pt-4 border-t border-border/60">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">
+                    Reserve your spot
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-4">
+                    Zoom link and calendar invite are sent right after registration.
+                  </p>
+                  <LeadForm
+                    source="webinar"
+                    webinarSlug={UPCOMING_WEBINAR.slug}
+                    submitLabel="Register Now"
+                    onSuccess={() => toast.success("You're registered!")}
+                  />
                   <p className="text-xs text-muted-foreground mt-3">
                     Free to attend. No spam. Unsubscribe anytime.
                   </p>
@@ -374,7 +436,7 @@ export default function Home() {
               ))}
             </div>
             <Link href="/past-webinars">
-              <Button size="lg" className="font-semibold px-8 bg-accent-foreground text-accent hover:bg-accent-foreground/90">
+              <Button size="lg" variant="secondary" className="font-semibold px-8">
                 View All Past Webinars
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -398,10 +460,7 @@ export default function Home() {
               </h2>
             </div>
             <Link href="/insights">
-              <Button
-                variant="outline"
-                className="font-medium border-border"
-              >
+              <Button variant="secondary" className="font-medium">
                 View All
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -413,7 +472,8 @@ export default function Home() {
               const cat = CATEGORIES[post.category];
               return (
                 <Link key={post.slug} href={`/insights/${post.slug}`}>
-                  <Card className="overflow-hidden border-border/60 hover:border-accent/20 transition-colors cursor-pointer group h-full">
+                  <Card className="overflow-hidden border-border/60 surface-card surface-card-hover cursor-pointer group h-full">
+                    <div className="h-36 bg-gradient-to-br from-accent/15 via-accent/8 to-transparent border-b border-border/60" aria-hidden />
                     <div className="p-6 space-y-4 flex flex-col h-full">
                       <div className="flex items-center gap-3">
                         <span
