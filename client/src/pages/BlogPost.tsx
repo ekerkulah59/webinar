@@ -179,7 +179,7 @@ export default function BlogPost() {
       <Navigation />
 
       {/* Article */}
-      <article className="py-16 md:py-24">
+      <article className="py-14 md:py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             {/* Back link */}

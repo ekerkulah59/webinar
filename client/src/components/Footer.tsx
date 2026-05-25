@@ -1,7 +1,15 @@
+import { FormEvent, useState } from "react";
 import { Link } from "wouter";
 import { Linkedin, Twitter } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { submitLead } from "@/lib/leads";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleHomeLinkClick = () => {
     if (window.location.pathname !== "/") return;
     if (window.location.hash) {
@@ -10,9 +18,31 @@ export default function Footer() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
+  const handleNewsletterSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!email.trim()) return;
+
+    try {
+      setIsSubmitting(true);
+      await submitLead({
+        source: "newsletter",
+        email,
+      });
+      setEmail("");
+      toast.success("You're on the list!");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Unable to subscribe right now.";
+      toast.error(message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <footer className="border-t-2 border-accent/50 bg-foreground">
+    <footer id="newsletter" className="border-t-2 border-accent/50 bg-foreground">
       <div className="container py-16">
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
@@ -98,6 +128,29 @@ export default function Footer() {
                 Check out EaseTranslate →
               </a>
             </div>
+            <div className="mb-12 rounded-xl  p-6 md:p-7">
+          <p className="text-base font-semibold text-background">
+            Subscribe to our newsletter
+          </p>
+          <form
+            className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center"
+            onSubmit={handleNewsletterSubmit}
+          >
+            <Input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+              autoComplete="email"
+              placeholder="Enter your email"
+              className="h-11 border-background/25 bg-background/10 text-background placeholder:text-background/50 sm:max-w-sm"
+              disabled={isSubmitting}
+            />
+            <Button type="submit" variant="primary" disabled={isSubmitting}>
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
+            </Button>
+          </form>
+        </div>
           </div>
         </div>
 

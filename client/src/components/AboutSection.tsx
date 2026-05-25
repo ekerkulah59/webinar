@@ -4,7 +4,7 @@ import { Globe, User } from "lucide-react";
 const pillars = [
   {
     title: "We Start With the Fear",
-    text: "Confusion about AI is normal. We don't rush past it — we start there.",
+    text: "Confusion about AI is normal. We don't rush past it, we start there.",
   },
   {
     title: "We Teach Frameworks",
@@ -22,7 +22,7 @@ const pillars = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24">
+    <section id="about" className="py-20">
       <div className="container">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-12 lg:gap-16 items-start">
           {/* Main content */}
@@ -36,7 +36,7 @@ export default function AboutSection() {
 
             <div className="mt-8 space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               <p>
-                AI is everywhere right now — in the news, at work, in
+                AI is everywhere right now, in the news, at work, in
                 conversations you didn&apos;t start. And for most people, the
                 honest feeling isn&apos;t excitement. It&apos;s confusion.
                 Maybe a little anxiety. A quiet sense that everyone else
@@ -51,7 +51,7 @@ export default function AboutSection() {
               </p>
               <p>
                 That&apos;s what EaseIntoAI is for. We host free, live Zoom
-                webinars that walk you through AI from the ground up — what it
+                webinars that walk you through AI from the ground up,what it
                 is, how it works, where it goes wrong, how to use it well, and
                 how to think critically about what it gives you.
               </p>
@@ -97,7 +97,7 @@ function ProfileCard() {
       <div className="mb-5">
         {!hasPortraitError ? (
           <img
-            src="/emmanuel-headshot.jpg"
+            src="/image.jpeg"
             alt="Portrait of Emmanuel Kerkulah, founder of EaseIntoAI"
             className="h-24 w-24 rounded-full object-cover border-2 border-background/25"
             loading="lazy"
@@ -119,12 +119,12 @@ function ProfileCard() {
       <div className="mt-5 space-y-4 text-sm text-background/75 leading-relaxed">
         <p>
           EaseIntoAI was started after noticing that most AI content was made
-          for people who were already excited about technology — not for the
+          for people who were already excited about technology, not for the
           much larger group who were curious but confused.
         </p>
         <p>
           Emmanuel&apos;s approach is built on real-world experimentation:
-          building automation systems, websites, and applications — making every
+          building automation systems, websites, and applications, making every
           mistake — and turning those lessons into webinars so you don&apos;t
           have to figure it out alone.
         </p>

@@ -7,7 +7,6 @@ import {
   MapPin,
   CheckCircle2,
   ArrowRight,
-  Mail,
   Award,
   ChevronDown,
   PlayCircle,
@@ -20,17 +19,18 @@ import FluencyFrameworkSection from "@/components/FluencyFrameworkSection";
 import SafeCheckSection from "@/components/SafeCheckSection";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { LeadForm } from "@/components/LeadForm";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 import { pastWebinars } from "@/lib/webinarData";
 
 /** Upcoming webinar metadata used for registration + countdown */
 const UPCOMING_WEBINAR = {
   slug: "ai-at-work-june-2026",
-  dateLabel: "June 13, 2026",
-  startIso: "2026-06-13T15:00:00-04:00",
-  timeLabel: "3:00 PM ET",
+  dateLabel: "June 15, 2026",
+  startIso: "2026-06-15T15:00:00-04:00",
+  timeLabel: "3:00 PM New York Time",
 };
+
+const PAYPAL_PAYMENT_URL = (import.meta.env.VITE_PAYPAL_PAYMENT_URL ?? "").trim();
 
 
 // ─── Countdown Hook ──────────────────────────────────────────────
@@ -99,45 +99,18 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
   );
 }
 
-
-// ─── Newsletter Section ───────────────────────────────────────────
-function NewsletterSection() {
-  return (
-    <section id="newsletter" className="py-24 bg-foreground">
-      <div className="container">
-        <div className="max-w-2xl mx-auto text-center space-y-6">
-          <div className="w-14 h-14 bg-background/10 rounded-2xl flex items-center justify-center mx-auto">
-            <Mail className="w-7 h-7 text-background" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-background">
-            Stay in the Loop
-          </h2>
-          <p className="text-lg text-background/70">
-            Get notified about new webinars, resources, and insights on AI.
-            No spam — just value.
-          </p>
-          <div className="max-w-md mx-auto pt-2 text-left">
-            <LeadForm
-              source="newsletter"
-              variant="inverted"
-              submitLabel="Subscribe"
-              onSuccess={() => toast.success("You're on the list!")}
-            />
-          </div>
-          <p className="text-xs text-background/40">
-            Your privacy is respected. Unsubscribe at any time.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Main Page ───────────────────────────────────────────────────
 export default function Home() {
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
   const sessionCount = pastWebinars.length;
+  const handlePayPalCheckout = () => {
+    if (!PAYPAL_PAYMENT_URL) {
+      toast.error("Add your PayPal link in VITE_PAYPAL_PAYMENT_URL to enable checkout.");
+      return;
+    }
+    window.open(PAYPAL_PAYMENT_URL, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,7 +124,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
         </div>
 
-        <div className="container py-20 md:py-28">
+        <div className="container py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
             {/* Left: text content */}
@@ -168,23 +141,19 @@ export default function Home() {
 
               <p className="text-xl text-muted-foreground leading-relaxed">
                 EaseIntoAI hosts live, practical webinars that help everyday
-                people understand artificial intelligence — clearly, honestly,
+                people understand artificial intelligence, clearly, honestly,
                 and without the hype. No tech background. No jargon. Real
                 questions answered.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
                 <Button
-                  onClick={() =>
-                    document
-                      .getElementById("upcoming")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
+                  onClick={handlePayPalCheckout}
                   variant="primary"
                   size="lg"
                   className="px-8 py-3 text-base"
                 >
-                  Register for the Next Webinar
+                  Pay $49 to Reserve Your Spot
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
@@ -250,19 +219,25 @@ export default function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-border">
             <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
               <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-                Free
+                Live
               </p>
               <p className="mt-2 text-sm text-muted-foreground leading-snug">
-                Always. No credit card.
+                Practical webinar sessions
               </p>
             </div>
 
             <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-                100+
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground leading-snug">
-                Attendees across {sessionCount} sessions
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
+                <img
+                  src="/anthropic.svg"
+                  alt="Anthropic logo"
+                  className="h-4 w-4 object-contain"
+                  loading="lazy"
+                />
+                Anthropic
+              </span>
+              <p className="mt-3 text-sm text-muted-foreground leading-snug">
+                Framework reference for AI fluency principles
               </p>
             </div>
 
@@ -276,7 +251,13 @@ export default function Home() {
             </div>
 
             <div className="col-span-2 lg:col-span-1 flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <span className="inline-block rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
+                <img
+                  src="/dol.png"
+                  alt="Department of Labor seal"
+                  className="h-5 w-5 rounded-full bg-white object-cover"
+                  loading="lazy"
+                />
                 DOL Aligned
               </span>
               <p className="mt-3 max-w-[220px] text-sm text-muted-foreground leading-snug">
@@ -295,123 +276,133 @@ export default function Home() {
 
       <div className="section-divider" />
 
+      {/* ── Community Testimonial ─────────────────────────────── */}
+      <section className="py-16 bg-accent/[0.06]">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">
+              Community Feedback
+            </p>
+            <Card className="border-accent/25 shadow-sm">
+              <div className="p-8 md:p-10">
+                <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+                  &ldquo;Emmanuel taught an AI session during our House Of Zion
+                  fellowship anniversary, and I honestly loved how clear and
+                  practical it was. He broke things down in a way that made me
+                  feel confident instead of overwhelmed.&rdquo;
+                </p>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Member, House Of Zion
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
       <WhatWeCoverSection />
 
       <div className="section-divider" />
 
       <FluencyFrameworkSection />
 
-     
-
-        {/* ── Upcoming Webinar ─────────────────────────────────── */}
-        <section id="upcoming" className="py-24 bg-accent/8">
+      {/* ── Upcoming Webinar ─────────────────────────────────── */}
+      <section id="upcoming" className="py-20 bg-accent/[0.06]">
         <div className="container">
-          <div className="text-center mb-16">
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
-              Don't Miss It
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Upcoming Webinar
-            </h2>
-          </div>
+          <div className="max-w-6xl mx-auto rounded-3xl border border-border/70 bg-background shadow-sm p-6 md:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1.7fr_1fr] lg:gap-10">
+              <div>
+                <span className="inline-flex items-center rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-accent">
+                  Next Webinar
+                </span>
+                <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
+                  AI at Work: Using AI Confidently in Your Job (Without Getting in Trouble)
+                </h2>
+                <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+                  Most people using AI at work are doing it without clear guidance. This session shows
+                  what to share, what to avoid, and how to use AI output responsibly in a professional setting.
+                </p>
 
-          <div className="max-w-3xl mx-auto">
-            <Card className="overflow-hidden border-accent/20 shadow-lg surface-card">
-              <div className="p-8 md:p-12 space-y-8">
-                {/* Badge */}
-                <div className="flex items-center gap-3">
-                  <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                    {UPCOMING_WEBINAR.dateLabel}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    Webinar #6
-                  </span>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-3xl font-bold text-foreground">
-                    AI at Work: Using AI Confidently in Your Job (Without Getting in Trouble)
-                  </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    You've learned the tools. Now let's put them to work —
-                    professionally. This session covers what's safe to share
-                    with AI at work, the most useful workplace use cases, and
-                    how to use AI output responsibly so you can move faster
-                    without cutting corners.
-                  </p>
-                </div>
-
-                {/* Event details */}
-                <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-accent" />
-                    {UPCOMING_WEBINAR.dateLabel}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-accent" />
-                    {UPCOMING_WEBINAR.timeLabel}
-                  </span>
-                  <span className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-accent" />
-                    Online — join from anywhere
-                  </span>
-                </div>
-
-                {/* Countdown */}
-                <div className="py-6">
-                  <CountdownTimer targetDate={upcomingDate} />
-                </div>
-
-                {/* What you'll learn */}
-                <div className="space-y-3">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                    What to Expect
-                  </p>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {[
-                      "What's safe to share with AI at work — and what's not",
-                      "AI for emails, reports, meeting summaries & brainstorming",
-                      "How to use AI output responsibly in a professional setting",
-                      "Build your own simple personal AI policy",
-                    ].map((item, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-center gap-2.5 text-sm text-foreground"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" />
+                <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
+                  {[
+                    "Which types of information are never safe to put into an AI tool at work",
+                    "How to use AI for drafts, summaries, and research without crossing a line",
+                    "The SAFE Check - 4 questions to run on any AI output before you submit it",
+                    "Common mistakes workers are already making - and how to avoid them",
+                    "How to start a conversation with your employer about AI policy",
+                    "Live Q&A focused on real workplace scenarios",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3 py-3.5">
+                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                      <span className="text-sm md:text-[15px] text-foreground leading-relaxed">
                         {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
 
-                {/* Registration */}
-                <div className="pt-4 border-t border-border/60">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">
-                    Reserve your spot
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-4">
-                    Zoom link and calendar invite are sent right after registration.
-                  </p>
-                  <LeadForm
-                    source="webinar"
-                    webinarSlug={UPCOMING_WEBINAR.slug}
-                    submitLabel="Register Now"
-                    onSuccess={() => toast.success("You're registered!")}
-                  />
-                  <p className="text-xs text-muted-foreground mt-3">
-                    Free to attend. No spam. Unsubscribe anytime.
+                <p className="mt-5 text-sm text-muted-foreground">
+                  No jargon. No tech background required. This session stands alone.
+                </p>
+              </div>
+
+              <Card className="h-fit border-0 bg-accent text-accent-foreground shadow-xl">
+                <div className="p-6 md:p-7 space-y-5">
+                  <h3 className="text-xl font-bold leading-snug">
+                    AI at Work, Session 1
+                  </h3>
+
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
+                      <span className="inline-flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        {UPCOMING_WEBINAR.dateLabel}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
+                      <span className="inline-flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        {UPCOMING_WEBINAR.timeLabel}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
+                      <span className="inline-flex items-center gap-2">
+                        <MapPin className="w-4 h-4" />
+                        Live on Zoom
+                      </span>
+                      <span className="rounded-full bg-background/15 px-2 py-0.5 text-xs font-semibold">
+                        $49
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-accent-foreground/90">
+                      <Clock className="w-4 h-4" />
+                      <span>60 minutes incl. Q&amp;A</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={handlePayPalCheckout}
+                    size="lg"
+                    className="w-full bg-background text-foreground hover:bg-background/90"
+                  >
+                    Pay with PayPal - $49
+                  </Button>
+
+                  <p className="text-xs text-accent-foreground/75">
+                    Pay first, then send your PayPal receipt email and full name to confirm your webinar access.
                   </p>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
       <div className="section-divider" />
 
       {/* ── Past Webinars Teaser ─────────────────────────────── */}
-      <section id="past-webinars" className="py-24 bg-accent">
+      <section id="past-webinars" className="py-20 bg-accent">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <p className="text-sm font-semibold text-accent-foreground/70 uppercase tracking-widest">
@@ -421,13 +412,13 @@ export default function Home() {
               Past Webinars
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              {pastWebinars.length} sessions completed. 100+ attendees. Every session free, practical, and built for everyday people.
+              {pastWebinars.length} sessions completed. 100+ attendees. Each session is practical and built for everyday people.
             </p>
             <div className="flex justify-center gap-10 py-4">
               {[
                 { value: `${pastWebinars.length}`, label: "Sessions" },
                 { value: "100+", label: "Attendees" },
-                { value: "Free", label: "Always" },
+                { value: "Live", label: "Format" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="text-3xl font-bold text-accent-foreground">{stat.value}</p>
@@ -448,7 +439,7 @@ export default function Home() {
       <div className="section-divider" />
 
       {/* ── Latest Insights ──────────────────────────────────── */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="container">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
             <div>
@@ -502,9 +493,6 @@ export default function Home() {
       </section>
 
       <div className="section-divider" />
-
-      {/* ── Newsletter / Final CTA ───────────────────────────── */}
-      <NewsletterSection />
 
       <Footer />
     </div>

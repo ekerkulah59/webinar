@@ -34,7 +34,7 @@ const safeItems = [
 
 export default function SafeCheckSection() {
   return (
-    <section id="safe-check" className="py-24 bg-foreground">
+    <section id="safe-check" className="py-20 bg-foreground">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-5">

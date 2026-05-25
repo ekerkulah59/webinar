@@ -53,7 +53,7 @@ const fluencySkills: FluencySkill[] = [
 
 export default function FluencyFrameworkSection() {
   return (
-    <section id="ai-fluency" className="py-24">
+    <section id="ai-fluency" className="py-20">
       <div className="container">
         <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
           <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
@@ -67,6 +67,17 @@ export default function FluencyFrameworkSection() {
             core competencies you need to work with AI effectively. Our
             curriculum is organized around all four.
           </p>
+          <div className="mt-4 flex justify-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground">
+              <img
+                src="/anthropic.svg"
+                alt="Anthropic logo"
+                className="h-3.5 w-3.5 object-contain"
+                loading="lazy"
+              />
+              Anthropic Framework Reference
+            </span>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -82,42 +93,31 @@ export default function FluencyFrameworkSection() {
                   {skill.letter}
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-base font-bold text-white leading-tight">
+                  <h3 className="text-lg font-bold text-white leading-tight">
                     {skill.title}
                   </h3>
-                  <p className="mt-0.5 text-xs text-white/75 leading-snug">
+                  <p className="mt-1 text-sm text-white/85 leading-snug">
                     {skill.subtitle}
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-1 flex-col bg-card px-5 py-5">
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                <p className="text-base text-foreground/80 leading-relaxed mb-4 flex-1">
                   {skill.description}
                 </p>
-                <span
+                {/* <span
                   className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold ${skill.tagClassName}`}
                 >
-                  {skill.title === "Delegation" ? (
-                    <span className="mr-1" aria-hidden>
-                      📅
-                    </span>
-                  ) : (
-                    <span className="mr-1" aria-hidden>
-                      ✓
-                    </span>
-                  )}
-                  {skill.sessionTag}
-                </span>
+                  {skill.title === "Delegation" 
+                    
+                  }
+                 
+                </span> */}
               </div>
             </article>
           ))}
         </div>
-
-        <p className="mt-6 text-center text-xs text-muted-foreground">
-          4Ds framework: Rick Dakan, Joseph Feller &amp; Anthropic. Licensed CC
-          BY-NC-SA 4.0.
-        </p>
       </div>
     </section>
   );

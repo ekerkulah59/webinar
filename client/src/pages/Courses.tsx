@@ -22,7 +22,7 @@ const courses: Course[] = [
     id: 1,
     title: "AI 101: Understand AI Without the Confusion",
     description:
-      "The perfect starting point. No jargon, no hype — just a clear, honest introduction to what AI is, how it works in everyday life, and how to stop feeling overwhelmed by it.",
+      "The perfect starting point. No jargon, no hype, just a clear, honest introduction to what AI is, how it works in everyday life, and how to stop feeling overwhelmed by it.",
     type: "free",
     duration: "1 hour",
     modules: [
@@ -117,7 +117,7 @@ export default function Courses() {
       <Navigation />
 
       {/* ── Header ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-20 md:py-28">
+      <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-10 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]" />
           <div className="absolute -bottom-10 -left-10 w-[300px] h-[300px] bg-accent/8 rounded-full blur-[80px]" />
@@ -131,7 +131,7 @@ export default function Courses() {
               Courses
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Everything you learned in the live webinars — packaged into
+              Everything you learned in the live webinars, packaged into
               self-paced courses you can revisit anytime. Free and paid options
               for every stage of your AI journey.
             </p>
@@ -142,7 +142,7 @@ export default function Courses() {
       <div className="section-divider" />
 
       {/* ── Free Course ──────────────────────────────────────── */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
@@ -227,7 +227,7 @@ export default function Courses() {
       <div className="section-divider" />
 
       {/* ── Paid Courses ─────────────────────────────────────── */}
-      <section className="py-20 bg-secondary/40">
+      <section className="py-16 bg-secondary/40">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
@@ -307,7 +307,7 @@ export default function Courses() {
 
       {/* ── Featured: AI Basics for Teachers ────────────────── */}
       {featuredCourse && (
-        <section className="py-20">
+        <section className="py-16">
           <div className="container">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
@@ -388,7 +388,7 @@ export default function Courses() {
       <div className="section-divider" />
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-20 bg-accent">
+      <section className="py-16 bg-accent">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-accent-foreground">

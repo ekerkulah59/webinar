@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ChatWidget } from "@/components/ChatWidget";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
@@ -59,6 +60,7 @@ function App() {
           <Toaster />
           <ScrollManager />
           <Router />
+          <ChatWidget />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
