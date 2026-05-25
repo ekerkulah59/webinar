@@ -1,7 +1,7 @@
 
 export default function AboutHost() {
     return (
-        <section className="py-24 bg-background border-t border-border">
+        <section className="py-20 bg-background border-t border-border">
             <div className="container">
                 <div className="max-w-4xl mx-auto">
                     <div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">

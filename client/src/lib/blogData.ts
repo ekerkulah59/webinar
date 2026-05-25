@@ -18,6 +18,76 @@ export const CATEGORIES: Record<BlogPost["category"], { label: string; color: st
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "ai-literacy-framework-practical-guide",
+    title: "The AI Literacy Framework, Explained for Real-World Use",
+    excerpt:
+      "The U.S. Department of Labor's AI Literacy Framework gives people a clear way to learn AI without the hype. Here's what it means in practice.",
+    content: `
+## Why This Framework Matters
+
+Most people don't avoid AI because they're lazy. They avoid it because the advice they get is either too technical or too vague.
+
+The U.S. Department of Labor's AI Literacy Framework fixes that by giving a practical roadmap. It focuses on what people need to know to use AI confidently, responsibly, and in context.
+
+This isn't about becoming a machine learning engineer. It's about becoming fluent enough to use AI well in your actual work.
+
+## The 5 Foundational Content Areas
+
+**1. Understand AI Principles**
+Know what AI is, where it helps, and where it fails. If you don't understand limitations, you'll trust output you shouldn't trust.
+
+**2. Explore AI Uses**
+Look at real use cases in your role. AI value shows up when it solves tasks you already do, not when you chase shiny tools.
+
+**3. Direct AI Effectively**
+Prompting is not magic. Good prompts give context, goal, audience, and format. Better instructions lead to better results.
+
+**4. Evaluate AI Outputs**
+Never assume correct means useful. Check for accuracy, relevance, and fit before using AI output in decisions or deliverables.
+
+**5. Use AI Responsibly**
+Think about privacy, ethics, and accountability. Just because AI can do something doesn't always mean it should.
+
+## The 7 Delivery Principles (How Learning Should Happen)
+
+The framework also makes a strong point about *how* people learn AI:
+
+- Enable experiential learning through hands-on practice
+- Embed learning in the context of each industry or role
+- Build complementary human skills like judgment and communication
+- Address prerequisites like digital literacy and internet access
+- Create pathways for continuous learning over time
+- Prepare enabling roles (managers, mentors, counselors) to support learners
+- Design for agility as AI tools and capabilities evolve quickly
+
+This is the part most programs miss. People don't need one webinar and a badge. They need repeatable practice that maps to their real environment.
+
+## What This Means for Everyday Professionals
+
+If you're a teacher, business owner, nonprofit leader, admin professional, or healthcare worker, this framework gives you permission to learn AI in a grounded way.
+
+You don't need to "master AI." You need to:
+
+- Understand what AI can and cannot do
+- Use it for specific tasks that matter to your work
+- Check outputs before acting on them
+- Keep developing your skills as tools change
+
+That's literacy. Not hype. Not fear. Just capability.
+
+## A Better Goal Than "Keeping Up"
+
+Most people say they want to "keep up" with AI. That's a stressful goal because the landscape changes weekly.
+
+A better goal is this: **build a stable decision-making framework** so you can adapt no matter which tool is trending next month.
+
+That's exactly why this AI Literacy Framework is important. It shifts the conversation from tools to thinking, from hype to habit, and from anxiety to confidence.
+    `.trim(),
+    category: "tutorial",
+    date: "May 25, 2026",
+    readTime: "5 min read",
+  },
+  {
     slug: "ai-productivity-myth-vs-reality",
     title: "AI and Productivity: Myth vs. Reality",
     excerpt:

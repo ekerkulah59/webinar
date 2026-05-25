@@ -10,7 +10,7 @@ export default function PastWebinars() {
       <Navigation />
 
       {/* ── Header ───────────────────────────────────────────── */}
-      <section className="py-20 md:py-28">
+      <section className="py-16 md:py-24">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center space-y-4">
             <p className="text-sm font-semibold text-accent uppercase tracking-widest">
@@ -44,7 +44,7 @@ export default function PastWebinars() {
       <div className="section-divider" />
 
       {/* ── Webinar List ─────────────────────────────────────── */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto space-y-8">
             {pastWebinars.map((webinar) => (

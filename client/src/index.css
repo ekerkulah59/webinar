@@ -45,6 +45,9 @@
 }
 
 :root {
+  --surface: oklch(1 0 0);
+  --text: oklch(0.13 0.02 250);
+  --text-muted: oklch(0.5 0.01 250);
   --primary: oklch(0.25 0.015 250);
   --primary-foreground: oklch(0.98 0.001 0);
   --sidebar-primary: oklch(0.25 0.015 250);
@@ -72,15 +75,31 @@
   --border: oklch(0.92 0.003 250);
   --input: oklch(0.95 0.003 250);
   --ring: oklch(0.5 0.22 265);
+  --area-surface: color-mix(in oklab, var(--surface), var(--background) 12%);
+  --area-border: color-mix(in oklab, var(--border), transparent 10%);
+  --area-border-hover: color-mix(in oklab, var(--accent), white 72%);
+  --area-chip: color-mix(in oklab, var(--accent), white 90%);
+  --area-radius: 1.1rem;
+  --area-shadow-rest:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 16px rgba(15, 23, 42, 0.06);
+  --area-shadow-hover:
+    0 2px 4px rgba(15, 23, 42, 0.06),
+    0 16px 34px rgba(21, 38, 100, 0.14);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.235 0.015 65);
   --sidebar-accent: oklch(0.967 0.001 286.375);
   --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.623 0.214 259.815);
+  --shadow-soft: 0 2px 8px rgba(21, 38, 100, 0.06);
+  --shadow-elevated: 0 14px 30px rgba(21, 38, 100, 0.12);
 }
 
 .dark {
+  --surface: oklch(0.15 0.012 250);
+  --text: oklch(0.93 0.005 250);
+  --text-muted: oklch(0.65 0.01 250);
   --primary: oklch(0.85 0.005 250);
   --primary-foreground: oklch(0.12 0.01 250);
   --sidebar-primary: oklch(0.85 0.005 250);
@@ -102,6 +121,16 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.6 0.2 265);
+  --area-surface: color-mix(in oklab, var(--surface), black 10%);
+  --area-border: color-mix(in oklab, var(--border), transparent 24%);
+  --area-border-hover: color-mix(in oklab, var(--accent), white 58%);
+  --area-chip: color-mix(in oklab, var(--accent), black 78%);
+  --area-shadow-rest:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    0 8px 18px rgba(0, 0, 0, 0.24);
+  --area-shadow-hover:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 14px 28px rgba(0, 0, 0, 0.32);
   --chart-1: oklch(0.6 0.2 265);
   --chart-2: oklch(0.7 0.15 265);
   --chart-3: oklch(0.5 0.22 265);
@@ -169,5 +198,68 @@
   .section-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  }
+
+  .surface-card {
+    border: 1px solid color-mix(in oklab, var(--border), transparent 15%);
+    background: color-mix(in oklab, var(--card), var(--background) 12%);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .surface-card-hover {
+    transition: box-shadow 140ms ease-out, border-color 140ms ease-out, transform 140ms ease-out;
+  }
+
+  .surface-card-hover:hover {
+    box-shadow: var(--shadow-elevated);
+    border-color: color-mix(in oklab, var(--accent), white 68%);
+    transform: translateY(-2px);
+  }
+
+  .area-card {
+    border: 1px solid var(--area-border);
+    border-radius: var(--area-radius);
+    background: var(--area-surface);
+    box-shadow: var(--area-shadow-rest);
+    transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .area-card:hover,
+  .area-card:focus-within {
+    border-color: var(--area-border-hover);
+    box-shadow: var(--area-shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .area-card-icon-chip {
+    display: inline-flex;
+    height: 2.875rem;
+    width: 2.875rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    background: var(--area-chip);
+    color: var(--accent);
+  }
+
+  .area-card:hover .area-card-cta-icon,
+  .area-card:focus-within .area-card-cta-icon {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .area-card {
+      transition: border-color 100ms ease;
+    }
+
+    .area-card:hover,
+    .area-card:focus-within {
+      transform: none;
+    }
+
+    .area-card .area-card-cta-icon {
+      transition: none;
+      transform: none;
+    }
   }
 }
