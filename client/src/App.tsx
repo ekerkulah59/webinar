@@ -62,7 +62,7 @@ function App() {
           <Toaster />
           <ScrollManager />
           <Router />
-          <ChatWidget />
+          {/* <ChatWidget /> */}
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

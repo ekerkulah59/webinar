@@ -15,6 +15,7 @@ interface Course {
   status: "coming-soon";
   audience?: string;
   featured?: boolean;
+  link?: string;
 }
 
 const courses: Course[] = [
@@ -31,7 +32,8 @@ const courses: Course[] = [
       "The biggest misconceptions — debunked",
       "Your roadmap for getting started",
     ],
-    status: "coming-soon",
+    status: "available-now",
+    link: "https://easeintoai.gumroad.com/l/UnderstandAIWithouttheConfusion",
   },
   {
     id: 2,
@@ -49,7 +51,8 @@ const courses: Course[] = [
       "Module 5 — Hallucinations & Fact-Checking",
       "Bonus: Prompt templates & cheat sheets",
     ],
-    status: "coming-soon",
+    status: "available-now",
+    link: "https://easeintoai.gumroad.com/l/ai-foundations-curious-to-confident",
   },
   {
     id: 3,
@@ -162,9 +165,15 @@ export default function Courses() {
                         <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                           Free
                         </span>
-                        <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                          Coming Soon
-                        </span>
+                        {freeCourse.link ? (
+                          <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                            Available Now
+                          </span>
+                        ) : (
+                          <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                            Coming Soon
+                          </span>
+                        )}
                       </div>
 
                       <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
@@ -197,15 +206,24 @@ export default function Courses() {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <Button
-                      disabled
-                      variant="primary"
-                      size="lg"
-                      className="font-semibold px-8 cursor-not-allowed"
-                    >
-                      Coming Soon
-                      <Clock className="w-4 h-4 ml-2" />
-                    </Button>
+                    {freeCourse.link ? (
+                      <a href={freeCourse.link} target="_blank" rel="noopener noreferrer">
+                        <Button variant="primary" size="lg" className="font-semibold px-8">
+                          Enroll Free
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </a>
+                    ) : (
+                      <Button
+                        disabled
+                        variant="primary"
+                        size="lg"
+                        className="font-semibold px-8 cursor-not-allowed"
+                      >
+                        Available Now
+                        <Clock className="w-4 h-4 ml-2" />
+                      </Button>
+                    )}
                     <p className="text-sm text-muted-foreground">
                       Be the first to know —{" "}
                       <a
@@ -251,9 +269,15 @@ export default function Courses() {
                           <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
                             {course.price}
                           </span>
-                          <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                            Coming Soon
-                          </span>
+                          {course.link ? (
+                            <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                              Available Now
+                            </span>
+                          ) : (
+                            <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                              Available Now
+                            </span>
+                          )}
                         </div>
 
                         <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight">
@@ -286,14 +310,23 @@ export default function Courses() {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-border">
-                      <Button
-                        disabled
-                      variant="secondary"
-                        className="font-semibold cursor-not-allowed opacity-60"
-                      >
-                        Coming Soon
-                        <Clock className="w-4 h-4 ml-2" />
-                      </Button>
+                      {course.link ? (
+                        <a href={course.link} target="_blank" rel="noopener noreferrer">
+                          <Button variant="primary" className="font-semibold">
+                            Enroll Now
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </a>
+                      ) : (
+                        <Button
+                          disabled
+                          variant="secondary"
+                          className="font-semibold cursor-not-allowed opacity-60"
+                        >
+                          Coming Soon
+                          <Clock className="w-4 h-4 ml-2" />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </Card>
