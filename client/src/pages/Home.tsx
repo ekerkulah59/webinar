@@ -292,7 +292,7 @@ export default function Home() {
                   feel confident instead of overwhelmed.&rdquo;
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground">
-                  Member, House Of Zion
+                  Esther, House Of Zion
                 </p>
               </div>
             </Card>
