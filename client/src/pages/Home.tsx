@@ -25,9 +25,9 @@ import { pastWebinars } from "@/lib/webinarData";
 /** Upcoming webinar metadata used for registration + countdown */
 const UPCOMING_WEBINAR = {
   slug: "ai-at-work-june-2026",
-  dateLabel: "June 15, 2026",
-  startIso: "2026-06-15T15:00:00-04:00",
-  timeLabel: "3:00 PM New York Time",
+  dateLabel: "June 24, 2026",
+  startIso: "2026-06-24T12:00:00-04:00",
+  timeLabel: "12:00 PM New York Time",
 };
 
 const PAYPAL_PAYMENT_URL = (import.meta.env.VITE_PAYPAL_PAYMENT_URL ?? "").trim();
@@ -387,12 +387,12 @@ export default function Home() {
                     size="lg"
                     className="w-full bg-background text-foreground hover:bg-background/90"
                   >
-                    Pay with PayPal - $49
+                    Reserve Your Spot - $49
                   </Button>
 
-                  <p className="text-xs text-accent-foreground/75">
-                    Pay first, then send your PayPal receipt email and full name to confirm your webinar access.
-                  </p>
+                  {/* <p className="text-xs text-accent-foreground/75">
+                    Secure checkout via Gumroad. After paying, you&apos;ll get your webinar access details by email.
+                  </p> */}
                 </div>
               </Card>
             </div>
