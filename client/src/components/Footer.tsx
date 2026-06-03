@@ -48,7 +48,7 @@ export default function Footer() {
           <div className="md:col-span-2 space-y-4">
             <img src="/logo-full-dark.svg" alt="EaseIntoAI" className="h-14 w-auto" />
             <p className="text-sm text-background/60 leading-relaxed max-w-sm">
-              AI Educator &amp; Builder. Hosting free, practical webinars to
+              AI Educator &amp; Builder. Hosting practical webinars to
               help people navigate the world of artificial intelligence with
               clarity and confidence.
             </p>
