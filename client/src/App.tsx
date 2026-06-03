@@ -12,11 +12,13 @@ import BlogPost from "./pages/BlogPost";
 import PastWebinars from "./pages/PastWebinars";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
+import CustomAIAssistant from "./pages/CustomAIAssistant";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/custom-ai-assistant" component={CustomAIAssistant} />
       <Route path="/past-webinars" component={PastWebinars} />
       <Route path="/courses" component={Courses} />
       <Route path="/courses/:slug" component={CourseDetail} />
@@ -62,7 +64,7 @@ function App() {
           <Toaster />
           <ScrollManager />
           <Router />
-          {/* <ChatWidget /> */}
+           <ChatWidget /> 
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
