@@ -14,6 +14,7 @@ const navLinks = [
   { label: "About", href: "/#about" },
   { label: "Past Webinars", href: "/past-webinars" },
   { label: "Courses", href: "/courses" },
+  { label: "Custom AI", href: "/custom-ai-assistant" },
   { label: "Upcoming", href: "/#upcoming" },
   { label: "Insights", href: "/insights" },
 ];

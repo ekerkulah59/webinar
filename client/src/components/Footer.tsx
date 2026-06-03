@@ -98,6 +98,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/custom-ai-assistant" className="text-sm text-background/60 hover:text-background transition-colors">
+                  Custom AI Assistant
+                </Link>
+              </li>
+              <li>
                 <Link href="/insights" className="text-sm text-background/60 hover:text-background transition-colors">
                   Insights
                 </Link>
