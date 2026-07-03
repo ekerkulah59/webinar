@@ -1,0 +1,27 @@
+# EaseIntoAI
+
+> AI education for women entrepreneurs and small business owners. Live, practical webinars and self-paced courses that teach AI in plain language — no tech background required. Curriculum aligned with the U.S. Department of Labor's AI Literacy Framework and Anthropic's AI Fluency Framework. Honest, no-hype teaching: we start with the fear, answer real questions, and tell you when AI gets things wrong.
+
+Founded and hosted by Emmanuel Kerkulah. Audience: coaches, consultants, creators, online service providers, and owners of local service businesses (salons, studios, boutiques, food trucks).
+
+## Main Pages
+
+- [Home](https://easeintoai.co/): Live webinar registration, the SAFE Check framework, and what we teach
+- [Courses](https://easeintoai.co/courses): Free and paid self-paced AI courses for non-technical business owners
+- [AI for Women Entrepreneurs & Small Business Owners](https://easeintoai.co/courses/ai-for-women-entrepreneurs): Flagship six-module course — content, client communication, offers and pricing, simple automations
+- [Custom AI Assistant](https://easeintoai.co/custom-ai-assistant): Done-for-you private AI assistant built on a business's services, FAQs, and brand voice
+- [Past Webinars](https://easeintoai.co/past-webinars): Archive of completed sessions with outcomes
+- [Insights](https://easeintoai.co/insights): Practical AI tutorials, honest takes on AI news, and webinar recaps
+
+## Key Concepts
+
+- The SAFE Check: four questions to run on any AI output before sending it — Safe to share? Accurate? Fair to send? Edited by me?
+- Teaching frameworks: U.S. Department of Labor AI Literacy Framework (five foundational skills) and Anthropic AI Fluency Framework (Delegation, Description, Discernment, Diligence)
+
+## Service Area
+
+Based in Delaware. Serving business owners across the Mid-Atlantic — New Jersey, Maryland, Pennsylvania, Virginia, New York, and the Washington, DC area. Live webinars run on Zoom and are open to attendees everywhere; the Custom AI Assistant service is available remotely nationwide.
+
+## Contact
+
+- Email: theaibootcamp09@gmail.com

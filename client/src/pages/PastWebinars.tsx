@@ -3,8 +3,16 @@ import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { pastWebinars } from "@/lib/webinarData";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function PastWebinars() {
+  useSEO({
+    title: "Past AI Webinars",
+    description:
+      "Browse every EaseIntoAI session — practical, plain-language AI webinars covering AI basics, tools, prompting, workflows, and fact-checking. 100+ attendees so far.",
+    type: "website",
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -34,7 +42,7 @@ export default function PastWebinars() {
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-accent">Free</p>
-                <p className="text-sm text-muted-foreground">Always</p>
+                <p className="text-sm text-muted-foreground">Early Sessions</p>
               </div>
             </div>
           </div>

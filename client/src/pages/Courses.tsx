@@ -3,114 +3,17 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
-interface Course {
-  id: number;
-  title: string;
-  description: string;
-  type: "free" | "paid";
-  price?: string;
-  duration: string;
-  modules: string[];
-  status: "coming-soon";
-  audience?: string;
-  featured?: boolean;
-  link?: string;
-}
-
-const courses: Course[] = [
-  {
-    id: 1,
-    title: "AI 101: Understand AI Without the Confusion",
-    description:
-      "The perfect starting point. No jargon, no hype, just a clear, honest introduction to what AI is, how it works in everyday life, and how to stop feeling overwhelmed by it.",
-    type: "free",
-    duration: "1 hour",
-    modules: [
-      "What AI actually is (and what it's not)",
-      "How AI shows up in your everyday life",
-      "The biggest misconceptions — debunked",
-      "Your roadmap for getting started",
-    ],
-    status: "available-now",
-    link: "https://easeintoai.gumroad.com/l/UnderstandAIWithouttheConfusion",
-  },
-  {
-    id: 2,
-    title: "AI Foundations: From Curious to Confident",
-    description:
-      "The complete beginner-to-capable journey. Five structured modules covering everything from understanding AI to building a daily workflow — all in one place, at your own pace.",
-    type: "paid",
-    price: "$39",
-    duration: "5+ hours",
-    modules: [
-      "Module 1 — Understanding AI Without the Confusion",
-      "Module 2 — AI Tools You Can Start Using Today",
-      "Module 3 — Prompt Engineering: Get Better Results",
-      "Module 4 — Build Your AI Workflow",
-      "Module 5 — Hallucinations & Fact-Checking",
-      "Bonus: Prompt templates & cheat sheets",
-    ],
-    status: "available-now",
-    link: "https://easeintoai.gumroad.com/l/ai-foundations-curious-to-confident",
-  },
-  {
-    id: 3,
-    title: "Prompt Engineering Masterclass",
-    description:
-      "Go deep on the skill that separates casual AI users from people who get real results. Learn how to write prompts that are clear, specific, and consistently effective.",
-    type: "paid",
-    price: "$19",
-    duration: "2 hours",
-    modules: [
-      "Why most prompts fail (and how to fix them)",
-      "The structure of a great prompt",
-      "Using context, examples, and formatting",
-      "Live rewrites: before vs. after",
-      "20 ready-to-use prompt templates",
-    ],
-    status: "coming-soon",
-  },
-  {
-    id: 4,
-    title: "AI at Work: Using AI in Your Job Confidently",
-    description:
-      "Built for professionals. Learn what's safe to share with AI, the best workplace use cases, and how to use AI output responsibly — so you can move faster without cutting corners.",
-    type: "paid",
-    price: "$19",
-    duration: "2 hours",
-    modules: [
-      "What's safe to share with AI at work — and what's not",
-      "AI for emails, reports & meeting summaries",
-      "Using AI output responsibly in your role",
-      "Build your personal AI policy",
-      "Live demo: real workplace workflows",
-    ],
-    status: "coming-soon",
-  },
-  {
-    id: 5,
-    title: "AI Basics for Teachers",
-    description:
-      "A practical, six-module course built specifically for educators. Learn how to use AI to plan lessons, create worksheets, give feedback, communicate with parents, build classroom resources, and automate time-consuming tasks — so you can focus on what matters most: teaching.",
-    type: "paid",
-    price: "$49",
-    duration: "6 modules",
-    audience: "Teachers & Educators",
-    featured: true,
-    modules: [
-      "Module 1 — AI Basics for Teachers",
-      "Module 2 — Lesson Planning with AI",
-      "Module 3 — Worksheets, Assessments & Differentiation",
-      "Module 4 — Grading, Feedback & Parent Communication",
-      "Module 5 — Presentations, Visuals & Classroom Resources",
-      "Module 6 — Automation & Advanced Time-Saving Systems",
-    ],
-    status: "coming-soon",
-  },
-];
+import { courses } from "@/lib/courseData";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Courses() {
+  useSEO({
+    title: "Self-Paced AI Courses for Women Entrepreneurs & Small Business Owners",
+    description:
+      "Free and paid AI courses built for busy business owners — content creation, prompting, client communication, and simple automations. Plain language, no tech background required.",
+    type: "website",
+  });
+
   const freeCourse = courses.find((c) => c.type === "free");
   const featuredCourse = courses.find((c) => c.featured);
   const paidCourses = courses.filter((c) => c.type === "paid" && !c.featured);
@@ -134,9 +37,9 @@ export default function Courses() {
               Courses
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Everything you learned in the live webinars, packaged into
-              self-paced courses you can revisit anytime. Free and paid options
-              for every stage of your AI journey.
+              Everything from the live webinars, packaged into self-paced
+              courses you can revisit anytime. Built for busy business owners —
+              free and paid options for every stage of your AI journey.
             </p>
           </div>
         </div>
@@ -165,7 +68,7 @@ export default function Courses() {
                         <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                           Free
                         </span>
-                        {freeCourse.link ? (
+                        {freeCourse.enrollUrl ? (
                           <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                             Available Now
                           </span>
@@ -206,8 +109,8 @@ export default function Courses() {
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    {freeCourse.link ? (
-                      <a href={freeCourse.link} target="_blank" rel="noopener noreferrer">
+                    {freeCourse.enrollUrl ? (
+                      <a href={freeCourse.enrollUrl} target="_blank" rel="noopener noreferrer">
                         <Button variant="primary" size="lg" className="font-semibold px-8">
                           Enroll Free
                           <ArrowRight className="w-4 h-4 ml-2" />
@@ -269,13 +172,13 @@ export default function Courses() {
                           <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
                             {course.price}
                           </span>
-                          {course.link ? (
+                          {course.enrollUrl ? (
                             <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                               Available Now
                             </span>
                           ) : (
                             <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                              Available Now
+                              Coming Soon
                             </span>
                           )}
                         </div>
@@ -310,8 +213,8 @@ export default function Courses() {
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-border">
-                      {course.link ? (
-                        <a href={course.link} target="_blank" rel="noopener noreferrer">
+                      {course.enrollUrl ? (
+                        <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer">
                           <Button variant="primary" className="font-semibold">
                             Enroll Now
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -338,7 +241,7 @@ export default function Courses() {
 
       <div className="section-divider" />
 
-      {/* ── Featured: AI Basics for Teachers ────────────────── */}
+      {/* ── Featured Specialty Course ────────────────────────── */}
       {featuredCourse && (
         <section className="py-16">
           <div className="container">
@@ -408,7 +311,8 @@ export default function Courses() {
                       <Clock className="w-4 h-4 ml-2" />
                     </Button>
                     <p className="text-sm text-muted-foreground">
-                      Designed for K–12 and higher-ed teachers at any tech comfort level.
+                      Built for coaches, consultants, creators, and local
+                      business owners — at any tech comfort level.
                     </p>
                   </div>
                 </div>

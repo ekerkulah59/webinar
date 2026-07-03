@@ -14,8 +14,8 @@ const fluencySkills: FluencySkill[] = [
     title: "Delegation",
     subtitle: "Deciding what to hand to AI",
     description:
-      "Knowing what work AI should do, what humans should do, and how to divide tasks intelligently between them.",
-    sessionTag: "Session 3 — AI for Your Job",
+      "Knowing which tasks to hand off a first draft of a caption, a rough outline for a proposal, a summary of client notes and which need your hands on them directly, like final client messages and pricing decisions.",
+    sessionTag: "Session 1 — AI for Women Entrepreneurs",
     headerClassName: "bg-foreground",
     tagClassName: "bg-accent/15 text-foreground",
   },
@@ -24,7 +24,7 @@ const fluencySkills: FluencySkill[] = [
     title: "Description",
     subtitle: "How you communicate with AI",
     description:
-      "Clearly defining what you want — the output, the format, the tone. This is what separates a useful AI response from a generic one.",
+      "Clearly describing your brand tone, your audience, and what you want the result to sound like. This is the difference between AI writing in your voice and AI handing you something generic you'd never post.",
     sessionTag: "Session 2 — PREP Framework",
     headerClassName: "bg-chart-3",
     tagClassName: "bg-accent/20 text-accent",
@@ -34,7 +34,7 @@ const fluencySkills: FluencySkill[] = [
     title: "Discernment",
     subtitle: "Evaluating what AI gives you",
     description:
-      "Critically assessing AI output for accuracy, appropriateness, and reliability before acting on it or sharing it.",
+      "Critically reviewing an AI-drafted offer, email, or caption before it goes out — checking that the pricing is right, the tone fits your brand, and nothing sounds off to a client who knows you.",
     sessionTag: "Session 1 — SAFE Check",
     headerClassName: "bg-accent",
     tagClassName: "bg-accent/15 text-accent",
@@ -44,7 +44,7 @@ const fluencySkills: FluencySkill[] = [
     title: "Diligence",
     subtitle: "Using AI ethically",
     description:
-      "Being honest about AI's role in your work, protecting your data, and taking accountability for what you produce with AI assistance.",
+      "Being honest about AI's role in your work, protecting your clients' information, and taking full accountability for anything AI helps you produce — because it still goes out under your business's name.",
     sessionTag: "Session 1 — Responsible Use",
     headerClassName: "bg-chart-1",
     tagClassName: "bg-primary/10 text-primary",
@@ -64,8 +64,8 @@ export default function FluencyFrameworkSection() {
           </h2>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
             Developed by Anthropic, the AI Fluency Framework identifies the four
-            core competencies you need to work with AI effectively. Our
-            curriculum is organized around all four.
+            core competencies you need to work with AI effectively. We teach
+            all four through the lens of running a business — not writing code.
           </p>
           <div className="mt-4 flex justify-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground">

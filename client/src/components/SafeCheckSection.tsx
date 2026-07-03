@@ -19,16 +19,16 @@ const safeItems = [
   {
     letter: "F",
     letterClassName: "text-chart-3",
-    question: "Fair to submit?",
+    question: "Fair to send?",
     description:
-      "Is this appropriate to submit given your employer's expectations and any disclosure requirements?",
+      "Is this appropriate to send given what your clients expect and any disclosure you owe them?",
   },
   {
     letter: "E",
     letterClassName: "text-chart-1",
     question: "Edited by me?",
     description:
-      "Have you reviewed and personalized it? Your name is on it. You own the outcome.",
+      "Have you reviewed and personalized it? Your business's name is on it. You own the outcome.",
   },
 ];
 
