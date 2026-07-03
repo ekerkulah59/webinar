@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -17,11 +17,44 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getPostBySlug, blogPosts, CATEGORIES } from "@/lib/blogData";
 import { useSEO } from "@/hooks/useSEO";
+import { JsonLd } from "@/components/JsonLd";
 
 // ─── Simple Markdown-like renderer ──────────────────────────────
+/** Renders inline markdown: **bold**, *italic*, and [text](url) links. */
+function renderInline(text: string): ReactNode[] {
+  const parts = text.split(
+    /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g
+  );
+  return parts.map((part, pi) => {
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a
+          key={pi}
+          href={linkMatch[2]}
+          className="text-accent font-medium hover:text-accent/80 underline underline-offset-2 transition-colors"
+        >
+          {linkMatch[1]}
+        </a>
+      );
+    }
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={pi} className="font-semibold text-foreground">
+          {part.replace(/\*\*/g, "")}
+        </strong>
+      );
+    }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+      return <em key={pi}>{part.slice(1, -1)}</em>;
+    }
+    return <span key={pi}>{part}</span>;
+  });
+}
+
 function RenderContent({ content }: { content: string }) {
   const lines = content.split("\n");
-  const elements: JSX.Element[] = [];
+  const elements: ReactNode[] = [];
   let currentList: string[] = [];
   let listKey = 0;
 
@@ -35,7 +68,7 @@ function RenderContent({ content }: { content: string }) {
               className="flex items-start gap-2.5 text-foreground/90 leading-relaxed"
             >
               <span className="text-accent mt-1.5 text-sm">•</span>
-              {item}
+              <span>{renderInline(item)}</span>
             </li>
           ))}
         </ul>
@@ -54,7 +87,11 @@ function RenderContent({ content }: { content: string }) {
           {trimmed.replace("## ", "")}
         </h2>
       );
-    } else if (trimmed.startsWith("**") && trimmed.endsWith("**")) {
+    } else if (
+      trimmed.startsWith("**") &&
+      trimmed.endsWith("**") &&
+      trimmed.indexOf("**", 2) === trimmed.length - 2
+    ) {
       flushList();
       elements.push(
         <p key={idx} className="font-semibold text-foreground mt-6 mb-2">
@@ -67,18 +104,9 @@ function RenderContent({ content }: { content: string }) {
       flushList();
     } else {
       flushList();
-      const parts = trimmed.split(/(\*\*[^*]+\*\*)/g);
       elements.push(
         <p key={idx} className="text-foreground/90 leading-relaxed my-3">
-          {parts.map((part, pi) =>
-            part.startsWith("**") && part.endsWith("**") ? (
-              <strong key={pi} className="font-semibold text-foreground">
-                {part.replace(/\*\*/g, "")}
-              </strong>
-            ) : (
-              <span key={pi}>{part}</span>
-            )
-          )}
+          {renderInline(trimmed)}
         </p>
       );
     }
@@ -176,6 +204,32 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          url: `https://easeintoai.co/insights/${post.slug}`,
+          datePublished: new Date(post.date).toISOString().split("T")[0],
+          author: {
+            "@type": "Person",
+            name: "Emmanuel Kerkulah",
+            url: "https://easeintoai.co/#about",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "EaseIntoAI",
+            url: "https://easeintoai.co/",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://easeintoai.co/logo.png",
+            },
+          },
+          image: "https://easeintoai.co/og-image.png",
+          mainEntityOfPage: `https://easeintoai.co/insights/${post.slug}`,
+        }}
+      />
       <Navigation />
 
       {/* Article */}

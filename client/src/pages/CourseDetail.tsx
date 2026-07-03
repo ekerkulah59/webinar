@@ -16,13 +16,14 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getCourseBySlug, courses } from "@/lib/courseData";
 import { useSEO } from "@/hooks/useSEO";
+import { JsonLd } from "@/components/JsonLd";
 
 export default function CourseDetail() {
   const params = useParams<{ slug: string }>();
   const course = getCourseBySlug(params.slug || "");
 
   useSEO({
-    title: course ? `${course.title} — EaseIntoAI` : "Course not found",
+    title: course ? course.title : "Course not found",
     description: course?.description || "This course could not be found.",
   });
 
@@ -53,6 +54,32 @@ export default function CourseDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: course.title,
+          description: course.description,
+          url: `https://easeintoai.co/courses/${course.slug}`,
+          provider: {
+            "@type": "Organization",
+            name: "EaseIntoAI",
+            url: "https://easeintoai.co/",
+          },
+          ...(course.priceAmount !== undefined || course.type === "free"
+            ? {
+                offers: {
+                  "@type": "Offer",
+                  price: String(course.priceAmount ?? 0),
+                  priceCurrency: "USD",
+                  availability: isAvailable
+                    ? "https://schema.org/InStock"
+                    : "https://schema.org/PreOrder",
+                },
+              }
+            : {}),
+        }}
+      />
       <Navigation />
 
       {/* ── Hero ─────────────────────────────────────────────── */}

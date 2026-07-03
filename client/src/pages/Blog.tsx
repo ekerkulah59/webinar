@@ -14,6 +14,7 @@ import {
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { blogPosts, CATEGORIES, type BlogPost } from "@/lib/blogData";
+import { useSEO } from "@/hooks/useSEO";
 
 // ─── Category Filter ─────────────────────────────────────────────
 type CategoryKey = BlogPost["category"] | "all";
@@ -200,6 +201,13 @@ function PostCard({ post, featured = false }: { post: BlogPost; featured?: boole
 
 // ─── Main Blog Page ──────────────────────────────────────────────
 export default function Blog() {
+  useSEO({
+    title: "AI Insights for Women Entrepreneurs & Small Business Owners",
+    description:
+      "Practical AI tutorials, honest takes on AI news, and webinar recaps — written for women entrepreneurs and small business owners who want clarity, not jargon.",
+    type: "website",
+  });
+
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
 
   const featuredPost = blogPosts.find((p) => p.featured);
@@ -236,7 +244,8 @@ export default function Blog() {
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               My takes on AI news, practical tutorials, and lessons from hosting
-              webinars. Written for people who want clarity, not jargon.
+              webinars. Written for women entrepreneurs and small business
+              owners who want clarity, not jargon.
             </p>
           </div>
         </div>

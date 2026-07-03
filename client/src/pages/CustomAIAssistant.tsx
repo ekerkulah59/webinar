@@ -21,6 +21,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useSEO } from "@/hooks/useSEO";
+import { JsonLd } from "@/components/JsonLd";
 import {
   Accordion,
   AccordionContent,
@@ -127,7 +129,7 @@ const faqs = [
   {
     question: "What businesses is this best for?",
     answer:
-      "Service-based small businesses, coaches, consultants, agencies, and small teams who repeat similar work — client questions, content, onboarding, admin, and internal how-tos. If you have clear offers and documented processes (even informal ones), you are a strong fit.",
+      "Service-based small businesses — coaches, consultants, creators, salons, studios, boutiques, agencies, and small teams who repeat similar work: client questions, content, onboarding, admin, and internal how-tos. It's built for the same audience as our webinars — women entrepreneurs and small business owners without a tech background. If you have clear offers and documented processes (even informal ones), you are a strong fit.",
   },
   {
     question: "What do you need from me?",
@@ -143,6 +145,11 @@ const faqs = [
     question: "Will it replace my team?",
     answer:
       "No. The goal is to reduce repetitive work and give your people faster access to your business knowledge — not to replace judgment, relationships, or the work only humans should do.",
+  },
+  {
+    question: "Do you only work with local businesses?",
+    answer:
+      "I'm based in Delaware and work with business owners across the Mid-Atlantic — New Jersey, Maryland, Pennsylvania, Virginia, New York, and the Washington, DC area — as well as nationwide. Everything is fully remote: the discovery call, setup, review, and walkthrough all happen over Zoom, so wherever you are, you're a fit.",
   },
   {
     question: "How do we start?",
@@ -175,6 +182,13 @@ const whyPoints = [
 ];
 
 export default function CustomAIAssistant() {
+  useSEO({
+    title: "Custom AI Assistant for Your Small Business",
+    description:
+      "A private AI assistant built on your business's services, FAQs, and brand voice. Based in Delaware — serving NJ, MD, PA, VA, NY, and the DC area, plus remote nationwide.",
+    type: "website",
+  });
+
   const discoveryLinkProps =
     DISCOVERY_CALL_URL.startsWith("mailto:")
       ? {}
@@ -182,6 +196,37 @@ export default function CustomAIAssistant() {
 
   return (
     <div className="min-h-screen bg-background scroll-smooth">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Custom AI Assistant Setup",
+          serviceType:
+            "Custom AI assistant setup and AI consulting for small businesses",
+          description:
+            "A private AI assistant built on a business's services, FAQs, documents, and brand voice — set up, reviewed together, and explained in plain language.",
+          url: "https://easeintoai.co/custom-ai-assistant",
+          provider: {
+            "@type": "Organization",
+            name: "EaseIntoAI",
+            url: "https://easeintoai.co/",
+          },
+          areaServed: [
+            "Delaware",
+            "New Jersey",
+            "Maryland",
+            "Pennsylvania",
+            "Virginia",
+            "New York",
+            "Washington, DC",
+          ],
+          availableChannel: {
+            "@type": "ServiceChannel",
+            serviceUrl: "https://easeintoai.co/custom-ai-assistant",
+            availableLanguage: "English",
+          },
+        }}
+      />
       <Navigation />
 
       {/* Hero */}
@@ -289,7 +334,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
           </div>
 
           <p className="mt-10 text-base md:text-lg text-foreground font-medium max-w-3xl leading-relaxed">
-            You don&apos;t need a smarter chatbot from you need one that
+            You don&apos;t need a smarter chatbot — you need one that
             understands your business. That gap is exactly what a custom
             assistant is built to close.
           </p>
@@ -320,7 +365,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
                 <p>
                   Instead of opening a blank chat and re-explaining your
                   business every time, you get an assistant that has already
-                  read your materials from your services, documents, FAQs,
+                  read your materials — your services, documents, FAQs,
                   examples, and the tasks you do over and over. It starts the
                   conversation already up to speed.
                 </p>
@@ -328,8 +373,9 @@ You didn't build your business by being generic. Your AI shouldn't be either.
                   It speaks in your tone and uses your terminology, so drafts
                   and answers sound like they came from your business. Think of
                   it as a well-briefed helper for drafting, quick lookups, and
-                  repeat work from your brand voice with clear lines around the things that should
-                  still get a human review before they go out.
+                  repeat work in your brand voice — with clear lines around the
+                  things that should still get a human review before they go
+                  out.
                 </p>
               </div>
             </div>
@@ -355,13 +401,14 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               </span>
             </div>
             <p className="text-base md:text-lg text-foreground leading-relaxed">
-              Say you run a small bookkeeping firm. A prospect emails asking
-              what&apos;s included in your monthly package and how onboarding
-              works. You ask your assistant to draft a reply from your brand voice and because it
-              already knows your services, pricing tiers, and the way you
-              explain onboarding, it writes a clear, on-brand response in
-              seconds. You read it over, adjust one line, and send. The
-              repetitive part is done for you; the final call is still yours.
+              Say you run a small skincare studio. A prospect emails asking
+              what&apos;s included in your signature facial package and how
+              booking works. You ask your assistant to draft a reply in your
+              brand voice — and because it already knows your services, your
+              pricing, and the way you explain your booking policy, it writes a
+              clear, on-brand response in seconds. You read it over, adjust one
+              line, and send. The repetitive part is done for you; the final
+              call is still yours.
             </p>
           </div>
         </div>
@@ -388,7 +435,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
             </h2>
             <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed">
               Most service businesses lose hours to the same handful of tasks.
-              Here&apos;s where a custom assistant tends to help first from grouped
+              Here&apos;s where a custom assistant tends to help first, grouped
               by the part of your business it supports.
             </p>
           </div>
@@ -422,7 +469,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
 
           <p className="mt-10 text-sm text-muted-foreground max-w-3xl">
             The assistant speeds up the repetitive parts and keeps your team
-            focused on the work that needs a human  it doesn&apos;t replace
+            focused on the work that needs a human — it doesn&apos;t replace
             the people who run your business.
           </p>
         </div>
@@ -557,7 +604,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
             Common Questions
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed mb-8">
-            Straight answers  the same way we handle questions in webinars and
+            Straight answers — the same way we handle questions in webinars and
             courses.
           </p>
 
@@ -616,6 +663,11 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               >
                 {CONTACT_EMAIL}
               </a>
+            </p>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Based in Delaware · Serving business owners in New Jersey,
+              Maryland, Pennsylvania, Virginia, New York, and the Washington,
+              DC area · All services fully remote, available nationwide
             </p>
           </div>
         </div>

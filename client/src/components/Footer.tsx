@@ -48,9 +48,16 @@ export default function Footer() {
           <div className="md:col-span-2 space-y-4">
             <img src="/logo-full-dark.svg" alt="EaseIntoAI" className="h-14 w-auto" />
             <p className="text-sm text-background/60 leading-relaxed max-w-sm">
-              AI Educator &amp; Builder. Hosting practical webinars to
-              help people navigate the world of artificial intelligence with
-              clarity and confidence.
+              AI Educator for Women Entrepreneurs and Small Business Owners.
+              Hosting practical webinars that help women running businesses —
+              coaches, consultants, creators, and local business owners — use
+              AI for content, clients, and systems, with clarity and
+              confidence.
+            </p>
+            <p className="text-xs text-background/45 leading-relaxed max-w-sm">
+              Based in Delaware · Serving the Mid-Atlantic: New Jersey,
+              Maryland, Pennsylvania, Virginia, New York &amp; the Washington,
+              DC area · Live webinars on Zoom, wherever you are
             </p>
             <div className="flex gap-3 pt-2">
               <a

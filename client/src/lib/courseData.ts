@@ -162,7 +162,7 @@ export const courses: Course[] = [
     priceAmount: 49,
     duration: "6 modules",
     audience: "Teachers & Educators",
-    featured: true,
+    featured: false,
     modules: [
       "Module 1 — AI Basics for Teachers",
       "Module 2 — Lesson Planning with AI",
@@ -185,6 +185,44 @@ export const courses: Course[] = [
       "Automated grading and feedback workflows",
       "Presentation and visual creation skills using free AI tools",
       "A personal automation system for your most time-consuming tasks",
+    ],
+  },
+  {
+    id: 6,
+    slug: "ai-for-women-entrepreneurs",
+    title: "AI for Women Entrepreneurs & Small Business Owners",
+    description:
+      "Built for coaches, consultants, creators, and local business owners. Learn how to use AI to create content, communicate with clients, shape offers, and set up simple automations — no tech background required.",
+    longDescription:
+      "You're running a business — not a tech company. Between marketing, content, client messages, bookings, and the actual work you do, AI can feel like one more thing you don't have time to learn. This course is built specifically for women entrepreneurs and small business owners: coaches, consultants, creators, and local business owners running salons, studios, boutiques, and food trucks. Six focused modules show you how to put AI to work in the business you already have — in plain language, with real examples from women-led businesses.",
+    type: "paid",
+    price: "$49",
+    priceAmount: 49,
+    duration: "6 modules",
+    audience: "Women Entrepreneurs & Small Business Owners",
+    featured: true,
+    modules: [
+      "Module 1 — AI Basics for Business Owners (No Tech Background Needed)",
+      "Module 2 — Content That Sounds Like You: Social Media, Email & Captions",
+      "Module 3 — Clients & Communication: Inquiries, Follow-Ups & No-Shows",
+      "Module 4 — Offers & Pricing: Shape a Sellable Offer with AI",
+      "Module 5 — Simple Automations: Booking Reminders, FAQs & Intake Forms",
+      "Module 6 — The SAFE Check: Using AI Responsibly with Client Information",
+    ],
+    status: "coming-soon",
+    enrollUrl: undefined,
+    whoIsItFor: [
+      "Coaches, consultants, creators, and online service providers",
+      "Owners of local businesses — salons, studios, boutiques, food trucks, and other service businesses",
+      "Women who feel behind on AI and don't have time to learn it by trial and error",
+    ],
+    whatYouWillLeave: [
+      "Hours back every week on content, emails, and admin",
+      "A system for turning one idea into a month of social media and email content",
+      "Client communication drafts — inquiries, follow-ups, no-shows — that still sound like you",
+      "A clear, well-priced offer shaped with AI as your thinking partner",
+      "Simple automations: booking reminders, FAQ replies, intake forms",
+      "The SAFE Check habit for anything AI writes under your business's name",
     ],
   },
 ];

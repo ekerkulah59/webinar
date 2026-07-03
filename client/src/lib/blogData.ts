@@ -18,6 +18,126 @@ export const CATEGORIES: Record<BlogPost["category"], { label: string; color: st
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "announcing-ai-for-women-entrepreneurs-webinar",
+    title: "Our Next Webinar: AI for Women Entrepreneurs and Small Business Owners — July 22",
+    excerpt:
+      "Our next live session is built for women running businesses — coaches, consultants, creators, salons, boutiques, and food trucks. Here's exactly what we'll cover, who it's for, and how to save your spot.",
+    content: `
+## The Short Version
+
+**AI for Women Entrepreneurs and Small Business Owners** is our next live webinar.
+
+- **When:** Tuesday, July 22, 2026 at 12:00 PM New York Time
+- **Where:** Live on Zoom
+- **How long:** 60 minutes, including live Q&A
+- **Cost:** $49
+- **Tech background required:** None
+
+You can reserve your spot on the [homepage](/#upcoming).
+
+## Who This Session Is For
+
+This one is built specifically for women running businesses:
+
+- Coaches, consultants, creators, and online service providers
+- Owners of local service businesses — salons, studios, boutiques, food trucks
+
+If you're already juggling marketing, content, client messages, and bookings — and AI keeps sliding to the bottom of the list — this session was designed around your week, not a tech person's.
+
+## What We'll Cover
+
+We're keeping it practical. By the end of the hour, you'll know:
+
+**1. How to plan a month of content in one afternoon.** Social media, email, captions — using AI as a drafting partner without losing your voice.
+
+**2. How to write client communication faster.** Inquiries, follow-ups, and no-show messages that still sound like you, not a robot.
+
+**3. How to shape and price an offer with AI as your thinking partner.** Take a rough service idea and turn it into something clear and sellable.
+
+**4. Which simple automations actually save hours.** Booking reminders, FAQ replies, intake forms — the boring ones that quietly give you your week back.
+
+**5. How to check AI's work before it goes out under your business's name.** We'll walk through the SAFE Check — four questions to run on anything AI writes.
+
+Then we open the floor. The live Q&A is where the best moments happen — bring questions about your actual business.
+
+## What This Isn't
+
+In keeping with how we do everything at EaseIntoAI: no hype, no affiliate links, no surprise pitch at the end. We'll tell you where AI genuinely helps a small business and where it falls short. You'll leave with things you can use the same day.
+
+## Common Questions
+
+**"I'm not technical at all. Will I be lost?"** No. Every session is taught in plain language, and this one assumes zero AI experience.
+
+**"My business is small — just me. Is it still relevant?"** Solo business owners are exactly who this is for. Everything we cover works without a team or a budget.
+
+**"What if I can't attend live?"** Register anyway — registered attendees get the session details and access to the replay.
+
+## Save Your Spot
+
+Head to the [homepage](/#upcoming) to register. Space in the live Q&A is what makes these sessions work, so we keep them intentionally small.
+
+See you on July 22.
+    `.trim(),
+    category: "ai-news",
+    date: "July 2, 2026",
+    readTime: "4 min read",
+    featured: true,
+  },
+  {
+    slug: "too-busy-to-learn-ai-women-business-owners",
+    title: "Too Busy Running Your Business to Learn AI? That's Exactly Who Our Next Webinar Is For",
+    excerpt:
+      "If AI keeps sliding to the bottom of your to-do list, you're not behind — you're busy. Here's why one focused hour on July 22 beats months of trial and error.",
+    content: `
+## The To-Do List Problem
+
+If you run a business, your relationship with AI probably looks something like this: you know you should figure it out, you've saved a dozen "10 AI tools you need" posts you'll never read, and every week it loses to the things that actually pay the bills — clients, content, bookings, admin.
+
+That's not falling behind. That's triage. When you're the marketer, the bookkeeper, and the person doing the actual work, "learn AI someday" is a rational decision.
+
+The problem is that "someday" has a cost.
+
+## What Trial and Error Actually Costs
+
+Most business owners who do start with AI learn it the slow way: open ChatGPT, type something vague, get something generic, decide it's not worth it. Repeat every few months when the guilt returns.
+
+The tool wasn't the problem. Nobody showed them how to use it for *their* work:
+
+- The salon owner who types "write an Instagram caption" and gets something that sounds like a corporate press release
+- The coach who asks AI to describe her program and gets fluff she'd never send to a client
+- The boutique owner who knows there's a faster way to answer the same five customer questions, but not where to start
+
+Each of those has a fix that takes minutes to learn — and months to stumble into on your own.
+
+## What One Focused Hour Does
+
+That's the entire reason our next webinar exists. **AI for Women Entrepreneurs and Small Business Owners** — live on Zoom, Tuesday, July 22 at 12:00 PM New York Time — compresses the useful part of that learning curve into one hour:
+
+- Planning a month of content in an afternoon
+- Client emails and follow-ups that sound like you
+- Shaping and pricing an offer with AI as a thinking partner
+- Simple automations for the repetitive stuff — reminders, FAQs, intake forms
+- The SAFE Check: four questions to run on any AI output before it goes out under your business's name
+
+And because it's live, you can ask about your actual business in the Q&A. That's the part a saved Instagram post can't do.
+
+## An Honest Expectation Check
+
+One hour will not make you an "AI expert," and AI will not run your business for you. Anyone promising either is selling something.
+
+What one hour *can* do is replace the vague guilt of "I should figure out AI" with three or four specific things you use every week. That's the difference between AI as another item on the to-do list and AI as the thing that shortens it.
+
+## Join Us
+
+July 22, 12:00 PM New York Time, live on Zoom, $49, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
+
+Bring your real questions. That's what the hour is for.
+    `.trim(),
+    category: "opinion",
+    date: "July 2, 2026",
+    readTime: "4 min read",
+  },
+  {
     slug: "ai-literacy-framework-practical-guide",
     title: "The AI Literacy Framework, Explained for Real-World Use",
     excerpt:
@@ -64,7 +184,7 @@ This is the part most programs miss. People don't need one webinar and a badge. 
 
 ## What This Means for Everyday Professionals
 
-If you're a teacher, business owner, nonprofit leader, admin professional, or healthcare worker, this framework gives you permission to learn AI in a grounded way.
+If you're a business owner, coach, consultant, teacher, nonprofit leader, or healthcare worker, this framework gives you permission to learn AI in a grounded way.
 
 You don't need to "master AI." You need to:
 
@@ -378,7 +498,7 @@ If you start learning now, you'll be comfortable when those features arrive. If 
 
 ## My Offer
 
-This is exactly why I host free webinars. No sales pitch, no technical jargon, no pressure. Just a clear hour of learning that gives you a foundation to build on.
+This is exactly why I host live webinars — the early sessions were free, and every session since is built the same way. No sales pitch, no technical jargon, no pressure. Just a clear hour of learning that gives you a foundation to build on.
 
 If this resonates, check out my upcoming webinar or browse the past sessions on this site. The goal is always the same: less confusion, more confidence.
     `.trim(),

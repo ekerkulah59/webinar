@@ -28,7 +28,7 @@ const GREETING: Message = {
   id: "greeting",
   role: "assistant",
   content:
-    "👋 Hi! I'm the EaseIntoAI Assistant.\n\nAsk me anything about AI tools, prompt engineering, Make.com automation, or the EaseIntoAI courses — I answer only from our actual course content.\n\nWhat would you like to learn today?",
+    "👋 Hi! I'm the EaseIntoAI Assistant.\n\nAsk me anything about using AI in your business — content, prompting, simple automations, or the EaseIntoAI courses. I answer only from our actual course content.\n\nWhat would you like to learn today?",
 };
 
 // ── Typing indicator ──────────────────────────────────────────────────────────

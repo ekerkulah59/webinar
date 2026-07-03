@@ -1,17 +1,24 @@
 import { useEffect } from "react";
 
+const SITE_URL = "https://easeintoai.co";
+const DEFAULT_TITLE =
+  "EaseIntoAI — Practical AI for Women Entrepreneurs & Small Business Owners";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+
 interface SEOProps {
   title: string;
   description: string;
+  /** Canonical URL for the page. Defaults to SITE_URL + current path. */
   url?: string;
   type?: string;
+  image?: string;
 }
 
 /**
- * Updates the document title and Open Graph / Twitter meta tags
- * so that shared links render rich previews on LinkedIn, X, etc.
+ * Updates the document title, canonical link, and Open Graph / Twitter meta
+ * tags so that shared links render rich previews on LinkedIn, X, etc.
  */
-export function useSEO({ title, description, url, type = "article" }: SEOProps) {
+export function useSEO({ title, description, url, type = "article", image }: SEOProps) {
   useEffect(() => {
     const fullTitle = `${title} — EaseIntoAI`;
 
@@ -29,24 +36,36 @@ export function useSEO({ title, description, url, type = "article" }: SEOProps) 
       el.setAttribute("content", value);
     }
 
-    const pageUrl = url || window.location.href;
+    // Canonical URL — always absolute, no hash or query
+    const pageUrl = url || `${SITE_URL}${window.location.pathname}`;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", pageUrl);
+
+    const ogImage = image || DEFAULT_OG_IMAGE;
 
     // Open Graph
     setMeta("property", "og:title", fullTitle);
     setMeta("property", "og:description", description);
     setMeta("property", "og:url", pageUrl);
     setMeta("property", "og:type", type);
+    setMeta("property", "og:image", ogImage);
 
     // Twitter Card
     setMeta("name", "twitter:title", fullTitle);
     setMeta("name", "twitter:description", description);
+    setMeta("name", "twitter:image", ogImage);
 
     // Standard meta description
     setMeta("name", "description", description);
 
     // Cleanup: restore defaults on unmount
     return () => {
-      document.title = "EaseIntoAI — Making AI Accessible to Everyone";
+      document.title = DEFAULT_TITLE;
     };
-  }, [title, description, url, type]);
+  }, [title, description, url, type, image]);
 }

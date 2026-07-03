@@ -19,14 +19,16 @@ import FluencyFrameworkSection from "@/components/FluencyFrameworkSection";
 import SafeCheckSection from "@/components/SafeCheckSection";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { useSEO } from "@/hooks/useSEO";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 import { pastWebinars } from "@/lib/webinarData";
 
 /** Upcoming webinar metadata used for registration + countdown */
 const UPCOMING_WEBINAR = {
-  slug: "ai-at-work-june-2026",
-  dateLabel: "June 24, 2026",
-  startIso: "2026-06-24T12:00:00-04:00",
+  slug: "ai-for-women-entrepreneurs-july-2026",
+  dateLabel: "July 22, 2026",
+  startIso: "2026-07-22T12:00:00-04:00",
   timeLabel: "12:00 PM New York Time",
 };
 
@@ -101,6 +103,14 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
 
 // ─── Main Page ───────────────────────────────────────────────────
 export default function Home() {
+  useSEO({
+    title: "Practical AI for Women Entrepreneurs & Small Business Owners",
+    description:
+      "Live, practical AI webinars for women entrepreneurs and small business owners. Save time, create content, and attract clients — no tech background required.",
+    url: "https://easeintoai.co/",
+    type: "website",
+  });
+
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
   const sessionCount = pastWebinars.length;
@@ -114,6 +124,36 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "AI for Women Entrepreneurs and Small Business Owners",
+          description:
+            "A live, practical webinar showing women entrepreneurs and small business owners how to use AI for content, clients, and offers — no tech background required.",
+          startDate: UPCOMING_WEBINAR.startIso,
+          eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+          eventStatus: "https://schema.org/EventScheduled",
+          location: {
+            "@type": "VirtualLocation",
+            url: "https://easeintoai.co/#upcoming",
+          },
+          image: "https://easeintoai.co/og-image.png",
+          organizer: {
+            "@type": "Organization",
+            name: "EaseIntoAI",
+            url: "https://easeintoai.co/",
+          },
+          performer: { "@type": "Person", name: "Emmanuel Kerkulah" },
+          offers: {
+            "@type": "Offer",
+            price: "49",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            url: "https://easeintoai.co/#upcoming",
+          },
+        }}
+      />
       <Navigation />
 
       {/* ── Hero Section ─────────────────────────────────────── */}
@@ -131,19 +171,21 @@ export default function Home() {
             <div className="space-y-8 text-center md:text-left order-2 md:order-1">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
                 <Award className="w-4 h-4" />
-                AI Educator &amp; Builder
+                AI Educator for Women Entrepreneurs &amp; Small Business Owners
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
                 AI Doesn&apos;t Have to Feel This{" "}
-                <span className="text-accent">Overwhelming.</span>
+                <span className="text-accent">Overwhelming</span>  Even If
+                You&apos;re Running Your Business Solo.
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                EaseIntoAI hosts live, practical webinars that help everyday
-                people understand artificial intelligence, clearly, honestly,
-                and without the hype. No tech background. No jargon. Real
-                questions answered.
+                EaseIntoAI hosts live, practical webinars that help women
+                entrepreneurs and small business owners use AI to save time,
+                create content, and attract clients  clearly, honestly, and
+                without the hype. No tech background. No jargon. Real questions
+                answered.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
@@ -175,7 +217,7 @@ export default function Home() {
             {/* Right: brand intro video (visible on all breakpoints — replaces stock collage) */}
             <div className="relative order-1 md:order-2 flex flex-col justify-center w-full max-w-[540px] mx-auto md:mx-0 md:justify-self-end">
               <p className="text-center md:text-left text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-                See what EaseIntoAI is about
+                See how business owners like you are using AI
               </p>
               <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-card ring-1 ring-black/5">
                 <div className="aspect-video w-full">
@@ -189,7 +231,7 @@ export default function Home() {
                       aria-label="EaseIntoAI introduction video"
                       onError={() => setVideoUnavailable(true)}
                     >
-                      <source src="/EaseIntoAI.mp4" type="video/mp4" />
+                      <source src="/EaseIntoAI_Brand_Introduction_with_captions.mp4" type="video/mp4" />
                     </video>
                   ) : (
                     <div className="h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-accent/70 text-white p-6 flex flex-col justify-between">
@@ -283,6 +325,11 @@ export default function Home() {
             <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">
               Community Feedback
             </p>
+            <p className="mb-8 text-lg text-muted-foreground leading-relaxed">
+              Women entrepreneurs and small business owners leave EaseIntoAI
+              sessions with more than notes  they leave with the confidence
+              and clarity to actually use AI in their business the next day.
+            </p>
             <Card className="border-accent/25 shadow-sm">
               <div className="p-8 md:p-10">
                 <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
@@ -318,21 +365,22 @@ export default function Home() {
                   Next Webinar
                 </span>
                 <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
-                  AI at Work: Using AI Confidently in Your Job (Without Getting in Trouble)
+                  AI for Women Entrepreneurs and Small Business Owners
                 </h2>
                 <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                  Most people using AI at work are doing it without clear guidance. This session shows
-                  what to share, what to avoid, and how to use AI output responsibly in a professional setting.
+                  Most women running a business are curious about AI but don&apos;t have time to learn it
+                  by trial and error. This session shows you exactly how to use it for content, clients,
+                  and offers — no tech background required.
                 </p>
 
                 <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
                   {[
-                    "Which types of information are never safe to put into an AI tool at work",
-                    "How to use AI for drafts, summaries, and research without crossing a line",
-                    "The SAFE Check - 4 questions to run on any AI output before you submit it",
-                    "Common mistakes workers are already making - and how to avoid them",
-                    "How to start a conversation with your employer about AI policy",
-                    "Live Q&A focused on real workplace scenarios",
+                    "How to plan a month of social media and email content in one afternoon with AI",
+                    "Writing captions, newsletters, and client emails that still sound like you",
+                    "Turning a rough service idea into a clear, well-priced offer with AI as your thinking partner",
+                    "Using AI to handle client communication  inquiries, follow-ups, and no-show messages",
+                    "Simple automations that save hours every week: booking reminders, FAQ replies, intake forms",
+                    "Live Q&A focused on real businesses  coaching, salons, boutiques, food trucks, and more",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3 py-3.5">
                       <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
@@ -351,7 +399,7 @@ export default function Home() {
               <Card className="h-fit border-0 bg-accent text-accent-foreground shadow-xl">
                 <div className="p-6 md:p-7 space-y-5">
                   <h3 className="text-xl font-bold leading-snug">
-                    AI at Work, Session 1
+                    AI for Women Entrepreneurs, Session 1
                   </h3>
 
                   <div className="space-y-3 text-sm">
@@ -412,7 +460,7 @@ export default function Home() {
               Past Webinars
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              {pastWebinars.length} sessions completed. 100+ attendees. Each session is practical and built for everyday people.
+              {pastWebinars.length} sessions completed. 100+ attendees. Each session is practical, taught in plain language, and built for people without a tech background.
             </p>
             <div className="flex justify-center gap-10 py-4">
               {[
