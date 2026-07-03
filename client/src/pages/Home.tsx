@@ -176,7 +176,7 @@ export default function Home() {
 
               <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
                 AI Doesn&apos;t Have to Feel This{" "}
-                <span className="text-accent">Overwhelming</span> — Even If
+                <span className="text-accent">Overwhelming</span>  Even If
                 You&apos;re Running Your Business Solo.
               </h1>
 
