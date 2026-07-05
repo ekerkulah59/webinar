@@ -12,7 +12,10 @@ import { submitLead, type LeadSource } from "@/lib/leads";
 const webinarSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Enter a valid email"),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .min(1, "Phone number is required")
+    .regex(/^\+?[\d\s().-]{7,20}$/, "Enter a valid phone number"),
   website: z.string().optional(),
 });
 
@@ -98,7 +101,7 @@ export function LeadForm({
         </p>
         <p className={cn("mt-1", inverted ? "text-background/80" : "text-muted-foreground")}>
           {isWebinar
-            ? "Check your email for the webinar link and calendar details."
+            ? "Check your email for the webinar link and calendar details. We'll also text you a confirmation and a reminder before the session."
             : "We'll send updates on webinars, courses, and AI insights — no spam."}
         </p>
         <button
@@ -187,7 +190,7 @@ export function LeadForm({
       {isWebinar && (
         <div className="space-y-2">
           <Label htmlFor={`${source}-phone`} className={labelClass}>
-            Phone <span className={inverted ? "text-background/50" : "text-muted-foreground"}>(optional)</span>
+            Phone
           </Label>
           <Input
             id={`${source}-phone`}
@@ -197,6 +200,14 @@ export function LeadForm({
             className={inputClass}
             {...register("phone")}
           />
+          {"phone" in errors && errors.phone && (
+            <p className={cn("text-xs", inverted ? "text-red-200" : "text-destructive")}>
+              {errors.phone.message}
+            </p>
+          )}
+          <p className={cn("text-xs", inverted ? "text-background/60" : "text-muted-foreground")}>
+            We&apos;ll text you a confirmation and a reminder before the session.
+          </p>
         </div>
       )}
 
