@@ -30,7 +30,7 @@ export const blogPosts: BlogPost[] = [
 - **When:** Tuesday, July 22, 2026 at 12:00 PM New York Time
 - **Where:** Live on Zoom
 - **How long:** 60 minutes, including live Q&A
-- **Cost:** $49
+- **Cost:** Free
 - **Tech background required:** None
 
 You can reserve your spot on the [homepage](/#upcoming).
@@ -129,7 +129,7 @@ What one hour *can* do is replace the vague guilt of "I should figure out AI" wi
 
 ## Join Us
 
-July 22, 12:00 PM New York Time, live on Zoom, $49, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
+July 22, 12:00 PM New York Time, live on Zoom, completely free, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
 
 Bring your real questions. That's what the hour is for.
     `.trim(),

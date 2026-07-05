@@ -12,7 +12,6 @@ import {
   PlayCircle,
 } from "lucide-react";
 import { Link } from "wouter";
-import { toast } from "sonner";
 import AboutSection from "@/components/AboutSection";
 import WhatWeCoverSection from "@/components/WhatWeCoverSection";
 import FluencyFrameworkSection from "@/components/FluencyFrameworkSection";
@@ -20,6 +19,7 @@ import SafeCheckSection from "@/components/SafeCheckSection";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { LeadForm } from "@/components/LeadForm";
 import { useSEO } from "@/hooks/useSEO";
 import { blogPosts, CATEGORIES } from "@/lib/blogData";
 import { pastWebinars } from "@/lib/webinarData";
@@ -31,9 +31,6 @@ const UPCOMING_WEBINAR = {
   startIso: "2026-07-22T12:00:00-04:00",
   timeLabel: "12:00 PM New York Time",
 };
-
-const PAYPAL_PAYMENT_URL = (import.meta.env.VITE_PAYPAL_PAYMENT_URL ?? "").trim();
-
 
 // ─── Countdown Hook ──────────────────────────────────────────────
 function useCountdown(targetDate: Date) {
@@ -106,7 +103,7 @@ export default function Home() {
   useSEO({
     title: "Practical AI for Women Entrepreneurs & Small Business Owners",
     description:
-      "Live, practical AI webinars for women entrepreneurs and small business owners. Save time, create content, and attract clients — no tech background required.",
+      "Free live webinars for women business owners doing it all. Learn practical ways to use AI in your business — even if you're not techy.",
     url: "https://easeintoai.co/",
     type: "website",
   });
@@ -114,12 +111,8 @@ export default function Home() {
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
   const sessionCount = pastWebinars.length;
-  const handlePayPalCheckout = () => {
-    if (!PAYPAL_PAYMENT_URL) {
-      toast.error("Add your PayPal link in VITE_PAYPAL_PAYMENT_URL to enable checkout.");
-      return;
-    }
-    window.open(PAYPAL_PAYMENT_URL, "_blank", "noopener,noreferrer");
+  const scrollToRegistration = () => {
+    document.getElementById("upcoming")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -128,9 +121,9 @@ export default function Home() {
         data={{
           "@context": "https://schema.org",
           "@type": "Event",
-          name: "AI for Women Entrepreneurs and Small Business Owners",
+          name: "For Women Business Owners Doing It All: Learn How AI Can Lighten the Load",
           description:
-            "A live, practical webinar showing women entrepreneurs and small business owners how to use AI for content, clients, and offers — no tech background required.",
+            "A free live webinar showing women business owners practical ways to use AI in their business — even if they're not techy.",
           startDate: UPCOMING_WEBINAR.startIso,
           eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
@@ -145,9 +138,10 @@ export default function Home() {
             url: "https://easeintoai.co/",
           },
           performer: { "@type": "Person", name: "Emmanuel Kerkulah" },
+          isAccessibleForFree: true,
           offers: {
             "@type": "Offer",
-            price: "49",
+            price: "0",
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
             url: "https://easeintoai.co/#upcoming",
@@ -190,12 +184,12 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
                 <Button
-                  onClick={handlePayPalCheckout}
+                  onClick={scrollToRegistration}
                   variant="primary"
                   size="lg"
                   className="px-8 py-3 text-base"
                 >
-                  Pay $49 to Reserve Your Spot
+                  Save My Free Spot
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
@@ -362,15 +356,14 @@ export default function Home() {
             <div className="grid gap-8 lg:grid-cols-[1.7fr_1fr] lg:gap-10">
               <div>
                 <span className="inline-flex items-center rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-accent">
-                  Next Webinar
+                  Free AI Webinar
                 </span>
                 <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
-                  AI for Women Entrepreneurs and Small Business Owners
+                  For Women Business Owners Doing It All: Learn How AI Can Lighten the Load
                 </h2>
                 <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                  Most women running a business are curious about AI but don&apos;t have time to learn it
-                  by trial and error. This session shows you exactly how to use it for content, clients,
-                  and offers — no tech background required.
+                  A free live webinar showing practical ways to use AI in your business — even if
+                  you&apos;re not techy.
                 </p>
 
                 <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
@@ -378,9 +371,9 @@ export default function Home() {
                     "How to plan a month of social media and email content in one afternoon with AI",
                     "Writing captions, newsletters, and client emails that still sound like you",
                     "Turning a rough service idea into a clear, well-priced offer with AI as your thinking partner",
-                    "Using AI to handle client communication  inquiries, follow-ups, and no-show messages",
+                    "Using AI to handle client communication: inquiries, follow-ups, and no-show messages",
                     "Simple automations that save hours every week: booking reminders, FAQ replies, intake forms",
-                    "Live Q&A focused on real businesses  coaching, salons, boutiques, food trucks, and more",
+                    "Live Q&A focused on real businesses: coaching, salons, boutiques, food trucks, and more",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3 py-3.5">
                       <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
@@ -399,7 +392,7 @@ export default function Home() {
               <Card className="h-fit border-0 bg-accent text-accent-foreground shadow-xl">
                 <div className="p-6 md:p-7 space-y-5">
                   <h3 className="text-xl font-bold leading-snug">
-                    AI for Women Entrepreneurs, Session 1
+                    Lighten the Load, Session 1
                   </h3>
 
                   <div className="space-y-3 text-sm">
@@ -421,7 +414,7 @@ export default function Home() {
                         Live on Zoom
                       </span>
                       <span className="rounded-full bg-background/15 px-2 py-0.5 text-xs font-semibold">
-                        $49
+                        Free
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-accent-foreground/90">
@@ -430,17 +423,18 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <Button
-                    onClick={handlePayPalCheckout}
-                    size="lg"
-                    className="w-full bg-background text-foreground hover:bg-background/90"
-                  >
-                    Reserve Your Spot - $49
-                  </Button>
+                  <LeadForm
+                    source="webinar"
+                    webinarSlug={UPCOMING_WEBINAR.slug}
+                    variant="inverted"
+                    submitLabel="Save My Free Spot"
+                    className="[&_button]:w-full"
+                  />
 
-                  {/* <p className="text-xs text-accent-foreground/75">
-                    Secure checkout via Gumroad. After paying, you&apos;ll get your webinar access details by email.
-                  </p> */}
+                  <p className="text-xs text-accent-foreground/75">
+                    100% free. After registering, you&apos;ll get your Zoom link by email plus a
+                    text confirmation and reminder before the session.
+                  </p>
                 </div>
               </Card>
             </div>
