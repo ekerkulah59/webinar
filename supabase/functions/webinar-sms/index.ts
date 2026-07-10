@@ -15,8 +15,8 @@ import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 const WEBINAR = {
   slug: "ai-for-women-entrepreneurs-july-2026",
   title: "AI for Women Entrepreneurs and Small Business Owners",
-  startsAt: new Date("2026-07-22T12:00:00-04:00"),
-  whenLabel: "Tuesday, July 22 at 12:00 PM New York Time",
+  startsAt: new Date("2026-07-28T19:00:00-04:00"),
+  whenLabel: "Tuesday, July 28 at 7:00 PM New York Time",
 };
 
 type ReminderKind = "day_before" | "hour_before";
