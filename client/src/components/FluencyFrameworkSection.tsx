@@ -14,7 +14,7 @@ const fluencySkills: FluencySkill[] = [
     title: "Delegation",
     subtitle: "Deciding what to hand to AI",
     description:
-      "Knowing which tasks to hand off a first draft of a caption, a rough outline for a proposal, a summary of client notes and which need your hands on them directly, like final client messages and pricing decisions.",
+      "Knowing which tasks to hand off — a first draft of a caption, a rough outline for a proposal, a summary of client notes — and which need your hands on them directly, like final client messages and pricing decisions.",
     sessionTag: "Session 1 — AI for Women Entrepreneurs",
     headerClassName: "bg-foreground",
     tagClassName: "bg-accent/15 text-foreground",
@@ -64,8 +64,9 @@ export default function FluencyFrameworkSection() {
           </h2>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
             Developed by Anthropic, the AI Fluency Framework identifies the four
-            core competencies you need to work with AI effectively. We teach
-            all four through the lens of running a business — not writing code.
+            core competencies you need to work with AI effectively. We teach all
+            four through the lens of running a business — so what you hand to AI
+            stays in your voice.
           </p>
           <div className="mt-4 flex justify-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1.5 text-xs font-medium text-foreground">

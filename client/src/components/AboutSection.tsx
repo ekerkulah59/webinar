@@ -4,11 +4,11 @@ import { Globe, User } from "lucide-react";
 const pillars = [
   {
     title: "We Start With the Fear",
-    text: "Feeling intimidated by AI is normal, especially when you're already stretched thin running a business. We don't rush past it. We start there.",
+    text: "Feeling intimidated by AI is normal when you're already working a double shift. We start there.",
   },
   {
     title: "We Teach Frameworks",
-    text: "You'll leave with tools you can use in your business the same day, not just information to remember.",
+    text: "You leave with one system running the same day, not just notes.",
   },
   {
     title: "We Answer Real Questions",
@@ -16,7 +16,7 @@ const pillars = [
   },
   {
     title: "We Stay Honest",
-    text: "We tell you when AI gets things wrong, especially with client-facing work. No hype. No affiliate links. No upsells.",
+    text: "We tell you when AI gets things wrong. Nothing goes out under your name without your eyes on it. No hype. No upsells.",
   },
 ];
 
@@ -31,37 +31,27 @@ export default function AboutSection() {
               About EaseIntoAI
             </p>
             <h2 className="text-4xl md:text-[2.75rem] font-bold text-foreground leading-[1.15] tracking-tight max-w-2xl">
-              Most Women Running a Business Feel Behind on AI. That&apos;s Not
-              Your Fault.
+              You&apos;re Not Behind on AI. You&apos;re Out of Hours.
             </h2>
 
             <div className="mt-8 space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               <p>
-                AI is everywhere right now in the news, in your inbox, in
-                every &ldquo;10 tools you need&rdquo; post from someone selling
-                something. And if you&apos;re a coach, consultant, creator, or
-                you run a salon, boutique, studio, or food truck, the honest
-                feeling isn&apos;t excitement. It&apos;s overwhelm.
-                You&apos;re already juggling marketing, content, client
-                messages, bookings, and the actual work of your business. AI
-                feels like one more thing to figure out, on top of everything
-                else.
+                AI is everywhere: the news, your inbox, every &ldquo;10 tools
+                you need&rdquo; post. Meanwhile you&apos;re answering client
+                DMs at school pickup and sending invoices after bedtime.
+                Learning AI feels like a third job.
               </p>
               <p>
-                Here&apos;s the truth: you don&apos;t need to be technical to
-                use AI. You don&apos;t need a computer science degree or a
-                &ldquo;tech brain.&rdquo; You just need someone to explain it
-                in plain language, show you what it actually does for a
-                business like yours, and answer your real questions without
-                making you feel behind.
+                The truth: you don&apos;t need to be technical. You need
+                someone to show you, in plain language, which tasks AI can
+                take off your plate — without your business sounding like a
+                machine.
               </p>
               <p>
-                That&apos;s what EaseIntoAI is for. We host practical, live
-                Zoom webinars built specifically for women entrepreneurs and
-                small business owners that walk you through AI from the ground
-                up: what it is, how to use it for content and clients, where
-                it goes wrong, and how to build simple systems that give you
-                back hours every week.
+                That&apos;s what EaseIntoAI is for. Free live Zoom webinars
+                for women running a business and a family. You leave each
+                session with one real task handed off, in your own voice.
+                The hours go back to your family.
               </p>
             </div>
 
@@ -126,10 +116,10 @@ function ProfileCard() {
 
       <div className="mt-5 space-y-4 text-sm text-background/75 leading-relaxed">
         <p>
-          EaseIntoAI was started after noticing that most AI content was made
-          for people already excited about technology not for the women
-          running businesses who are curious, stretched thin, and just want
-          practical help.
+          EaseIntoAI was started after noticing that most AI content is made
+          for people excited about technology — not for women running a
+          business all day and a home all evening. They don&apos;t need
+          another tool list. They need hours back.
         </p>
         <p>
           Emmanuel&apos;s approach is built on real-world experimentation:

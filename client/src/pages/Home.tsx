@@ -103,7 +103,7 @@ export default function Home() {
   useSEO({
     title: "Practical AI for Women Entrepreneurs & Small Business Owners",
     description:
-      "Free live webinars for women business owners doing it all. Learn practical ways to use AI in your business — even if you're not techy.",
+      "Free live webinars for women running a business and a family. Hand your admin to AI — in your voice — and get your evenings back.",
     url: "https://easeintoai.co/",
     type: "website",
   });
@@ -121,9 +121,9 @@ export default function Home() {
         data={{
           "@context": "https://schema.org",
           "@type": "Event",
-          name: "For Women Business Owners Doing It All: Learn How AI Can Lighten the Load",
+          name: "Running the Business by Day and the House by Night? Let AI Take the Night Shift.",
           description:
-            "A free live webinar showing women business owners practical ways to use AI in their business — even if they're not techy.",
+            "A free live webinar for women founders: hand your evening admin to AI, in your own voice. No tech background needed.",
           startDate: UPCOMING_WEBINAR.startIso,
           eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
@@ -165,21 +165,19 @@ export default function Home() {
             <div className="space-y-8 text-center md:text-left order-2 md:order-1">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
                 <Award className="w-4 h-4" />
-                AI Educator for Women Entrepreneurs &amp; Small Business Owners
+                AI Education for Women Running a Business and a Household
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-                AI Doesn&apos;t Have to Feel This{" "}
-                <span className="text-accent">Overwhelming</span>  Even If
-                You&apos;re Running Your Business Solo.
+                You Didn&apos;t Start a Business to Spend{" "}
+                <span className="text-accent">Bedtime</span> Answering
+                Emails.
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                EaseIntoAI hosts live, practical webinars that help women
-                entrepreneurs and small business owners use AI to save time,
-                create content, and attract clients  clearly, honestly, and
-                without the hype. No tech background. No jargon. Real questions
-                answered.
+                Free live webinars for women running a business and a family.
+                Hand the invoices, follow-ups, and captions to AI. Get your
+                evenings back. It still sounds like you. No jargon. No hype.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
@@ -189,7 +187,7 @@ export default function Home() {
                   size="lg"
                   className="px-8 py-3 text-base"
                 >
-                  Save My Free Spot
+                  Give Me My Evenings Back
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
@@ -211,7 +209,7 @@ export default function Home() {
             {/* Right: brand intro video (visible on all breakpoints — replaces stock collage) */}
             <div className="relative order-1 md:order-2 flex flex-col justify-center w-full max-w-[540px] mx-auto md:mx-0 md:justify-self-end">
               <p className="text-center md:text-left text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-                See how business owners like you are using AI
+                Hand off the busywork. Keep your voice.
               </p>
               <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-card ring-1 ring-black/5">
                 <div className="aspect-video w-full">
@@ -320,9 +318,8 @@ export default function Home() {
               Community Feedback
             </p>
             <p className="mb-8 text-lg text-muted-foreground leading-relaxed">
-              Women entrepreneurs and small business owners leave EaseIntoAI
-              sessions with more than notes  they leave with the confidence
-              and clarity to actually use AI in their business the next day.
+              Founders leave with more than notes. They leave with one piece
+              of admin off their plate for good, in their own voice.
             </p>
             <Card className="border-accent/25 shadow-sm">
               <div className="p-8 md:p-10">
@@ -359,33 +356,45 @@ export default function Home() {
                   Free AI Webinar
                 </span>
                 <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
-                  For Women Business Owners Doing It All: Learn How AI Can Lighten the Load
+                  Running the Business by Day and the House by Night? Let AI Take the Night Shift.
                 </h2>
                 <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                  A free live webinar showing practical ways to use AI in your business — even if
-                  you&apos;re not techy.
+                  Sixty free minutes. Learn to hand your evening admin to AI — in your voice,
+                  approved by you. No tech background needed.
                 </p>
 
                 <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
                   {[
-                    "How to plan a month of social media and email content in one afternoon with AI",
-                    "Writing captions, newsletters, and client emails that still sound like you",
-                    "Turning a rough service idea into a clear, well-priced offer with AI as your thinking partner",
-                    "Using AI to handle client communication: inquiries, follow-ups, and no-show messages",
-                    "Simple automations that save hours every week: booking reminders, FAQ replies, intake forms",
-                    "Live Q&A focused on real businesses: coaching, salons, boutiques, food trucks, and more",
+                    {
+                      title: "Spot the Time-Stealers",
+                      text: "We'll find the exact tasks that are keeping you at your laptop when you should be with your family.",
+                    },
+                    {
+                      title: "Build Your “Auto-Pilot”",
+                      text: "We'll set up your forms and emails so they handle themselves — no more chasing down clients or retyping the same messages.",
+                    },
+                    {
+                      title: "Keep It You",
+                      text: "We'll train your AI to talk exactly like you, so your business stays personal — not robotic.",
+                    },
+                    {
+                      title: "Fix It Live",
+                      text: "Bring your most annoying admin task, and we'll build the solution for it together, right there on the call.",
+                    },
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 py-3.5">
+                    <li key={item.title} className="flex items-start gap-3 py-3.5">
                       <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
                       <span className="text-sm md:text-[15px] text-foreground leading-relaxed">
-                        {item}
+                        <span className="font-semibold">{item.title}:</span>{" "}
+                        {item.text}
                       </span>
                     </li>
                   ))}
                 </ul>
 
                 <p className="mt-5 text-sm text-muted-foreground">
-                  No jargon. No tech background required. This session stands alone.
+                  No jargon. No tech background required. You approve every word before it
+                  goes out.
                 </p>
               </div>
 
@@ -432,8 +441,8 @@ export default function Home() {
                   />
 
                   <p className="text-xs text-accent-foreground/75">
-                    100% free. After registering, you&apos;ll get your Zoom link by email plus a
-                    text confirmation and reminder before the session.
+                    100% free. Your Zoom link arrives by email, plus a text reminder before
+                    the session.
                   </p>
                 </div>
               </Card>
@@ -454,7 +463,7 @@ export default function Home() {
               Past Webinars
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              {pastWebinars.length} sessions completed. 100+ attendees. Each session is practical, taught in plain language, and built for people without a tech background.
+              {pastWebinars.length} sessions completed. 100+ attendees. Every session takes a real task off your plate — in plain language.
             </p>
             <div className="flex justify-center gap-10 py-4">
               {[
