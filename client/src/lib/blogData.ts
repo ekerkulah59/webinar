@@ -19,7 +19,7 @@ export const CATEGORIES: Record<BlogPost["category"], { label: string; color: st
 export const blogPosts: BlogPost[] = [
   {
     slug: "announcing-ai-for-women-entrepreneurs-webinar",
-    title: "Our Next Webinar: AI for Women Entrepreneurs and Small Business Owners — July 22",
+    title: "Our Next Webinar: AI for Women Entrepreneurs and Small Business Owners — July 28",
     excerpt:
       "Our next live session is built for women running businesses — coaches, consultants, creators, salons, boutiques, and food trucks. Here's exactly what we'll cover, who it's for, and how to save your spot.",
     content: `
@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
 
 **AI for Women Entrepreneurs and Small Business Owners** is our next live webinar.
 
-- **When:** Tuesday, July 22, 2026 at 12:00 PM New York Time
+- **When:** Tuesday, July 28, 2026 at 7:00 PM New York Time
 - **Where:** Live on Zoom
 - **How long:** 60 minutes, including live Q&A
 - **Cost:** Free
@@ -76,7 +76,7 @@ In keeping with how we do everything at EaseIntoAI: no hype, no affiliate links,
 
 Head to the [homepage](/#upcoming) to register. Space in the live Q&A is what makes these sessions work, so we keep them intentionally small.
 
-See you on July 22.
+See you on July 28.
     `.trim(),
     category: "ai-news",
     date: "July 2, 2026",
@@ -87,7 +87,7 @@ See you on July 22.
     slug: "too-busy-to-learn-ai-women-business-owners",
     title: "Too Busy Running Your Business to Learn AI? That's Exactly Who Our Next Webinar Is For",
     excerpt:
-      "If AI keeps sliding to the bottom of your to-do list, you're not behind — you're busy. Here's why one focused hour on July 22 beats months of trial and error.",
+      "If AI keeps sliding to the bottom of your to-do list, you're not behind — you're busy. Here's why one focused hour on July 28 beats months of trial and error.",
     content: `
 ## The To-Do List Problem
 
@@ -111,7 +111,7 @@ Each of those has a fix that takes minutes to learn — and months to stumble in
 
 ## What One Focused Hour Does
 
-That's the entire reason our next webinar exists. **AI for Women Entrepreneurs and Small Business Owners** — live on Zoom, Tuesday, July 22 at 12:00 PM New York Time — compresses the useful part of that learning curve into one hour:
+That's the entire reason our next webinar exists. **AI for Women Entrepreneurs and Small Business Owners** — live on Zoom, Tuesday, July 28 at 7:00 PM New York Time — compresses the useful part of that learning curve into one hour:
 
 - Planning a month of content in an afternoon
 - Client emails and follow-ups that sound like you
@@ -129,7 +129,7 @@ What one hour *can* do is replace the vague guilt of "I should figure out AI" wi
 
 ## Join Us
 
-July 22, 12:00 PM New York Time, live on Zoom, completely free, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
+July 28, 7:00 PM New York Time, live on Zoom, completely free, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
 
 Bring your real questions. That's what the hour is for.
     `.trim(),
