@@ -111,9 +111,9 @@ export default function WhatWeCoverSection() {
           </h2>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
             Our sessions are built around the five foundational AI literacy
-            skills identified by the U.S. Department of Labor taught through
-            real examples from coaching, salons, boutiques, food trucks, and
-            service businesses. Plain language, no jargon.
+            skills identified by the U.S. Department of Labor, taught through
+            real examples from real businesses. Plain language. Nothing that
+            sounds like a machine wrote it.
           </p>
         </header>
 
