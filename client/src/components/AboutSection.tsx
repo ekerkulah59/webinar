@@ -3,20 +3,20 @@ import { Globe, User } from "lucide-react";
 
 const pillars = [
   {
-    title: "We Start With the Fear",
-    text: "Feeling intimidated by AI is normal when you're already working a double shift. We start there.",
+    title: "We Start With Your Workload",
+    text: "We identify the repetitive tasks consuming your time before recommending any AI tool.",
   },
   {
-    title: "We Teach Frameworks",
-    text: "You leave with one system running the same day, not just notes.",
+    title: "We Build Something Practical",
+    text: "Every session helps you apply AI to a real email, follow-up, content task, form, or business process.",
   },
   {
-    title: "We Answer Real Questions",
-    text: "Every session ends with live Q&A. Ask about your actual business, your actual offers, your actual clients.",
+    title: "We Protect Your Voice",
+    text: "AI helps prepare the work, but your personality, judgment, and client relationships remain yours."
   },
   {
-    title: "We Stay Honest",
-    text: "We tell you when AI gets things wrong. Nothing goes out under your name without your eyes on it. No hype. No upsells.",
+    title: "We Keep You in Control",
+    text: "You learn what AI can handle, what information should remain private, and what always requires human review.",
   },
 ];
 
@@ -31,27 +31,24 @@ export default function AboutSection() {
               About EaseIntoAI
             </p>
             <h2 className="text-4xl md:text-[2.75rem] font-bold text-foreground leading-[1.15] tracking-tight max-w-2xl">
-              You&apos;re Not Behind on AI. You&apos;re Out of Hours.
+              You’re Not Behind on AI. You’re Carrying Too Much.
             </h2>
 
             <div className="mt-8 space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               <p>
-                AI is everywhere: the news, your inbox, every &ldquo;10 tools
-                you need&rdquo; post. Meanwhile you&apos;re answering client
-                DMs at school pickup and sending invoices after bedtime.
-                Learning AI feels like a third job.
+              AI is everywhere—your inbox, social media, and every “10 tools you need” post. But when you’re serving clients, creating content, answering inquiries, managing appointments, and handling the administration, learning another tool can feel like one more responsibility.
+
+The problem isn’t that you’re unwilling to learn. The problem is that you’re already doing the work of several people.
               </p>
               <p>
-                The truth: you don&apos;t need to be technical. You need
-                someone to show you, in plain language, which tasks AI can
-                take off your plate — without your business sounding like a
-                machine.
+              You do the work customers pay you for. Then you do all the work behind it: the emails, follow-ups, forms, content, planning, and client communication that keep the business moving.
+
+If you also have family or caregiving responsibilities, unfinished business work often competes with the time and energy the people you love need from you.
               </p>
               <p>
-                That&apos;s what EaseIntoAI is for. Free live Zoom webinars
-                for women running a business and a family. You leave each
-                session with one real task handed off, in your own voice.
-                The hours go back to your family.
+              EaseIntoAI helps women business owners identify the repetitive work taking up their time and learn how to use AI to make that work lighter.
+
+We teach practical ways to use AI for first drafts, client communication, content preparation, follow-ups, business documents, and everyday admin—while you remain responsible for reviewing and approving the final result.
               </p>
             </div>
 

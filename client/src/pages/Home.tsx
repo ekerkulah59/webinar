@@ -30,6 +30,9 @@ const UPCOMING_WEBINAR = {
   dateLabel: "July 28, 2026",
   startIso: "2026-07-28T19:00:00-04:00",
   timeLabel: "7:00 PM New York Time",
+  dateLabel: "July 31, 2026",
+  startIso: "2026-07-22T12:00:00-04:00",
+  timeLabel: "8:00 PM New York Time",
 };
 
 // ─── Countdown Hook ──────────────────────────────────────────────
@@ -121,9 +124,9 @@ export default function Home() {
         data={{
           "@context": "https://schema.org",
           "@type": "Event",
-          name: "Running the Business by Day and the House by Night? Let AI Take the Night Shift.",
+          name: "You Run the Business. Who Handles Everything Behind It?",
           description:
-            "A free live webinar for women founders: hand your evening admin to AI, in your own voice. No tech background needed.",
+            "A free live AI workshop for women business owners doing the client work, marketing, follow-ups, content, and admin — often without a team to help. Learn how to use AI to prepare emails, follow-ups, content, forms, and other repetitive work while you keep your voice and final approval.",
           startDate: UPCOMING_WEBINAR.startIso,
           eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
@@ -169,15 +172,15 @@ export default function Home() {
               </div>
 
               <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-                You Didn&apos;t Start a Business to Spend{" "}
-                <span className="text-accent">Bedtime</span> Answering
-                Emails.
+              You Built the Business. {" "}
+                <span className="text-accent">You Shouldn’t Have to </span> Carry Every Task Behind It.
+                
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Free live webinars for women running a business and a family.
-                Hand the invoices, follow-ups, and captions to AI. Get your
-                evenings back. It still sounds like you. No jargon. No hype.
+              When you’re the service provider, marketer, administrator, and client-support team, 
+              the work never truly ends. EaseIntoAI shows you how to use AI for repetitive emails, 
+              follow-ups, content, forms, and everyday admin—without losing your voice or control.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
@@ -187,7 +190,7 @@ export default function Home() {
                   size="lg"
                   className="px-8 py-3 text-base"
                 >
-                  Give Me My Evenings Back
+                 Show Me What AI Can Take Off My Plate
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
@@ -356,30 +359,34 @@ export default function Home() {
                   Free AI Webinar
                 </span>
                 <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
-                  Running the Business by Day and the House by Night? Let AI Take the Night Shift.
+                  You Run the Business. Who Handles Everything Behind It?
                 </h2>
                 <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                  Sixty free minutes. Learn to hand your evening admin to AI — in your voice,
-                  approved by you. No tech background needed.
+                  A free live AI workshop for women business owners doing the client work,
+                  marketing, follow-ups, content, and admin — often without a team to help.
+                </p>
+                <p className="mt-3 text-base md:text-lg text-foreground leading-relaxed max-w-3xl">
+                  Learn how to use AI to prepare emails, follow-ups, content, forms, and other
+                  repetitive work while you keep your voice and final approval.
                 </p>
 
                 <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
                   {[
                     {
                       title: "Spot the Time-Stealers",
-                      text: "We'll find the exact tasks that are keeping you at your laptop when you should be with your family.",
+                      text: "Identify the emails, follow-ups, content, forms, and repetitive admin that keep following you after the workday ends.",
                     },
                     {
-                      title: "Build Your “Auto-Pilot”",
-                      text: "We'll set up your forms and emails so they handle themselves — no more chasing down clients or retyping the same messages.",
+                      title: "Build Your First AI Workflow”",
+                      text: " Choose one task you repeatedly do from scratch and learn how to turn it into a simple, reusable AI-assisted process.",
                     },
                     {
-                      title: "Keep It You",
-                      text: "We'll train your AI to talk exactly like you, so your business stays personal — not robotic.",
+                      title: "Keep It in Your Voice",
+                      text: "Give AI the right business context and communication style so its drafts sound like you—not a generic template.",
                     },
                     {
-                      title: "Fix It Live",
-                      text: "Bring your most annoying admin task, and we'll build the solution for it together, right there on the call.",
+                      title: "Map It Live",
+                      text: "Bring one frustrating task. We’ll map where AI can help, where your judgment belongs, and what you need to build a reliable solution.",
                     },
                   ].map((item) => (
                     <li key={item.title} className="flex items-start gap-3 py-3.5">
