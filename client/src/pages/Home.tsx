@@ -27,6 +27,9 @@ import { pastWebinars } from "@/lib/webinarData";
 /** Upcoming webinar metadata used for registration + countdown */
 const UPCOMING_WEBINAR = {
   slug: "ai-for-women-entrepreneurs-july-2026",
+  dateLabel: "July 28, 2026",
+  startIso: "2026-07-28T19:00:00-04:00",
+  timeLabel: "7:00 PM New York Time",
   dateLabel: "July 31, 2026",
   startIso: "2026-07-22T12:00:00-04:00",
   timeLabel: "8:00 PM New York Time",
