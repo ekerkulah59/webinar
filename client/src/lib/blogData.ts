@@ -541,8 +541,7 @@ The goal is not to become an AI expert. The goal is to make one part of your bus
   },
   {
     slug: "announcing-ai-for-women-entrepreneurs-webinar",
-    title:
-      "Webinar Announcement: AI for Women Entrepreneurs and Small Business Owners — July 22",
+    title: "Our Next Webinar: AI for Women Entrepreneurs and Small Business Owners — July 28",
     excerpt:
       "A look back at the July 22 session created for women running businesses—including coaches, consultants, creators, salons, boutiques, and food trucks.",
     content: `
@@ -552,7 +551,7 @@ The goal is not to become an AI expert. The goal is to make one part of your bus
 
 **AI for Women Entrepreneurs and Small Business Owners** was announced as our July 22 live webinar.
 
-- **When:** Tuesday, July 22, 2026 at 12:00 PM New York Time
+- **When:** Tuesday, July 28, 2026 at 7:00 PM New York Time
 - **Where:** Live on Zoom
 - **How long:** 60 minutes, including live Q&A
 - **Cost:** Free
@@ -601,7 +600,7 @@ In keeping with how we do everything at EaseIntoAI: no hype, no affiliate links,
 
 The July 22 session has concluded. Head to the [homepage](/#upcoming) to see the current July 31 workshop and reserve your spot.
 
-The original July 22 event details remain above as a historical record.
+See you on July 28.
     `.trim(),
     category: "ai-news",
     publishedAt: "2026-07-02",
@@ -614,7 +613,7 @@ The original July 22 event details remain above as a historical record.
     title:
       "Too Busy Running Your Business to Learn AI? This Workshop Was Built for You",
     excerpt:
-      "If AI keeps sliding to the bottom of your to-do list, you're not behind — you're busy. This article explains why the July 22 workshop focused on one useful hour instead of months of trial and error.",
+      "If AI keeps sliding to the bottom of your to-do list, you're not behind — you're busy. Here's why one focused hour on July 28 beats months of trial and error.",
     content: `
 ## The To-Do List Problem
 
@@ -638,7 +637,7 @@ Each of those has a fix that takes minutes to learn — and months to stumble in
 
 ## What One Focused Hour Does
 
-That was the reason for our July 22 webinar, **AI for Women Entrepreneurs and Small Business Owners**. The live session compressed the useful part of that learning curve into one hour:
+That's the entire reason our next webinar exists. **AI for Women Entrepreneurs and Small Business Owners** — live on Zoom, Tuesday, July 28 at 7:00 PM New York Time — compresses the useful part of that learning curve into one hour:
 
 - Planning a month of content in an afternoon
 - Client emails and follow-ups that sound like you
@@ -656,7 +655,7 @@ What one hour *can* do is replace the vague guilt of "I should figure out AI" wi
 
 ## Join Us
 
-The July 22 session has passed. You can [see the current free workshop and reserve your spot on the homepage](/#upcoming).
+July 28, 7:00 PM New York Time, live on Zoom, completely free, no tech background needed. You can [reserve your spot on the homepage](/#upcoming).
 
 Bring your real questions. That's what the hour is for.
     `.trim(),

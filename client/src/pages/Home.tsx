@@ -29,7 +29,10 @@ import { pastWebinars } from "@/lib/webinarData";
 import { useSEO } from "@/hooks/useSEO";
 
 const UPCOMING_WEBINAR = {
-  slug: "let-ai-take-the-night-shift-july-2026",
+  slug: "ai-for-women-entrepreneurs-july-2026",
+  dateLabel: "July 28, 2026",
+  startIso: "2026-07-28T19:00:00-04:00",
+  timeLabel: "7:00 PM New York Time",
   dateLabel: "July 31, 2026",
   startIso: "2026-07-31T20:00:00-04:00",
   timeLabel: "8:00 PM New York time",
