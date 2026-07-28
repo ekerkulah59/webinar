@@ -40,8 +40,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 :root {
@@ -81,11 +81,9 @@
   --area-chip: color-mix(in oklab, var(--accent), white 90%);
   --area-radius: 1.1rem;
   --area-shadow-rest:
-    0 1px 2px rgba(15, 23, 42, 0.04),
-    0 8px 16px rgba(15, 23, 42, 0.06);
+    0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 16px rgba(15, 23, 42, 0.06);
   --area-shadow-hover:
-    0 2px 4px rgba(15, 23, 42, 0.06),
-    0 16px 34px rgba(21, 38, 100, 0.14);
+    0 2px 4px rgba(15, 23, 42, 0.06), 0 16px 34px rgba(21, 38, 100, 0.14);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.235 0.015 65);
   --sidebar-accent: oklch(0.967 0.001 286.375);
@@ -94,6 +92,404 @@
   --sidebar-ring: oklch(0.623 0.214 259.815);
   --shadow-soft: 0 2px 8px rgba(21, 38, 100, 0.06);
   --shadow-elevated: 0 14px 30px rgba(21, 38, 100, 0.12);
+}
+
+@layer components {
+  .article-cover {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 100%;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 1.25rem;
+    color: white;
+    background:
+      radial-gradient(
+        circle at 78% 28%,
+        rgba(255, 255, 255, 0.2) 0 9%,
+        transparent 9.5%
+      ),
+      linear-gradient(132deg, #101936 0 46%, #344bd1 46% 72%, #f4f6ff 72% 100%);
+  }
+
+  .article-cover::before,
+  .article-cover::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+  }
+
+  .article-cover::before {
+    top: 14%;
+    right: 8%;
+    width: 28%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(48, 65, 190, 0.32);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 22px rgba(48, 65, 190, 0.08),
+      0 0 0 46px rgba(48, 65, 190, 0.05);
+  }
+
+  .article-cover::after {
+    inset: auto 5% 10% auto;
+    width: 24%;
+    height: 32%;
+    opacity: 0.35;
+    background-image: radial-gradient(#344bd1 1.5px, transparent 1.5px);
+    background-size: 10px 10px;
+  }
+
+  .article-cover-practical-guides {
+    background: linear-gradient(
+      145deg,
+      #111936 0 35%,
+      #394ed2 35% 60%,
+      #eef1ff 60% 100%
+    );
+  }
+
+  .article-cover-business-use-cases {
+    background: linear-gradient(
+      120deg,
+      #14192d 0 44%,
+      #5263d8 44% 70%,
+      #f6f7ff 70% 100%
+    );
+  }
+
+  .article-cover-easeintoai-updates {
+    background: linear-gradient(
+      138deg,
+      #09112c 0 52%,
+      #3348c4 52% 78%,
+      #eef1ff 78% 100%
+    );
+  }
+
+  .article-cover-webinar-recaps {
+    background: linear-gradient(
+      130deg,
+      #10162e 0 42%,
+      #4055cc 42% 66%,
+      #f8f9ff 66% 100%
+    );
+  }
+
+  .article-cover-mark {
+    position: absolute;
+    top: 1.15rem;
+    left: 1.15rem;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0.55rem;
+    font-weight: 800;
+    background: rgba(9, 17, 44, 0.45);
+    backdrop-filter: blur(6px);
+  }
+
+  .article-cover-category {
+    max-width: 65%;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .article-cover-brand {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #18204a;
+  }
+
+  .news-card {
+    border-color: color-mix(in oklab, var(--border), transparent 5%);
+    box-shadow: 0 5px 18px rgba(21, 38, 100, 0.06);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .news-card-image {
+    transition: transform 220ms ease;
+  }
+
+  .news-card-excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .article-h2 {
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--foreground);
+  }
+
+  .article-h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--foreground);
+  }
+
+  .article-paragraph {
+    margin-block: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    color: color-mix(in oklab, var(--foreground), transparent 10%);
+  }
+
+  .article-list {
+    margin-block: 1.25rem;
+    padding-left: 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: color-mix(in oklab, var(--foreground), transparent 10%);
+  }
+
+  .article-list li + li {
+    margin-top: 0.6rem;
+  }
+
+  .article-list li::marker {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .article-blockquote {
+    margin-block: 1.75rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-size: 1.0625rem;
+    font-weight: 550;
+    line-height: 1.7;
+    color: var(--foreground);
+    background: color-mix(in oklab, var(--accent), transparent 94%);
+  }
+
+  .article-callout {
+    margin-block: 1.75rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid color-mix(in oklab, var(--accent), white 72%);
+    border-radius: 0.85rem;
+    line-height: 1.7;
+    color: var(--foreground);
+    background: color-mix(in oklab, var(--accent), transparent 94%);
+  }
+
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .news-card:hover {
+      border-color: color-mix(in oklab, var(--accent), white 70%);
+      box-shadow: 0 16px 35px rgba(21, 38, 100, 0.13);
+      transform: translateY(-5px);
+    }
+
+    .news-card:hover .news-card-image {
+      transform: scale(1.035);
+    }
+  }
+
+  .process-journey {
+    position: relative;
+    display: grid;
+    gap: 0;
+    list-style: none;
+    padding: 0;
+  }
+
+  .process-journey::before {
+    position: absolute;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 2px;
+    content: "";
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--accent), transparent 55%),
+      var(--accent),
+      color-mix(in oklab, var(--accent), transparent 20%)
+    );
+  }
+
+  .process-state,
+  .process-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .process-state {
+    align-items: center;
+    padding-block: 0.75rem;
+  }
+
+  .process-step {
+    padding-block: 0.75rem;
+    border-radius: 1rem;
+    outline: none;
+  }
+
+  .process-node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 3rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in oklab, var(--accent), white 70%);
+    border-radius: 999px;
+    color: var(--accent);
+    background: var(--background);
+    box-shadow: 0 4px 14px rgba(38, 54, 180, 0.1);
+    transition:
+      color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .process-step-copy {
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.85rem;
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .process-step:hover .process-node,
+  .process-step:focus-visible .process-node {
+    color: var(--accent-foreground);
+    background: var(--accent);
+    box-shadow: 0 8px 22px rgba(38, 54, 180, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .process-step:hover .process-step-copy,
+  .process-step:focus-visible .process-step-copy {
+    border-color: color-mix(in oklab, var(--accent), white 72%);
+    background: color-mix(in oklab, var(--background), var(--accent) 3%);
+    box-shadow: 0 10px 25px rgba(21, 38, 100, 0.08);
+  }
+
+  .process-step:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .process-node-start {
+    color: var(--foreground);
+    border-color: color-mix(in oklab, var(--foreground), transparent 78%);
+    background: var(--secondary);
+  }
+
+  .process-node-final {
+    color: var(--accent-foreground);
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .process-state-label {
+    max-width: 18rem;
+    font-size: 0.875rem;
+    font-weight: 750;
+    line-height: 1.35;
+    color: var(--foreground);
+  }
+
+  .process-state-final .process-state-label {
+    color: var(--accent);
+  }
+
+  @media (min-width: 1024px) {
+    .process-journey {
+      grid-template-columns: 0.85fr repeat(4, 1.35fr) 0.85fr;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .process-journey::before {
+      top: 1.5rem;
+      right: 4.5rem;
+      bottom: auto;
+      left: 4.5rem;
+      width: auto;
+      height: 2px;
+      background: linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--accent), transparent 55%),
+        var(--accent),
+        color-mix(in oklab, var(--accent), transparent 20%)
+      );
+    }
+
+    .process-state,
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding-block: 0;
+      text-align: center;
+    }
+
+    .process-step-copy {
+      width: 100%;
+      padding: 1rem 0.75rem;
+    }
+
+    .process-state {
+      padding-top: 0;
+    }
+
+    .process-state-label {
+      max-width: 9rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .news-card,
+    .news-card-image {
+      transition: none;
+    }
+
+    .news-card:hover,
+    .news-card:hover .news-card-image {
+      transform: none;
+    }
+
+    .process-node,
+    .process-step-copy {
+      transition: none;
+    }
+
+    .process-step:hover .process-node,
+    .process-step:focus-visible .process-node {
+      transform: none;
+    }
+  }
 }
 
 .dark {
@@ -126,11 +522,9 @@
   --area-border-hover: color-mix(in oklab, var(--accent), white 58%);
   --area-chip: color-mix(in oklab, var(--accent), black 78%);
   --area-shadow-rest:
-    0 1px 2px rgba(0, 0, 0, 0.18),
-    0 8px 18px rgba(0, 0, 0, 0.24);
+    0 1px 2px rgba(0, 0, 0, 0.18), 0 8px 18px rgba(0, 0, 0, 0.24);
   --area-shadow-hover:
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    0 14px 28px rgba(0, 0, 0, 0.32);
+    0 2px 4px rgba(0, 0, 0, 0.2), 0 14px 28px rgba(0, 0, 0, 0.32);
   --chart-1: oklch(0.6 0.2 265);
   --chart-2: oklch(0.7 0.15 265);
   --chart-3: oklch(0.5 0.22 265);
@@ -197,7 +591,13 @@
   /* Premium section divider */
   .section-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--border) 20%,
+      var(--border) 80%,
+      transparent
+    );
   }
 
   .surface-card {
@@ -207,7 +607,10 @@
   }
 
   .surface-card-hover {
-    transition: box-shadow 140ms ease-out, border-color 140ms ease-out, transform 140ms ease-out;
+    transition:
+      box-shadow 140ms ease-out,
+      border-color 140ms ease-out,
+      transform 140ms ease-out;
   }
 
   .surface-card-hover:hover {
@@ -221,7 +624,10 @@
     border-radius: var(--area-radius);
     background: var(--area-surface);
     box-shadow: var(--area-shadow-rest);
-    transition: box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease;
+    transition:
+      box-shadow 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
   }
 
   .area-card:hover,
@@ -247,6 +653,166 @@
     transform: translateX(3px);
   }
 
+  .industry-card {
+    position: relative;
+    display: flex;
+    min-height: 31rem;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid color-mix(in oklab, var(--border), transparent 8%);
+    border-radius: 1rem;
+    background: var(--card);
+    box-shadow: var(--shadow-soft);
+    outline: none;
+  }
+
+  .industry-card-media {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--muted);
+  }
+
+  .industry-card-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .industry-card-image-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(12, 18, 45, 0.18),
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  .industry-card-summary {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .industry-card-cue {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .industry-card-toggle {
+    display: flex;
+    min-height: 2.75rem;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid color-mix(in oklab, var(--accent), white 72%);
+    border-radius: 0.625rem;
+    background: color-mix(in oklab, var(--accent), white 93%);
+    padding: 0.65rem 0.8rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .industry-card-toggle:focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--accent), transparent 65%);
+    outline-offset: 2px;
+  }
+
+  .industry-card-touch-examples {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .industry-card-desktop-examples {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .industry-card-media {
+      height: 15rem;
+      aspect-ratio: auto;
+    }
+  }
+
+  @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .industry-card {
+      transition:
+        transform 220ms ease,
+        border-color 220ms ease,
+        box-shadow 220ms ease;
+    }
+
+    .industry-card:hover,
+    .industry-card:focus,
+    .industry-card:focus-within {
+      transform: translateY(-5px);
+      border-color: color-mix(in oklab, var(--accent), white 48%);
+      box-shadow: 0 20px 46px rgba(48, 57, 166, 0.18);
+    }
+
+    .industry-card-image {
+      transition: transform 500ms cubic-bezier(0.2, 0.65, 0.3, 1);
+    }
+
+    .industry-card:hover .industry-card-image,
+    .industry-card:focus .industry-card-image,
+    .industry-card:focus-within .industry-card-image {
+      transform: scale(1.035);
+    }
+
+    .industry-card-cue {
+      display: flex;
+    }
+
+    .industry-card-toggle,
+    .industry-card-touch-examples {
+      display: none;
+    }
+
+    .industry-card-desktop-examples {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      visibility: hidden;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.75rem;
+      background: linear-gradient(
+        180deg,
+        rgba(15, 18, 35, 0.38) 0%,
+        rgba(36, 46, 145, 0.99) 48%
+      );
+      opacity: 0;
+      transform: translateY(0.75rem);
+      transition:
+        opacity 220ms ease,
+        transform 220ms ease,
+        visibility 220ms;
+    }
+
+    .industry-card:hover .industry-card-desktop-examples,
+    .industry-card:focus .industry-card-desktop-examples,
+    .industry-card:focus-within .industry-card-desktop-examples {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .area-card {
       transition: border-color 100ms ease;
@@ -259,6 +825,22 @@
 
     .area-card .area-card-cta-icon {
       transition: none;
+      transform: none;
+    }
+
+    .industry-card,
+    .industry-card-image,
+    .industry-card-desktop-examples,
+    .industry-card-toggle svg {
+      transition: none !important;
+    }
+
+    .industry-card:hover,
+    .industry-card:focus,
+    .industry-card:focus-within,
+    .industry-card:hover .industry-card-image,
+    .industry-card:focus .industry-card-image,
+    .industry-card:focus-within .industry-card-image {
       transform: none;
     }
   }

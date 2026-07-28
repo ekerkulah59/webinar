@@ -1,291 +1,262 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  CalendarDays,
+  Check,
+  Clock3,
+  LinkIcon,
+} from "lucide-react";
+import { ArticleCover } from "@/components/ArticleCover";
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Clock,
-  Calendar,
-  Newspaper,
-  LinkIcon,
-  Check,
-} from "lucide-react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { blogPosts, CATEGORIES, type BlogPost } from "@/lib/blogData";
+  blogPosts,
+  EDITORIAL_CATEGORIES,
+  formatPublishedDate,
+  getEditorialCategory,
+  type BlogPost,
+  type EditorialCategory,
+} from "@/lib/blogData";
 import { useSEO } from "@/hooks/useSEO";
 
-// ─── Category Filter ─────────────────────────────────────────────
-type CategoryKey = BlogPost["category"] | "all";
+type FilterKey = EditorialCategory | "all";
 
-function CategoryFilter({
-  active,
-  onChange,
-}: {
-  active: CategoryKey;
-  onChange: (cat: CategoryKey) => void;
-}) {
-  const tabs: { key: CategoryKey; label: string }[] = [
-    { key: "all", label: "All Posts" },
-    { key: "ai-news", label: "AI News" },
-    { key: "tutorial", label: "Tutorials" },
-    { key: "opinion", label: "My Take" },
-    { key: "webinar-recap", label: "Webinar Recaps" },
-  ];
+const filters: Array<{ key: FilterKey; label: string }> = [
+  { key: "all", label: "All" },
+  { key: "ai-news", label: "AI News" },
+  { key: "practical-guides", label: "Practical Guides" },
+  { key: "business-use-cases", label: "Business Use Cases" },
+  { key: "easeintoai-updates", label: "EaseIntoAI Updates" },
+  { key: "webinar-recaps", label: "Webinar Recaps" },
+];
 
+function CategoryBadge({ post }: { post: BlogPost }) {
+  const category = EDITORIAL_CATEGORIES[getEditorialCategory(post)];
   return (
-    <div className="flex flex-wrap gap-2">
-      {tabs.map((tab) => (
-        <button
-          key={tab.key}
-          onClick={() => onChange(tab.key)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            active === tab.key
-              ? "bg-accent text-accent-foreground"
-              : "bg-secondary text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))}
+    <span
+      className={`inline-flex w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] ${category.color}`}
+    >
+      {category.label}
+    </span>
+  );
+}
+
+function ArticleMeta({ post }: { post: BlogPost }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+      <span className="inline-flex items-center gap-1.5">
+        <CalendarDays className="h-3.5 w-3.5" aria-hidden />
+        {formatPublishedDate(post.publishedAt)}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <Clock3 className="h-3.5 w-3.5" aria-hidden />
+        {post.readingTime}
+      </span>
     </div>
   );
 }
 
-// ─── Copy Post Link Button ───────────────────────────────────────
-function CopyPostLink({ slug }: { slug: string }) {
+function CopyPostLink({ post }: { post: BlogPost }) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const url = `${window.location.origin}/insights/${slug}`;
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      const textArea = document.createElement("textarea");
-      textArea.value = url;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-9999px";
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }
+  const handleCopy = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const url = `${window.location.origin}/insights/${post.slug}`;
+    await navigator.clipboard.writeText(url);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      title={copied ? "Link copied!" : "Copy link to post"}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 ${
-        copied
-          ? "bg-green-100 text-green-700 border border-green-200"
-          : "bg-secondary/80 text-muted-foreground hover:text-foreground hover:bg-secondary border border-transparent hover:border-border"
-      }`}
+      className="inline-flex min-h-9 items-center gap-1.5 rounded-md px-2 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      aria-label={
+        copied ? `Link copied for ${post.title}` : `Copy link for ${post.title}`
+      }
     >
       {copied ? (
-        <>
-          <Check className="w-3 h-3" />
-          Copied!
-        </>
+        <Check className="h-3.5 w-3.5" aria-hidden />
       ) : (
-        <>
-          <LinkIcon className="w-3 h-3" />
-          Copy link
-        </>
+        <LinkIcon className="h-3.5 w-3.5" aria-hidden />
       )}
+      <span aria-live="polite">{copied ? "Copied" : "Copy link"}</span>
     </button>
   );
 }
 
-// ─── Post Card ───────────────────────────────────────────────────
-function PostCard({ post, featured = false }: { post: BlogPost; featured?: boolean }) {
-  const cat = CATEGORIES[post.category];
-
-  if (featured) {
-    return (
-      <Link href={`/insights/${post.slug}`}>
-        <Card className="overflow-hidden border-accent/20 surface-card surface-card-hover cursor-pointer group">
-          <div className="h-52 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent border-b border-border/60" aria-hidden />
-          <div className="p-8 md:p-10 space-y-5">
-            <div className="flex items-center gap-3">
-              <span
-                className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wide ${cat.color}`}
-              >
-                {cat.label}
-              </span>
-              <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                Featured
-              </span>
-            </div>
-
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground group-hover:text-accent transition-colors leading-tight">
-              {post.title}
-            </h2>
-
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {post.excerpt}
-            </p>
-
-            <div className="flex items-center gap-6 text-sm text-muted-foreground pt-2">
-              <span className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                {post.date}
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                {post.readTime}
-              </span>
-            </div>
-
-            <div className="pt-4 flex items-center justify-between">
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:gap-3 transition-all">
-                Read article
-                <ArrowRight className="w-4 h-4" />
-              </span>
-              <CopyPostLink slug={post.slug} />
-            </div>
-          </div>
-        </Card>
-      </Link>
-    );
-  }
-
+function FeaturedStory({ post }: { post: BlogPost }) {
   return (
-    <Link href={`/insights/${post.slug}`}>
-      <Card className="overflow-hidden border-border/60 surface-card surface-card-hover cursor-pointer group h-full">
-        <div className="h-36 bg-gradient-to-br from-accent/15 via-accent/8 to-transparent border-b border-border/60" aria-hidden />
-        <div className="p-6 space-y-4 flex flex-col h-full">
-          <div className="flex items-center gap-3">
-            <span
-              className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wide ${cat.color}`}
-            >
-              {cat.label}
+    <article className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+      <div className="grid lg:grid-cols-[1.05fr_1fr]">
+        <Link
+          href={`/insights/${post.slug}`}
+          className="group block min-h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+        >
+          <ArticleCover
+            post={post}
+            priority
+            className="aspect-video h-full min-h-64 w-full lg:aspect-auto"
+          />
+        </Link>
+        <div className="flex flex-col p-6 md:p-8 lg:p-10">
+          <div className="flex flex-wrap items-center gap-2">
+            <CategoryBadge post={post} />
+            <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-accent">
+              Featured
             </span>
           </div>
-
-          <h3 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors leading-snug">
-            {post.title}
-          </h3>
-
-          <p className="text-muted-foreground text-sm leading-relaxed flex-1">
-            {post.excerpt}
-          </p>
-
-          <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t border-border">
-            <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
-                {post.date}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
-                {post.readTime}
-              </span>
-            </div>
-            <CopyPostLink slug={post.slug} />
+          <Link
+            href={`/insights/${post.slug}`}
+            className="group mt-5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+          >
+            <h2 className="text-2xl font-bold leading-tight tracking-tight transition-colors group-hover:text-accent md:text-3xl">
+              {post.title}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+              {post.excerpt}
+            </p>
+          </Link>
+          <div className="mt-auto flex flex-col gap-5 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <ArticleMeta post={post} />
+            <Link
+              href={`/insights/${post.slug}`}
+              className="inline-flex items-center gap-2 text-sm font-bold text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+            >
+              Read the Full Story
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
           </div>
         </div>
-      </Card>
-    </Link>
+      </div>
+    </article>
   );
 }
 
+function ArticleCard({ post }: { post: BlogPost }) {
+  return (
+    <Card className="news-card group flex h-full flex-col overflow-hidden p-0">
+      <Link
+        href={`/insights/${post.slug}`}
+        className="flex flex-1 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+      >
+        <div className="overflow-hidden">
+          <ArticleCover
+            post={post}
+            className="news-card-image aspect-video w-full"
+          />
+        </div>
+        <div className="flex flex-1 flex-col p-5">
+          <CategoryBadge post={post} />
+          <h2 className="mt-4 text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-accent">
+            {post.title}
+          </h2>
+          <p className="news-card-excerpt mt-3 text-sm leading-relaxed text-muted-foreground">
+            {post.excerpt}
+          </p>
+          <div className="mt-auto pt-5">
+            <ArticleMeta post={post} />
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-accent">
+              Read article
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </span>
+          </div>
+        </div>
+      </Link>
+      <div className="flex justify-end border-t border-border px-3 py-1.5">
+        <CopyPostLink post={post} />
+      </div>
+    </Card>
+  );
+}
 
-// ─── Main Blog Page ──────────────────────────────────────────────
 export default function Blog() {
-  useSEO({
-    title: "AI Insights for Women Entrepreneurs & Small Business Owners",
-    description:
-      "Practical AI tutorials, honest takes on AI news, and webinar recaps — written for women entrepreneurs and small business owners who want clarity, not jargon.",
-    type: "website",
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
+  const featuredPost = blogPosts.find(post => post.featured) ?? blogPosts[0];
+  const gridPosts = blogPosts.filter(post => {
+    if (activeFilter === "all") return post.slug !== featuredPost.slug;
+    return getEditorialCategory(post) === activeFilter;
   });
 
-  const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
-
-  const featuredPost = blogPosts.find((p) => p.featured);
-  const filteredPosts =
-    activeCategory === "all"
-      ? blogPosts.filter((p) => !p.featured)
-      : blogPosts.filter(
-          (p) => p.category === activeCategory && !p.featured
-        );
-
-  // If filtering by a specific category that includes the featured post, show it in the grid
-  const showFeaturedInGrid =
-    activeCategory !== "all" &&
-    featuredPost?.category === activeCategory;
-
-  const gridPosts = showFeaturedInGrid
-    ? blogPosts.filter((p) => p.category === activeCategory)
-    : filteredPosts;
+  useSEO({
+    title: "News & Insights",
+    description:
+      "Current AI developments, practical guidance, and real business use cases—explained for non-technical women building businesses around full-time jobs and full lives.",
+    url: "https://easeintoai.co/insights",
+    type: "website",
+  });
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <main>
+        <section className="border-b border-border py-12 md:py-16">
+          <div className="container">
+            <header className="max-w-4xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                AI News, Guidance &amp; Business Application
+              </p>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
+                News &amp; Insights
+              </h1>
+              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+                Current AI developments, practical guidance, and real business
+                use cases—explained for non-technical women building businesses
+                around full-time jobs and full lives.
+              </p>
+            </header>
 
-      {/* Header */}
-      <section className="py-14 md:py-20">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-sm font-medium text-accent">
-              <Newspaper className="w-4 h-4" />
-              AI Insights &amp; Updates
+            <div
+              className="mt-8 flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter News and Insights by category"
+            >
+              {filters.map(filter => (
+                <button
+                  key={filter.key}
+                  type="button"
+                  onClick={() => setActiveFilter(filter.key)}
+                  aria-pressed={activeFilter === filter.key}
+                  className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
+                    activeFilter === filter.key
+                      ? "border-accent bg-accent text-accent-foreground"
+                      : "border-border bg-background text-muted-foreground hover:border-accent/40 hover:text-foreground"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight">
-              Insights
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              My takes on AI news, practical tutorials, and lessons from hosting
-              webinars. Written for women entrepreneurs and small business
-              owners who want clarity, not jargon.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="section-divider" />
+        <section className="py-10 md:py-14" aria-live="polite">
+          <div className="container">
+            {activeFilter === "all" && featuredPost ? (
+              <FeaturedStory post={featuredPost} />
+            ) : null}
 
-      {/* Content */}
-      <section className="py-14">
-        <div className="container">
-          <div className="max-w-5xl mx-auto space-y-12">
-            {/* Filters */}
-            <CategoryFilter
-              active={activeCategory}
-              onChange={setActiveCategory}
-            />
-
-            {/* Featured post (only when showing "all") */}
-            {activeCategory === "all" && featuredPost && (
-              <PostCard post={featuredPost} featured />
-            )}
-
-            {/* Post grid */}
             {gridPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {gridPosts.map((post) => (
-                  <PostCard key={post.slug} post={post} />
+              <div
+                className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${
+                  activeFilter === "all" ? "mt-10" : ""
+                }`}
+              >
+                {gridPosts.map(post => (
+                  <ArticleCard key={post.slug} post={post} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16">
-                <p className="text-muted-foreground">
-                  No posts in this category yet. Check back soon.
-                </p>
-              </div>
+              <p className="rounded-xl border border-border bg-secondary/40 px-6 py-12 text-center text-muted-foreground">
+                No articles are published in this category yet.
+              </p>
             )}
           </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
       <Footer />
     </div>
   );

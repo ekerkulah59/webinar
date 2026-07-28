@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react";
 import { Link } from "wouter";
-import { Linkedin, Twitter } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,7 +31,9 @@ export default function Footer() {
       toast.success("You're on the list!");
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Unable to subscribe right now.";
+        error instanceof Error
+          ? error.message
+          : "Unable to subscribe right now.";
       toast.error(message);
     } finally {
       setIsSubmitting(false);
@@ -40,51 +41,43 @@ export default function Footer() {
   };
 
   return (
-    <footer id="newsletter" className="border-t-2 border-accent/50 bg-foreground">
+    <footer
+      id="newsletter"
+      className="border-t-2 border-accent/50 bg-foreground"
+    >
       <div className="container py-16">
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
-          <div className="md:col-span-2 space-y-4">
-            <img src="/logo-full-dark.svg" alt="EaseIntoAI" className="h-14 w-auto" />
+          <div className="space-y-4 md:col-span-2">
+            <img
+              src="/logo-full-dark.svg"
+              alt="EaseIntoAI"
+              className="h-14 w-auto"
+            />
             <p className="text-sm text-background/60 leading-relaxed max-w-sm">
-              AI Educator for Women Entrepreneurs and Small Business Owners.
-              Hosting practical webinars that help women running businesses —
-              coaches, consultants, creators, and local business owners — use
-              AI for content, clients, and systems, with clarity and
-              confidence.
+              Practical AI education for non-technical women building businesses
+              around full-time jobs and full lives. Reduce repetitive work,
+              create reusable processes, and grow within the hours you have.
             </p>
             <p className="text-xs text-background/45 leading-relaxed max-w-sm">
               Based in Delaware · Serving the Mid-Atlantic: New Jersey,
               Maryland, Pennsylvania, Virginia, New York &amp; the Washington,
               DC area · Live webinars on Zoom, wherever you are
             </p>
-            <div className="flex gap-3 pt-2">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-background/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4 text-background/60" />
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-background/10 rounded-lg flex items-center justify-center hover:bg-accent/20 transition-colors"
-                aria-label="Twitter / X"
-              >
-                <Twitter className="w-4 h-4 text-background/60" />
-              </a>
-            </div>
           </div>
 
           {/* Quick links */}
           <div className="space-y-4">
-            <p className="text-sm font-semibold text-background">Quick Links</p>
+            <p className="text-sm font-semibold text-background">Explore</p>
             <ul className="space-y-2.5">
+              <li>
+                <Link
+                  href="/#who-we-help"
+                  className="break-all text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  Who We Help
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/"
@@ -95,23 +88,35 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/past-webinars" className="text-sm text-background/60 hover:text-background transition-colors">
+                <Link
+                  href="/past-webinars"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
                   Past Webinars
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="text-sm text-background/60 hover:text-background transition-colors">
+                <Link
+                  href="/courses"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
                   Courses
                 </Link>
               </li>
               <li>
-                <Link href="/custom-ai-assistant" className="text-sm text-background/60 hover:text-background transition-colors">
+                <Link
+                  href="/custom-ai-assistant"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
                   Custom AI Assistant
                 </Link>
               </li>
               <li>
-                <Link href="/insights" className="text-sm text-background/60 hover:text-background transition-colors">
-                  Insights
+                <Link
+                  href="/insights"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  News &amp; Insights
                 </Link>
               </li>
             </ul>
@@ -130,6 +135,7 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+            {/* Replace this Gmail address only when a verified @easeintoai.co inbox is configured. */}
             <div className="pt-4">
               <a
                 href="https://www.easetranslate.com/"
@@ -141,28 +147,28 @@ export default function Footer() {
               </a>
             </div>
             <div className="mb-12 rounded-xl  p-6 md:p-7">
-          <p className="text-base font-semibold text-background">
-            Subscribe to our newsletter
-          </p>
-          <form
-            className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center"
-            onSubmit={handleNewsletterSubmit}
-          >
-            <Input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-              autoComplete="email"
-              placeholder="Enter your email"
-              className="h-11 border-background/25 bg-background/10 text-background placeholder:text-background/50 sm:max-w-sm"
-              disabled={isSubmitting}
-            />
-            <Button type="submit" variant="primary" disabled={isSubmitting}>
-              {isSubmitting ? "Subscribing..." : "Subscribe"}
-            </Button>
-          </form>
-        </div>
+              <p className="text-base font-semibold text-background">
+                Subscribe to our newsletter
+              </p>
+              <form
+                className="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center"
+                onSubmit={handleNewsletterSubmit}
+              >
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={event => setEmail(event.target.value)}
+                  required
+                  autoComplete="email"
+                  placeholder="Enter your email"
+                  className="h-11 border-background/25 bg-background/10 text-background placeholder:text-background/50 sm:max-w-sm"
+                  disabled={isSubmitting}
+                />
+                <Button type="submit" variant="primary" disabled={isSubmitting}>
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
 

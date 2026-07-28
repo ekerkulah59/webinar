@@ -1,4 +1,12 @@
-import { Clock, BookOpen, CheckCircle2, Lock, Gift, ArrowRight, GraduationCap } from "lucide-react";
+import {
+  Clock,
+  BookOpen,
+  CheckCircle2,
+  Lock,
+  Gift,
+  ArrowRight,
+  GraduationCap,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
@@ -8,15 +16,16 @@ import { useSEO } from "@/hooks/useSEO";
 
 export default function Courses() {
   useSEO({
-    title: "Self-Paced AI Courses for Women Entrepreneurs & Small Business Owners",
+    title:
+      "Self-Paced AI Courses for Women Entrepreneurs & Small Business Owners",
     description:
-      "Free and paid AI courses built for busy business owners — content creation, prompting, client communication, and simple automations. Plain language, no tech background required.",
+      "Beginner-friendly AI courses for non-technical women building businesses around full-time work. Start with practical tasks, build confidence, and apply AI without losing control.",
     type: "website",
   });
 
-  const freeCourse = courses.find((c) => c.type === "free");
-  const featuredCourse = courses.find((c) => c.featured);
-  const paidCourses = courses.filter((c) => c.type === "paid" && !c.featured);
+  const freeCourse = courses.find(c => c.type === "free");
+  const featuredCourse = courses.find(c => c.featured);
+  const paidCourses = courses.filter(c => c.type === "paid" && !c.featured);
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,9 +46,9 @@ export default function Courses() {
               Courses
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Everything from the live webinars, packaged into self-paced
-              courses you can revisit anytime. Built for busy business owners —
-              free and paid options for every stage of your AI journey.
+              A clear learning path for non-technical business owners. Start
+              with the basics, build confidence, and apply AI to real business
+              tasks at your own pace.
             </p>
           </div>
         </div>
@@ -54,7 +63,7 @@ export default function Courses() {
             <div className="flex items-center gap-3 mb-8">
               <Gift className="w-5 h-5 text-accent" />
               <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                Free Course
+                1. Start Here
               </p>
             </div>
 
@@ -99,7 +108,10 @@ export default function Courses() {
                       </p>
                       <ul className="space-y-2.5">
                         {freeCourse.modules.map((mod, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
+                          <li
+                            key={i}
+                            className="flex items-start gap-2.5 text-sm text-foreground"
+                          >
                             <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
                             {mod}
                           </li>
@@ -110,8 +122,16 @@ export default function Courses() {
 
                   <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     {freeCourse.enrollUrl ? (
-                      <a href={freeCourse.enrollUrl} target="_blank" rel="noopener noreferrer">
-                        <Button variant="primary" size="lg" className="font-semibold px-8">
+                      <a
+                        href={freeCourse.enrollUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          variant="primary"
+                          size="lg"
+                          className="font-semibold px-8"
+                        >
                           Enroll Free
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
@@ -154,15 +174,15 @@ export default function Courses() {
             <div className="flex items-center gap-3 mb-8">
               <BookOpen className="w-5 h-5 text-accent" />
               <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                Paid Courses
+                2. Build Confidence
               </p>
             </div>
 
             <div className="space-y-6">
-              {paidCourses.map((course) => (
+              {paidCourses.map(course => (
                 <Card
                   key={course.id}
-                  className="overflow-hidden border-border/60"
+                  className="overflow-hidden border-border/60 opacity-80"
                 >
                   <div className="p-8 md:p-10">
                     <div className="flex flex-col md:flex-row md:items-start gap-8">
@@ -203,7 +223,10 @@ export default function Courses() {
                         </p>
                         <ul className="space-y-2.5">
                           {course.modules.map((mod, i) => (
-                            <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
+                            <li
+                              key={i}
+                              className="flex items-start gap-2.5 text-sm text-foreground"
+                            >
                               <Lock className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
                               {mod}
                             </li>
@@ -214,7 +237,11 @@ export default function Courses() {
 
                     <div className="mt-8 pt-6 border-t border-border">
                       {course.enrollUrl ? (
-                        <a href={course.enrollUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={course.enrollUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Button variant="primary" className="font-semibold">
                             Enroll Now
                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -249,7 +276,7 @@ export default function Courses() {
               <div className="flex items-center gap-3 mb-8">
                 <GraduationCap className="w-5 h-5 text-accent" />
                 <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                  Specialty Course
+                  3. Apply AI to Your Business
                 </p>
               </div>
 
@@ -291,7 +318,10 @@ export default function Courses() {
                       </p>
                       <ul className="space-y-2.5">
                         {featuredCourse.modules.map((mod, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
+                          <li
+                            key={i}
+                            className="flex items-start gap-2.5 text-sm text-foreground"
+                          >
                             <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
                             {mod}
                           </li>
@@ -329,19 +359,20 @@ export default function Courses() {
         <div className="container">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-accent-foreground">
-              Get Notified When Courses Drop
+              4. Get It Built for You
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              Courses are being built now. Join the newsletter and you'll be the
-              first to know — plus get early access and launch pricing.
+              If you know which work needs to become easier but do not want to
+              build the setup alone, explore a custom AI assistant built around
+              your approved business information.
             </p>
-            <a href="/#newsletter">
+            <a href="/custom-ai-assistant">
               <Button
                 size="lg"
                 variant="secondary"
                 className="font-semibold px-10"
               >
-                Join the Newsletter
+                Explore Custom AI Assistants
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </a>

@@ -6,17 +6,19 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
 
 const navLinks = [
+  { label: "Who We Help", href: "/#who-we-help" },
   { label: "About", href: "/#about" },
   { label: "Past Webinars", href: "/past-webinars" },
   { label: "Courses", href: "/courses" },
   { label: "Custom AI", href: "/custom-ai-assistant" },
   { label: "Upcoming", href: "/#upcoming" },
-  { label: "Insights", href: "/insights" },
+  { label: "News & Insights", href: "/insights" },
 ];
 
 export default function Navigation() {
@@ -68,7 +70,7 @@ export default function Navigation() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map(({ label, href }) => (
             <Link
               key={label}
@@ -90,7 +92,7 @@ export default function Navigation() {
         </div>
 
         {/* Mobile nav */}
-        <div className="flex shrink-0 items-center md:hidden">
+        <div className="flex shrink-0 items-center lg:hidden">
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
@@ -106,6 +108,9 @@ export default function Navigation() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72 gap-0 p-0 sm:max-w-xs">
               <SheetTitle className="sr-only">Site navigation</SheetTitle>
+              <SheetDescription className="sr-only">
+                Navigate to EaseIntoAI pages and homepage sections.
+              </SheetDescription>
               <nav className="flex flex-col gap-1 px-4 pt-14 pb-8">
                 {navLinks.map(({ label, href }) => (
                   <Link

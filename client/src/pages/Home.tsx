@@ -1,140 +1,320 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { useEffect, useId, useState } from "react";
 import {
+  ArrowRight,
   Calendar,
+  CheckCircle2,
+  ChevronDown,
   Clock,
   MapPin,
-  CheckCircle2,
-  ArrowRight,
-  Award,
-  ChevronDown,
   PlayCircle,
+  ShieldCheck,
 } from "lucide-react";
 import { Link } from "wouter";
 import AboutSection from "@/components/AboutSection";
-import WhatWeCoverSection from "@/components/WhatWeCoverSection";
-import FluencyFrameworkSection from "@/components/FluencyFrameworkSection";
-import SafeCheckSection from "@/components/SafeCheckSection";
-import Navigation from "@/components/Navigation";
+import CompactTeachingSection from "@/components/CompactTeachingSection";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { LeadForm } from "@/components/LeadForm";
-import { useSEO } from "@/hooks/useSEO";
-import { blogPosts, CATEGORIES } from "@/lib/blogData";
+import Navigation from "@/components/Navigation";
+import ProcessInfographicSection from "@/components/ProcessInfographicSection";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  blogPosts,
+  EDITORIAL_CATEGORIES,
+  formatPublishedDate,
+  getEditorialCategory,
+} from "@/lib/blogData";
 import { pastWebinars } from "@/lib/webinarData";
+import { useSEO } from "@/hooks/useSEO";
 
-/** Upcoming webinar metadata used for registration + countdown */
 const UPCOMING_WEBINAR = {
   slug: "ai-for-women-entrepreneurs-july-2026",
   dateLabel: "July 28, 2026",
   startIso: "2026-07-28T19:00:00-04:00",
   timeLabel: "7:00 PM New York Time",
   dateLabel: "July 31, 2026",
-  startIso: "2026-07-22T12:00:00-04:00",
-  timeLabel: "8:00 PM New York Time",
+  startIso: "2026-07-31T20:00:00-04:00",
+  timeLabel: "8:00 PM New York time",
 };
 
-// ─── Countdown Hook ──────────────────────────────────────────────
-function useCountdown(targetDate: Date) {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+const industries = [
+  {
+    title: "Beauty and wellness",
+    image: "/who-we-help/beauty-wellness.webp",
+    imageAlt:
+      "Black woman hairstylist actively styling a client's natural hair in a professional salon",
+    description:
+      "Spend more time serving clients and less time recreating the work around every appointment.",
+    examples: [
+      "Service descriptions",
+      "Client responses",
+      "Appointment preparation",
+      "Aftercare instructions",
+      "Promotions and social content",
+      "Policies and FAQs",
+    ],
+  },
+  {
+    title: "Events and rentals",
+    image: "/who-we-help/events-rentals.webp",
+    imageAlt:
+      "Woman event-business owner reviewing table settings in a prepared venue",
+    description:
+      "Build consistent processes around inquiries, packages, planning, and customer communication.",
+    examples: [
+      "Quotes and proposals",
+      "Package descriptions",
+      "Event checklists",
+      "Availability responses",
+      "Contracts and follow-ups",
+      "Promotional content",
+    ],
+  },
+  {
+    title: "Coaches and consultants",
+    image: "/who-we-help/coaches-consultants.webp",
+    imageAlt:
+      "Woman consultant reviewing a client plan during a focused coaching conversation",
+    description:
+      "Use your limited business hours for your clients and expertise instead of rebuilding support materials.",
+    examples: [
+      "Session preparation",
+      "Worksheets and exercises",
+      "Client action plans",
+      "Notes and summaries",
+      "Proposals and follow-ups",
+      "Educational content",
+    ],
+  },
+  {
+    title: "Authors and content creators",
+    image: "/who-we-help/authors-creators.webp",
+    imageAlt:
+      "Black woman content creator recording an educational video in her studio",
+    description:
+      "Protect your voice while making the planning, organization, and promotion around your ideas easier.",
+    examples: [
+      "Research organization",
+      "Outlines and scripts",
+      "Launch planning",
+      "Content repurposing",
+      "Promotional campaigns",
+      "Audience communication",
+    ],
+  },
+  {
+    title: "Local and product-based businesses",
+    image: "/who-we-help/local-products.webp",
+    imageAlt:
+      "Woman product-business owner carefully packaging a customer order beside organized inventory",
+    description:
+      "Create clearer customer experiences and reusable processes without needing a large team.",
+    examples: [
+      "Product descriptions",
+      "Customer questions",
+      "Promotions",
+      "Business procedures",
+      "Order communication",
+      "Content planning",
+    ],
+  },
+];
 
-  function calculateTimeLeft() {
-    const difference = targetDate.getTime() - new Date().getTime();
-    if (difference <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0, isComplete: true };
-    }
+type Industry = (typeof industries)[number];
+
+function IndustryCard({
+  industry,
+  featured,
+}: {
+  industry: Industry;
+  featured: boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const examplesId = useId();
+
+  return (
+    <article
+      tabIndex={0}
+      className={`industry-card group ${featured ? "lg:col-span-2" : "lg:col-span-3"}`}
+    >
+      <div className="industry-card-media">
+        <img
+          src={industry.image}
+          alt={industry.imageAlt}
+          width={1200}
+          height={800}
+          loading="lazy"
+          decoding="async"
+          className="industry-card-image"
+        />
+        <div className="industry-card-image-shade" aria-hidden />
+      </div>
+
+      <div className="industry-card-summary">
+        <div>
+          <h3 className="text-xl font-bold text-foreground">
+            {industry.title}
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {industry.description}
+          </p>
+        </div>
+
+        <div className="industry-card-cue" aria-hidden>
+          <span>View task examples</span>
+          <ArrowRight className="h-4 w-4" />
+        </div>
+
+        <button
+          type="button"
+          className="industry-card-toggle"
+          aria-expanded={expanded}
+          aria-controls={examplesId}
+          onClick={() => setExpanded(current => !current)}
+        >
+          <span>{expanded ? "Hide examples" : "See examples"}</span>
+          <ChevronDown
+            className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+            aria-hidden
+          />
+        </button>
+
+        <div
+          id={examplesId}
+          hidden={!expanded}
+          className="industry-card-touch-examples"
+        >
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-foreground">
+            {industry.examples.map(example => (
+              <li key={example} className="flex items-start gap-2">
+                <CheckCircle2
+                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  aria-hidden
+                />
+                {example}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="industry-card-desktop-examples">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/70">
+          AI-supported tasks
+        </p>
+        <h3 className="mt-2 text-2xl font-bold text-white">{industry.title}</h3>
+        <ul className="mt-5 grid grid-cols-2 gap-x-5 gap-y-3 text-sm text-white">
+          {industry.examples.map(example => (
+            <li key={example} className="flex items-start gap-2">
+              <CheckCircle2
+                className="mt-0.5 h-4 w-4 shrink-0 text-indigo-200"
+                aria-hidden
+              />
+              {example}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+const learningOutcomes = [
+  "Identify the business task consuming too much of your limited time.",
+  "Learn what AI can prepare and what still requires your judgment.",
+  "See examples from beauty, wellness, events, rentals, coaching, writing, and content creation.",
+  "Begin building a reusable AI-assisted workflow.",
+  "Learn how to review AI’s work before using it in your business.",
+];
+
+function useCountdown(targetDate: Date) {
+  const calculate = () => {
+    const difference = targetDate.getTime() - Date.now();
+    if (difference <= 0)
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, complete: true };
     return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / (1000 * 60)) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-      isComplete: false,
+      days: Math.floor(difference / 86_400_000),
+      hours: Math.floor((difference / 3_600_000) % 24),
+      minutes: Math.floor((difference / 60_000) % 60),
+      seconds: Math.floor((difference / 1_000) % 60),
+      complete: false,
     };
-  }
+  };
+  const [timeLeft, setTimeLeft] = useState(calculate);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
-    return () => clearInterval(timer);
+    const timer = window.setInterval(() => setTimeLeft(calculate()), 1_000);
+    return () => window.clearInterval(timer);
   }, [targetDate]);
 
   return timeLeft;
 }
 
-// ─── Countdown Display ───────────────────────────────────────────
 function CountdownTimer({ targetDate }: { targetDate: Date }) {
-  const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
-
-  const blocks = [
-    { value: days, label: "Days" },
-    { value: hours, label: "Hours" },
-    { value: minutes, label: "Min" },
-    { value: seconds, label: "Sec" },
-  ];
-
-  if (isComplete) {
+  const timeLeft = useCountdown(targetDate);
+  if (timeLeft.complete) {
     return (
-      <div className="rounded-xl border border-accent/25 bg-accent/8 px-5 py-4 text-center">
-        <p className="text-base font-semibold text-foreground">Starting soon</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Registration is still open. Save your spot and we will send your Zoom details.
-        </p>
-      </div>
+      <p className="rounded-lg border border-accent-foreground/25 bg-background/10 px-4 py-3 text-center text-sm">
+        Registration is still open. Save your spot for the live session.
+      </p>
     );
   }
-
   return (
-    <div className="flex gap-3 justify-center" aria-live="polite">
-      {blocks.map((block) => (
-        <div key={block.label} className="text-center">
-          <div className="w-16 h-16 bg-accent/10 border border-accent/20 rounded-lg flex items-center justify-center mb-1">
-            <span className="text-2xl font-bold text-accent">
-              {String(block.value).padStart(2, "0")}
-            </span>
-          </div>
-          <span className="text-xs text-muted-foreground font-medium">
-            {block.label}
-          </span>
+    <div
+      className="grid grid-cols-4 gap-2"
+      aria-label="Time remaining until the workshop"
+      aria-live="polite"
+    >
+      {[
+        [timeLeft.days, "Days"],
+        [timeLeft.hours, "Hours"],
+        [timeLeft.minutes, "Min"],
+        [timeLeft.seconds, "Sec"],
+      ].map(([value, label]) => (
+        <div
+          key={label}
+          className="rounded-lg bg-background/10 px-2 py-3 text-center"
+        >
+          <p className="text-xl font-bold">{String(value).padStart(2, "0")}</p>
+          <p className="mt-1 text-[10px] uppercase tracking-wider text-accent-foreground/70">
+            {label}
+          </p>
         </div>
       ))}
     </div>
   );
 }
 
-// ─── Main Page ───────────────────────────────────────────────────
 export default function Home() {
   useSEO({
-    title: "Practical AI for Women Entrepreneurs & Small Business Owners",
+    title: "Practical AI for Women Building Businesses While Working Full-Time",
     description:
-      "Free live webinars for women running a business and a family. Hand your admin to AI — in your voice — and get your evenings back.",
+      "EaseIntoAI helps non-technical women use practical AI to grow businesses around full-time jobs and full lives. Learn simple ways to reduce repetitive work without losing your voice or control.",
     url: "https://easeintoai.co/",
     type: "website",
   });
 
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
-  const sessionCount = pastWebinars.length;
-  const scrollToRegistration = () => {
-    document.getElementById("upcoming")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Event",
-          name: "You Run the Business. Who Handles Everything Behind It?",
+          name: "Let AI Take the Night Shift",
           description:
-            "A free live AI workshop for women business owners doing the client work, marketing, follow-ups, content, and admin — often without a team to help. Learn how to use AI to prepare emails, follow-ups, content, forms, and other repetitive work while you keep your voice and final approval.",
+            "A free beginner-friendly workshop for women building businesses after working a full day. Bring one repetitive business task and learn where practical AI can support it.",
           startDate: UPCOMING_WEBINAR.startIso,
+          duration: "PT60M",
           eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
           location: {
             "@type": "VirtualLocation",
             url: "https://easeintoai.co/#upcoming",
           },
-          image: "https://easeintoai.co/og-image.png",
           organizer: {
             "@type": "Organization",
             name: "EaseIntoAI",
@@ -153,292 +333,321 @@ export default function Home() {
       />
       <Navigation />
 
-      {/* ── Hero Section ─────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-10 right-0 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]" />
-          <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[80px]" />
-        </div>
-
-        <div className="container py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            {/* Left: text content */}
-            <div className="space-y-8 text-center md:text-left order-2 md:order-1">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-medium shadow-md">
-                <Award className="w-4 h-4" />
-                AI Education for Women Running a Business and a Household
+      <main>
+        <section
+          className="relative overflow-hidden"
+          aria-labelledby="home-heading"
+        >
+          <div className="absolute inset-0 -z-10" aria-hidden>
+            <div className="absolute right-0 top-10 h-[500px] w-[500px] rounded-full bg-accent/10 blur-[120px]" />
+            <div className="absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-accent/8 blur-[100px]" />
+          </div>
+          <div className="container py-14 md:py-24">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
+              <div className="order-2 text-center lg:order-1 lg:text-left">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent sm:text-sm">
+                  Practical AI for Non-Technical Women Building Businesses While
+                  Working Full-Time
+                </p>
+                <h1
+                  id="home-heading"
+                  className="mt-5 text-4xl font-bold leading-[1.08] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+                >
+                  You Don’t Need to Be a Tech Person to Make AI Work for Your
+                  Business.
+                </h1>
+                <p className="mt-6 text-xl font-semibold leading-snug text-foreground md:text-2xl">
+                  You already worked a full day. Your business shouldn’t take
+                  the rest of your night.
+                </p>
+                <div className="mx-auto mt-5 max-w-2xl space-y-4 text-base leading-relaxed text-muted-foreground lg:mx-0 md:text-lg">
+                  <p>
+                    Whether you style hair, provide spa services, decorate
+                    events, manage rentals, coach, write, create content, or
+                    sell products, EaseIntoAI helps you use simple AI tools for
+                    the work surrounding your business—quotes, bookings,
+                    customer responses, content, planning, follow-ups, and
+                    everyday operations.
+                  </p>
+                  <p>
+                    No complicated language. No endless list of tools. You bring
+                    your business knowledge, and we help you turn it into
+                    practical AI-supported workflows.
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+                  <Button variant="primary" size="lg" asChild>
+                    <a href="#who-we-help">
+                      Show Me How AI Can Help My Business{" "}
+                      <ArrowRight className="h-4 w-4" aria-hidden />
+                    </a>
+                  </Button>
+                  <Button variant="secondary" size="lg" asChild>
+                    <a href="#upcoming">Join the Free Live Workshop</a>
+                  </Button>
+                </div>
+                <p className="mt-6 text-sm font-medium text-muted-foreground">
+                  No technical experience required <span aria-hidden>·</span>{" "}
+                  Built around real businesses <span aria-hidden>·</span> You
+                  remain in control
+                </p>
               </div>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-              You Built the Business. {" "}
-                <span className="text-accent">You Shouldn’t Have to </span> Carry Every Task Behind It.
-                
-              </h1>
-
-              <p className="text-xl text-muted-foreground leading-relaxed">
-              When you’re the service provider, marketer, administrator, and client-support team, 
-              the work never truly ends. EaseIntoAI shows you how to use AI for repetitive emails, 
-              follow-ups, content, forms, and everyday admin—without losing your voice or control.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
-                <Button
-                  onClick={scrollToRegistration}
-                  variant="primary"
-                  size="lg"
-                  className="px-8 py-3 text-base"
-                >
-                 Show Me What AI Can Take Off My Plate
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-                <Button
-                  onClick={() =>
-                    document
-                      .getElementById("past-webinars")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  variant="secondary"
-                  size="lg"
-                  className="px-8 py-3 text-base"
-                >
-                  Browse Past Sessions
-                  <ChevronDown className="w-4 h-4 ml-2" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Right: brand intro video (visible on all breakpoints — replaces stock collage) */}
-            <div className="relative order-1 md:order-2 flex flex-col justify-center w-full max-w-[540px] mx-auto md:mx-0 md:justify-self-end">
-              <p className="text-center md:text-left text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">
-                Hand off the busywork. Keep your voice.
-              </p>
-              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border/30 bg-card ring-1 ring-black/5">
-                <div className="aspect-video w-full">
-                  {!videoUnavailable ? (
-                    <video
-                      className="h-full w-full object-cover"
-                      controls
-                      playsInline
-                      preload="none"
-                      poster="/hero-video-poster.svg"
-                      aria-label="EaseIntoAI introduction video"
-                      onError={() => setVideoUnavailable(true)}
-                    >
-                      <source src="/EaseIntoAI_Brand_Introduction_with_captions.mp4" type="video/mp4" />
-                    </video>
-                  ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-accent/70 text-white p-6 flex flex-col justify-between">
-                      <div className="inline-flex w-fit items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                        Preview
-                      </div>
-                      <div>
-                        <PlayCircle className="w-10 h-10 mb-3 text-white/90" aria-hidden />
-                        <p className="text-lg font-semibold">Intro video is coming soon</p>
-                        <p className="mt-2 text-sm text-white/80">
-                          Register now and join live to get the full walkthrough.
+              <div className="order-1 mx-auto w-full max-w-[560px] lg:order-2 lg:justify-self-end">
+                <p className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground lg:text-left">
+                  Practical support for the hours you have
+                </p>
+                <div className="overflow-hidden rounded-2xl border border-border/60 bg-card shadow-xl ring-1 ring-black/5">
+                  <div className="aspect-video w-full">
+                    {!videoUnavailable ? (
+                      <video
+                        className="h-full w-full object-cover"
+                        controls
+                        playsInline
+                        preload="metadata"
+                        poster="/hero-video-poster.svg"
+                        aria-label="Introduction to EaseIntoAI"
+                        onError={() => setVideoUnavailable(true)}
+                      >
+                        <source
+                          src="/EaseIntoAI_Brand_Introduction_with_captions.mp4"
+                          type="video/mp4"
+                        />
+                      </video>
+                    ) : (
+                      <div className="flex h-full flex-col justify-end bg-gradient-to-br from-slate-950 via-slate-800 to-indigo-700 p-6 text-white">
+                        <PlayCircle className="mb-3 h-10 w-10" aria-hidden />
+                        <p className="text-lg font-semibold">
+                          Meet EaseIntoAI in the live workshop
                         </p>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── Trust Bar ────────────────────────────────────────── */}
-      <div className="border-y border-border bg-accent/[0.07]">
-        <div className="container">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-border">
-            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-                Live
+        <section
+          id="who-we-help"
+          className="scroll-mt-24 border-y border-border bg-accent/[0.045] py-20"
+          aria-labelledby="who-heading"
+        >
+          <div className="container">
+            <header className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                Who We Help
               </p>
-              <p className="mt-2 text-sm text-muted-foreground leading-snug">
-                Practical webinar sessions
+              <h2
+                id="who-heading"
+                className="mt-3 text-4xl font-bold tracking-tight text-foreground md:text-5xl"
+              >
+                Different Businesses. The Same Challenge: Not Enough Hours.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                Whether you work behind a salon chair, at an event venue, from a
+                home office, or in front of a camera, EaseIntoAI helps reduce
+                the repetitive work surrounding the part of your business that
+                truly requires you.
               </p>
-            </div>
-
-            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
-                <img
-                  src="/anthropic.svg"
-                  alt="Anthropic logo"
-                  className="h-4 w-4 object-contain"
-                  loading="lazy"
+            </header>
+            <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+              {industries.map((industry, index) => (
+                <IndustryCard
+                  key={industry.title}
+                  industry={industry}
+                  featured={index < 3}
                 />
-                Anthropic
-              </span>
-              <p className="mt-3 text-sm text-muted-foreground leading-snug">
-                Framework reference for AI fluency principles
-              </p>
+              ))}
             </div>
-
-            <div className="flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <p className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-                {sessionCount}
+            <div className="mt-10 text-center">
+              <p className="text-lg font-semibold text-foreground">
+                You don’t need to know which AI tool can do these things. That’s
+                what EaseIntoAI helps you determine.
               </p>
-              <p className="mt-2 text-sm text-muted-foreground leading-snug">
-                Sessions completed
-              </p>
-            </div>
-
-            <div className="col-span-2 lg:col-span-1 flex flex-col items-center justify-center px-4 py-8 md:py-10 text-center">
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-accent-foreground">
-                <img
-                  src="/dol.png"
-                  alt="Department of Labor seal"
-                  className="h-5 w-5 rounded-full bg-white object-cover"
-                  loading="lazy"
-                />
-                DOL Aligned
-              </span>
-              <p className="mt-3 max-w-[220px] text-sm text-muted-foreground leading-snug">
-                Curriculum aligned with the U.S. Department of Labor&apos;s AI
-                Literacy Framework (2026)
-              </p>
+              <Button className="mt-5" variant="primary" size="lg" asChild>
+                <a href="#upcoming">
+                  Find My First AI-Supported Task{" "}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </a>
+              </Button>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div className="section-divider" />
-
-      {/* ── About Section ────────────────────────────────────── */}
-      <AboutSection />
-
-      <div className="section-divider" />
-
-      {/* ── Community Testimonial ─────────────────────────────── */}
-      <section className="py-16 bg-accent/[0.06]">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-4">
-              Community Feedback
-            </p>
-            <p className="mb-8 text-lg text-muted-foreground leading-relaxed">
-              Founders leave with more than notes. They leave with one piece
-              of admin off their plate for good, in their own voice.
-            </p>
-            <Card className="border-accent/25 shadow-sm">
-              <div className="p-8 md:p-10">
-                <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
-                  &ldquo;Emmanuel taught an AI session during our House Of Zion
-                  fellowship anniversary, and I honestly loved how clear and
-                  practical it was. He broke things down in a way that made me
-                  feel confident instead of overwhelmed.&rdquo;
+        <section className="py-20" aria-labelledby="problem-heading">
+          <div className="container grid gap-10 lg:grid-cols-[1.2fr_.8fr] lg:items-center">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                Why EaseIntoAI Exists
+              </p>
+              <h2
+                id="problem-heading"
+                className="mt-3 text-4xl font-bold tracking-tight text-foreground md:text-5xl"
+              >
+                You’re Not Behind. You’re Building With Limited Hours.
+              </h2>
+              <div className="mt-6 space-y-4 text-lg leading-relaxed text-muted-foreground">
+                <p>
+                  You may spend your day working for an employer and your
+                  evenings serving clients, creating products, writing,
+                  coaching, decorating events, managing rentals, or growing your
+                  platform.
                 </p>
-                <p className="mt-4 text-sm text-muted-foreground">
-                  Esther, House Of Zion
+                <p>
+                  Then comes the work behind the business: quotes, bookings,
+                  content, customer questions, preparation, policies,
+                  follow-ups, documents, and planning.
+                </p>
+                <p>
+                  The problem isn’t that you aren’t committed. You are already
+                  using nearly every hour available to you.
+                </p>
+                <p>
+                  EaseIntoAI helps you identify the repetitive work that does
+                  not need to begin from scratch every time—and shows you, step
+                  by step, how AI can help prepare it while you remain
+                  responsible for the final result.
                 </p>
               </div>
-            </Card>
+            </div>
+            <blockquote className="rounded-2xl bg-foreground p-8 text-3xl font-bold leading-tight text-background shadow-xl md:p-10 md:text-4xl">
+              “You bring the business knowledge. We make the AI understandable.”
+            </blockquote>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="section-divider" />
+        <ProcessInfographicSection />
 
-      <WhatWeCoverSection />
+        <section className="py-16" aria-labelledby="proof-heading">
+          <div className="container">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                Community Feedback
+              </p>
+              <h2 id="proof-heading" className="sr-only">
+                What participants say
+              </h2>
+              <Card className="mt-6 border-accent/25 p-8 shadow-sm md:p-10">
+                <blockquote className="text-xl font-medium leading-relaxed text-foreground md:text-2xl">
+                  “Emmanuel taught an AI session during our House Of Zion
+                  fellowship anniversary, and I honestly loved how clear and
+                  practical it was. He broke things down in a way that made me
+                  feel confident instead of overwhelmed.”
+                </blockquote>
+                <p className="mt-5 text-sm text-muted-foreground">
+                  Esther, House Of Zion
+                </p>
+              </Card>
+            </div>
+          </div>
+        </section>
 
-      <div className="section-divider" />
-
-      <FluencyFrameworkSection />
-
-      {/* ── Upcoming Webinar ─────────────────────────────────── */}
-      <section id="upcoming" className="py-20 bg-accent/[0.06]">
-        <div className="container">
-          <div className="max-w-6xl mx-auto rounded-3xl border border-border/70 bg-background shadow-sm p-6 md:p-10">
-            <div className="grid gap-8 lg:grid-cols-[1.7fr_1fr] lg:gap-10">
+        <section
+          id="upcoming"
+          className="scroll-mt-24 bg-accent/[0.06] py-20"
+          aria-labelledby="webinar-heading"
+        >
+          <div className="container">
+            <div className="mx-auto grid max-w-6xl gap-8 rounded-3xl border border-border/70 bg-background p-6 shadow-sm lg:grid-cols-[1.65fr_1fr] lg:gap-10 md:p-10">
               <div>
-                <span className="inline-flex items-center rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-accent">
-                  Free AI Webinar
-                </span>
-                <h2 className="mt-4 text-3xl md:text-4xl font-bold text-foreground leading-tight max-w-3xl">
-                  You Run the Business. Who Handles Everything Behind It?
+                <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                  Free Live Workshop · Let AI Take the Night Shift
+                </p>
+                <h2
+                  id="webinar-heading"
+                  className="mt-4 max-w-3xl text-3xl font-bold leading-tight md:text-4xl"
+                >
+                  You Already Worked One Shift. Your Business Shouldn’t Require
+                  Another One Every Night.
                 </h2>
-                <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
-                  A free live AI workshop for women business owners doing the client work,
-                  marketing, follow-ups, content, and admin — often without a team to help.
+                <p className="mt-4 text-lg font-semibold text-foreground">
+                  A free beginner-friendly workshop for women building
+                  businesses after working a full day.
                 </p>
-                <p className="mt-3 text-base md:text-lg text-foreground leading-relaxed max-w-3xl">
-                  Learn how to use AI to prepare emails, follow-ups, content, forms, and other
-                  repetitive work while you keep your voice and final approval.
-                </p>
-
-                <ul className="mt-8 divide-y divide-border/70 border-y border-border/70">
-                  {[
-                    {
-                      title: "Spot the Time-Stealers",
-                      text: "Identify the emails, follow-ups, content, forms, and repetitive admin that keep following you after the workday ends.",
-                    },
-                    {
-                      title: "Build Your First AI Workflow”",
-                      text: " Choose one task you repeatedly do from scratch and learn how to turn it into a simple, reusable AI-assisted process.",
-                    },
-                    {
-                      title: "Keep It in Your Voice",
-                      text: "Give AI the right business context and communication style so its drafts sound like you—not a generic template.",
-                    },
-                    {
-                      title: "Map It Live",
-                      text: "Bring one frustrating task. We’ll map where AI can help, where your judgment belongs, and what you need to build a reliable solution.",
-                    },
-                  ].map((item) => (
-                    <li key={item.title} className="flex items-start gap-3 py-3.5">
-                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                      <span className="text-sm md:text-[15px] text-foreground leading-relaxed">
-                        <span className="font-semibold">{item.title}:</span>{" "}
-                        {item.text}
-                      </span>
+                <div className="mt-4 space-y-3 leading-relaxed text-muted-foreground">
+                  <p>
+                    You don’t need technical experience, an automation system,
+                    or knowledge of every AI tool.
+                  </p>
+                  <p>
+                    Bring one repetitive task from your business—preparing a
+                    quote, responding to an inquiry, planning content, writing a
+                    service description, organizing client information, creating
+                    a checklist, or developing a follow-up. We’ll help you
+                    identify where AI can support it and begin turning it into a
+                    simple, reusable process.
+                  </p>
+                </div>
+                <ul className="mt-7 space-y-3 border-y border-border py-6">
+                  {learningOutcomes.map(outcome => (
+                    <li
+                      key={outcome}
+                      className="flex gap-3 text-sm leading-relaxed md:text-base"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 h-5 w-5 shrink-0 text-accent"
+                        aria-hidden
+                      />
+                      {outcome}
                     </li>
                   ))}
                 </ul>
-
-                <p className="mt-5 text-sm text-muted-foreground">
-                  No jargon. No tech background required. You approve every word before it
-                  goes out.
+                <aside
+                  className="mt-6 rounded-2xl border border-accent/20 bg-accent/[0.05] p-5 md:p-6"
+                  aria-labelledby="safe-check-webinar-heading"
+                >
+                  <div className="flex gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
+                      <ShieldCheck className="h-5 w-5" aria-hidden />
+                    </div>
+                    <div>
+                      <h3
+                        id="safe-check-webinar-heading"
+                        className="text-lg font-bold text-foreground"
+                      >
+                        Use AI Without Risking Your Reputation
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                        Learn the SAFE Check—a simple four-question method for
+                        reviewing AI-created work before it reaches your
+                        customers.
+                      </p>
+                      <p className="mt-3 text-sm font-semibold leading-relaxed text-accent">
+                        Safe to share · Accurate · Fair to send · Edited by me
+                      </p>
+                    </div>
+                  </div>
+                </aside>
+                <p className="mt-6 text-lg font-semibold text-foreground">
+                  If you can explain how you currently complete a task, we can
+                  help you understand how AI may support it.
                 </p>
               </div>
 
               <Card className="h-fit border-0 bg-accent text-accent-foreground shadow-xl">
-                <div className="p-6 md:p-7 space-y-5">
-                  <h3 className="text-xl font-bold leading-snug">
-                    Lighten the Load, Session 1
-                  </h3>
-
+                <div className="space-y-5 p-6 md:p-7">
+                  <h3 className="text-2xl font-bold">Save your free spot</h3>
                   <div className="space-y-3 text-sm">
-                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
-                      <span className="inline-flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        {UPCOMING_WEBINAR.dateLabel}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
-                      <span className="inline-flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        {UPCOMING_WEBINAR.timeLabel}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between gap-3 border-b border-accent-foreground/20 pb-2">
-                      <span className="inline-flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        Live on Zoom
-                      </span>
-                      <span className="rounded-full bg-background/15 px-2 py-0.5 text-xs font-semibold">
-                        Free
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-accent-foreground/90">
-                      <Clock className="w-4 h-4" />
-                      <span>60 minutes incl. Q&amp;A</span>
-                    </div>
+                    <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
+                      <Calendar className="h-4 w-4" aria-hidden />
+                      {UPCOMING_WEBINAR.dateLabel}
+                    </p>
+                    <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
+                      <Clock className="h-4 w-4" aria-hidden />
+                      {UPCOMING_WEBINAR.timeLabel}
+                    </p>
+                    <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
+                      <MapPin className="h-4 w-4" aria-hidden />
+                      Live on Zoom · Free
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <Clock className="h-4 w-4" aria-hidden />
+                      60 minutes including Q&amp;A
+                    </p>
                   </div>
-
+                  <CountdownTimer targetDate={upcomingDate} />
                   <LeadForm
                     source="webinar"
                     webinarSlug={UPCOMING_WEBINAR.slug}
@@ -446,112 +655,90 @@ export default function Home() {
                     submitLabel="Save My Free Spot"
                     className="[&_button]:w-full"
                   />
-
-                  <p className="text-xs text-accent-foreground/75">
-                    100% free. Your Zoom link arrives by email, plus a text reminder before
-                    the session.
-                  </p>
                 </div>
               </Card>
             </div>
           </div>
-        </div>
-      </section>
-      <div className="section-divider" />
+        </section>
 
-      {/* ── Past Webinars Teaser ─────────────────────────────── */}
-      <section id="past-webinars" className="py-20 bg-accent">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <p className="text-sm font-semibold text-accent-foreground/70 uppercase tracking-widest">
-              Track Record
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-accent-foreground">
+        <CompactTeachingSection />
+        <AboutSection />
+
+        <section id="past-webinars" className="bg-accent py-20">
+          <div className="container text-center text-accent-foreground">
+            <p className="text-sm font-semibold uppercase tracking-widest text-accent-foreground/70">
               Past Webinars
-            </h2>
-            <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              {pastWebinars.length} sessions completed. 100+ attendees. Every session takes a real task off your plate — in plain language.
             </p>
-            <div className="flex justify-center gap-10 py-4">
-              {[
-                { value: `${pastWebinars.length}`, label: "Sessions" },
-                { value: "100+", label: "Attendees" },
-                { value: "Live", label: "Format" },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-bold text-accent-foreground">{stat.value}</p>
-                  <p className="text-sm text-accent-foreground/70">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-            <Link href="/past-webinars">
-              <Button size="lg" variant="secondary" className="font-semibold px-8">
-                View All Past Webinars
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+            <h2 className="mt-3 text-4xl font-bold md:text-5xl">
+              Keep Learning in Plain Language
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-accent-foreground/80">
+              Explore {pastWebinars.length} completed live sessions built to
+              make practical AI feel approachable and useful.
+            </p>
+            <Button className="mt-7" variant="secondary" size="lg" asChild>
+              <Link href="/past-webinars">
+                View Past Webinars{" "}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </Button>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="section-divider" />
-
-      {/* ── Latest Insights ──────────────────────────────────── */}
-      <section className="py-20">
-        <div className="container">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12">
-            <div>
-              <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
-                From the Blog
-              </p>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-                Latest Insights
-              </h2>
-            </div>
-            <Link href="/insights">
-              <Button variant="secondary" className="font-medium">
-                View All
-                <ArrowRight className="w-4 h-4 ml-2" />
+        <section className="py-20" aria-labelledby="insights-heading">
+          <div className="container">
+            <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                  News &amp; Insights
+                </p>
+                <h2
+                  id="insights-heading"
+                  className="mt-3 text-4xl font-bold md:text-5xl"
+                >
+                  Practical Ideas for the Work You Do
+                </h2>
+              </div>
+              <Button variant="secondary" asChild>
+                <Link href="/insights">
+                  View All <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
               </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {blogPosts.slice(0, 3).map((post) => {
-              const cat = CATEGORIES[post.category];
-              return (
-                <Link key={post.slug} href={`/insights/${post.slug}`}>
-                  <Card className="overflow-hidden border-border/60 surface-card surface-card-hover cursor-pointer group h-full">
-                    <div className="h-36 bg-gradient-to-br from-accent/15 via-accent/8 to-transparent border-b border-border/60" aria-hidden />
-                    <div className="p-6 space-y-4 flex flex-col h-full">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wide ${cat.color}`}
-                        >
-                          {cat.label}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors leading-snug">
+            </div>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {blogPosts.slice(0, 3).map(post => {
+                const category =
+                  EDITORIAL_CATEGORIES[getEditorialCategory(post)];
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/insights/${post.slug}`}
+                    className="group"
+                  >
+                    <Card className="h-full p-6 surface-card surface-card-hover">
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${category.color}`}
+                      >
+                        {category.label}
+                      </span>
+                      <h3 className="mt-5 text-lg font-bold leading-snug group-hover:text-accent">
                         {post.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                         {post.excerpt}
                       </p>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t border-border">
-                        <span>{post.date}</span>
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
+                      <p className="mt-5 border-t border-border pt-4 text-xs text-muted-foreground">
+                        {formatPublishedDate(post.publishedAt)} ·{" "}
+                        {post.readingTime}
+                      </p>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-
-      <div className="section-divider" />
-
+        </section>
+      </main>
       <Footer />
     </div>
   );

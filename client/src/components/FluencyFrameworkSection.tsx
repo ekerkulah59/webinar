@@ -34,7 +34,7 @@ const fluencySkills: FluencySkill[] = [
     title: "Discernment",
     subtitle: "Evaluating what AI gives you",
     description:
-      "Critically reviewing an AI-drafted offer, email, or caption before it goes out — checking that the pricing is right, the tone fits your brand, and nothing sounds off to a client who knows you.",
+      "Critically reviewing an AI-prepared quote, offer, service description, or caption before you use it—checking the details, pricing, policies, and tone against what your business actually does.",
     sessionTag: "Session 1 — SAFE Check",
     headerClassName: "bg-accent",
     tagClassName: "bg-accent/15 text-accent",
@@ -82,7 +82,7 @@ export default function FluencyFrameworkSection() {
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {fluencySkills.map((skill) => (
+          {fluencySkills.map(skill => (
             <article
               key={skill.title}
               className="flex flex-col overflow-hidden rounded-xl surface-card surface-card-hover"

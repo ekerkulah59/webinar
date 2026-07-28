@@ -35,7 +35,8 @@ export const courses: Course[] = [
       "Your roadmap for getting started",
     ],
     status: "available",
-    enrollUrl: "https://easeintoai.gumroad.com/l/UnderstandAIWithouttheConfusion",
+    enrollUrl:
+      "https://easeintoai.gumroad.com/l/UnderstandAIWithouttheConfusion",
     whoIsItFor: [
       "Complete beginners who feel lost every time AI comes up",
       "Professionals who want to understand AI without learning to code",
@@ -55,7 +56,7 @@ export const courses: Course[] = [
     description:
       "The complete beginner-to-capable journey. Five structured modules covering everything from understanding AI to building a daily workflow — all in one place, at your own pace.",
     longDescription:
-      "This is the most complete AI course for non-technical learners. Five modules, built in a logical sequence, that take you from \"I don't know where to start\" to \"I use AI every single day.\" Everything covered in the webinar series, packaged into a self-paced format you can work through on your schedule.",
+      'This is the most complete AI course for non-technical learners. Five modules, built in a logical sequence, that take you from "I don\'t know where to start" to "I use AI every single day." Everything covered in the webinar series, packaged into a self-paced format you can work through on your schedule.',
     type: "paid",
     price: "$39",
     priceAmount: 39,
@@ -69,7 +70,8 @@ export const courses: Course[] = [
       "Bonus: Prompt templates & cheat sheets",
     ],
     status: "available",
-    enrollUrl: "https://easeintoai.gumroad.com/l/ai-foundations-curious-to-confident",
+    enrollUrl:
+      "https://easeintoai.gumroad.com/l/ai-foundations-curious-to-confident",
     whoIsItFor: [
       "Beginners who want a structured, end-to-end AI education",
       "Professionals looking to integrate AI into their daily work",
@@ -192,9 +194,9 @@ export const courses: Course[] = [
     slug: "ai-for-women-entrepreneurs",
     title: "AI for Women Entrepreneurs & Small Business Owners",
     description:
-      "Built for coaches, consultants, creators, and local business owners. Learn how to use AI to create content, communicate with clients, shape offers, and set up simple automations — no tech background required.",
+      "Built for women growing beauty, wellness, event, rental, coaching, creative, local-service, and product businesses. Apply AI to real work in everyday language—no technical experience required.",
     longDescription:
-      "You're running a business — not a tech company. Between marketing, content, client messages, bookings, and the actual work you do, AI can feel like one more thing you don't have time to learn. This course is built specifically for women entrepreneurs and small business owners: coaches, consultants, creators, and local business owners running salons, studios, boutiques, and food trucks. Six focused modules show you how to put AI to work in the business you already have — in plain language, with real examples from women-led businesses.",
+      "You're running a business—not a tech company. Between full-time work, clients, bookings, products, events, content, and the work only you can do, AI can feel like one more thing to learn. This course is built for women growing salons, spas, event and rental businesses, coaching practices, creative platforms, boutiques, and other local or product-based businesses. Six focused modules show you how to apply AI to the business you already have, in plain language, while you remain in control.",
     type: "paid",
     price: "$49",
     priceAmount: 49,
@@ -203,30 +205,30 @@ export const courses: Course[] = [
     featured: true,
     modules: [
       "Module 1 — AI Basics for Business Owners (No Tech Background Needed)",
-      "Module 2 — Content That Sounds Like You: Social Media, Email & Captions",
-      "Module 3 — Clients & Communication: Inquiries, Follow-Ups & No-Shows",
-      "Module 4 — Offers & Pricing: Shape a Sellable Offer with AI",
-      "Module 5 — Simple Automations: Booking Reminders, FAQs & Intake Forms",
+      "Module 2 — Content That Sounds Like You: Planning, Posts & Promotions",
+      "Module 3 — Customer Experience: Inquiries, Bookings & Preparation",
+      "Module 4 — Offers & Operations: Services, Packages, Quotes & Checklists",
+      "Module 5 — Reusable Processes: FAQs, Follow-Ups & Business Procedures",
       "Module 6 — The SAFE Check: Using AI Responsibly with Client Information",
     ],
     status: "coming-soon",
     enrollUrl: undefined,
     whoIsItFor: [
-      "Coaches, consultants, creators, and online service providers",
-      "Owners of local businesses — salons, studios, boutiques, food trucks, and other service businesses",
+      "Beauty, wellness, event, rental, coaching, writing, and content businesses",
+      "Owners of local-service, boutique, and product-based businesses",
       "Women who feel behind on AI and don't have time to learn it by trial and error",
     ],
     whatYouWillLeave: [
-      "Hours back every week on content, emails, and admin",
-      "A system for turning one idea into a month of social media and email content",
-      "Client communication drafts — inquiries, follow-ups, no-shows — that still sound like you",
-      "A clear, well-priced offer shaped with AI as your thinking partner",
-      "Simple automations: booking reminders, FAQ replies, intake forms",
+      "Reusable processes for the repetitive work around your expertise",
+      "A system for turning one idea into useful content and promotions",
+      "Customer-response, quote, service-description, and follow-up drafts that still sound like you",
+      "Clear packages and offers shaped with AI as a thinking partner",
+      "Practical workflows for bookings, FAQs, checklists, and business procedures",
       "The SAFE Check habit for anything AI writes under your business's name",
     ],
   },
 ];
 
 export function getCourseBySlug(slug: string): Course | undefined {
-  return courses.find((c) => c.slug === slug);
+  return courses.find(c => c.slug === slug);
 }

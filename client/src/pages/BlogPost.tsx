@@ -1,206 +1,327 @@
 import { useState, type ReactNode } from "react";
 import { Link, useParams } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import {
   ArrowLeft,
   ArrowRight,
-  Calendar,
-  Clock,
-  Share2,
-  LinkIcon,
+  CalendarDays,
   Check,
+  Clock3,
+  LinkIcon,
   Linkedin,
+  Share2,
   Twitter,
+  UserRound,
 } from "lucide-react";
-import Navigation from "@/components/Navigation";
+import { ArticleCover } from "@/components/ArticleCover";
 import Footer from "@/components/Footer";
-import { getPostBySlug, blogPosts, CATEGORIES } from "@/lib/blogData";
-import { useSEO } from "@/hooks/useSEO";
 import { JsonLd } from "@/components/JsonLd";
+import Navigation from "@/components/Navigation";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  blogPosts,
+  EDITORIAL_CATEGORIES,
+  formatPublishedDate,
+  getEditorialCategory,
+  getPostBySlug,
+  type BlogPost as BlogPostType,
+  type NewsArticleSections,
+} from "@/lib/blogData";
+import { useSEO } from "@/hooks/useSEO";
 
-// ─── Simple Markdown-like renderer ──────────────────────────────
-/** Renders inline markdown: **bold**, *italic*, and [text](url) links. */
+const SITE_URL = "https://easeintoai.co";
+
 function renderInline(text: string): ReactNode[] {
-  const parts = text.split(
-    /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g
-  );
-  return parts.map((part, pi) => {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  return parts.map((part, index) => {
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (linkMatch) {
       return (
         <a
-          key={pi}
+          key={index}
           href={linkMatch[2]}
-          className="text-accent font-medium hover:text-accent/80 underline underline-offset-2 transition-colors"
+          className="font-medium text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:text-accent/80"
         >
           {linkMatch[1]}
         </a>
       );
     }
     if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={pi} className="font-semibold text-foreground">
-          {part.replace(/\*\*/g, "")}
-        </strong>
-      );
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
-      return <em key={pi}>{part.slice(1, -1)}</em>;
+      return <em key={index}>{part.slice(1, -1)}</em>;
     }
-    return <span key={pi}>{part}</span>;
+    return <span key={index}>{part}</span>;
   });
 }
 
 function RenderContent({ content }: { content: string }) {
   const lines = content.split("\n");
   const elements: ReactNode[] = [];
-  let currentList: string[] = [];
+  let listItems: string[] = [];
+  let ordered = false;
   let listKey = 0;
 
-  function flushList() {
-    if (currentList.length > 0) {
-      elements.push(
-        <ul key={`list-${listKey++}`} className="space-y-2 my-4">
-          {currentList.map((item, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-2.5 text-foreground/90 leading-relaxed"
-            >
-              <span className="text-accent mt-1.5 text-sm">•</span>
-              <span>{renderInline(item)}</span>
-            </li>
-          ))}
+  const flushList = () => {
+    if (listItems.length === 0) return;
+    const items = listItems.map((item, index) => (
+      <li key={index}>{renderInline(item)}</li>
+    ));
+    elements.push(
+      ordered ? (
+        <ol key={`list-${listKey++}`} className="article-list list-decimal">
+          {items}
+        </ol>
+      ) : (
+        <ul key={`list-${listKey++}`} className="article-list list-disc">
+          {items}
         </ul>
-      );
-      currentList = [];
-    }
-  }
+      )
+    );
+    listItems = [];
+  };
 
-  lines.forEach((line, idx) => {
+  lines.forEach((line, index) => {
     const trimmed = line.trim();
+    const imageMatch = trimmed.match(
+      /^!\[([^\]]*)\]\((\S+)(?:\s+"([^"]+)")?\)$/
+    );
+    const orderedMatch = trimmed.match(/^\d+\.\s+(.+)$/);
 
     if (trimmed.startsWith("## ")) {
       flushList();
       elements.push(
-        <h2 key={idx} className="text-2xl font-bold text-foreground mt-10 mb-4">
-          {trimmed.replace("## ", "")}
+        <h2 key={index} className="article-h2">
+          {trimmed.slice(3)}
         </h2>
       );
-    } else if (
-      trimmed.startsWith("**") &&
-      trimmed.endsWith("**") &&
-      trimmed.indexOf("**", 2) === trimmed.length - 2
-    ) {
+    } else if (trimmed.startsWith("### ")) {
       flushList();
       elements.push(
-        <p key={idx} className="font-semibold text-foreground mt-6 mb-2">
-          {trimmed.replace(/\*\*/g, "")}
-        </p>
+        <h3 key={index} className="article-h3">
+          {trimmed.slice(4)}
+        </h3>
+      );
+    } else if (imageMatch) {
+      flushList();
+      elements.push(
+        <figure key={index} className="my-8">
+          <img
+            src={imageMatch[2]}
+            alt={imageMatch[1]}
+            width={1200}
+            height={675}
+            loading="lazy"
+            decoding="async"
+            className="aspect-video w-full rounded-xl border border-border object-cover"
+          />
+          {imageMatch[3] ? (
+            <figcaption className="mt-2 text-sm text-muted-foreground">
+              {imageMatch[3]}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
+    } else if (trimmed.startsWith("> [!NOTE] ")) {
+      flushList();
+      elements.push(
+        <aside key={index} className="article-callout">
+          {renderInline(trimmed.slice(10))}
+        </aside>
+      );
+    } else if (trimmed.startsWith("> ")) {
+      flushList();
+      elements.push(
+        <blockquote key={index} className="article-blockquote">
+          {renderInline(trimmed.slice(2))}
+        </blockquote>
       );
     } else if (trimmed.startsWith("- ")) {
-      currentList.push(trimmed.replace("- ", ""));
+      if (ordered && listItems.length > 0) flushList();
+      ordered = false;
+      listItems.push(trimmed.slice(2));
+    } else if (orderedMatch) {
+      if (!ordered && listItems.length > 0) flushList();
+      ordered = true;
+      listItems.push(orderedMatch[1]);
     } else if (trimmed === "") {
       flushList();
     } else {
       flushList();
       elements.push(
-        <p key={idx} className="text-foreground/90 leading-relaxed my-3">
+        <p key={index} className="article-paragraph">
           {renderInline(trimmed)}
         </p>
       );
     }
   });
-
   flushList();
-  return <div className="prose-custom">{elements}</div>;
+
+  return <div>{elements}</div>;
 }
 
-// ─── Copy Link Button ────────────────────────────────────────────
+function RenderNewsSections({ sections }: { sections: NewsArticleSections }) {
+  const groups = [
+    {
+      heading: "What Happened",
+      label: "Confirmed facts",
+      content: sections.whatHappened,
+    },
+    {
+      heading: "Why It Matters",
+      label: "EaseIntoAI interpretation",
+      content: sections.whyItMatters,
+    },
+    {
+      heading: "What It Means for Your Business",
+      label: "EaseIntoAI interpretation",
+      content: sections.whatItMeansForYourBusiness,
+    },
+    {
+      heading: "What You Should Do Now",
+      label: "Recommendations",
+      content: sections.whatYouShouldDoNow,
+    },
+  ];
+
+  return (
+    <div>
+      {groups.map(group => (
+        <section key={group.heading}>
+          <h2 className="article-h2">{group.heading}</h2>
+          <p className="text-xs font-bold uppercase tracking-widest text-accent">
+            {group.label}
+          </p>
+          <RenderContent content={group.content} />
+        </section>
+      ))}
+      <section>
+        <h2 className="article-h2">Primary Sources</h2>
+        <ul className="article-list list-disc">
+          {sections.primarySources.map(source => (
+            <li key={source.url}>
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-accent underline underline-offset-4"
+              >
+                {source.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+}
+
+function CategoryBadge({ post }: { post: BlogPostType }) {
+  const category = EDITORIAL_CATEGORIES[getEditorialCategory(post)];
+  return (
+    <span
+      className={`inline-flex w-fit rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.1em] ${category.color}`}
+    >
+      {category.label}
+    </span>
+  );
+}
+
 function CopyLinkButton() {
   const [copied, setCopied] = useState(false);
-
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      // Fallback for older browsers
-      const textArea = document.createElement("textarea");
-      textArea.value = window.location.href;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-9999px";
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }
+    await navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
-        copied
-          ? "bg-green-100 text-green-700 border border-green-200"
-          : "bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 border border-border"
-      }`}
+      className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold transition-colors hover:border-accent/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
     >
       {copied ? (
-        <>
-          <Check className="w-4 h-4" />
-          Link copied!
-        </>
+        <Check className="h-4 w-4" aria-hidden />
       ) : (
-        <>
-          <LinkIcon className="w-4 h-4" />
-          Copy link
-        </>
+        <LinkIcon className="h-4 w-4" aria-hidden />
       )}
+      <span aria-live="polite">{copied ? "Link copied" : "Copy link"}</span>
     </button>
   );
 }
 
-// ─── Blog Post Page ──────────────────────────────────────────────
+function RelatedCard({ post }: { post: BlogPostType }) {
+  return (
+    <Link
+      href={`/insights/${post.slug}`}
+      className="group overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-accent/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+    >
+      <ArticleCover post={post} className="aspect-video w-full" />
+      <div className="p-5">
+        <CategoryBadge post={post} />
+        <h3 className="mt-3 font-bold leading-snug transition-colors group-hover:text-accent">
+          {post.title}
+        </h3>
+        <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-accent">
+          Read article <ArrowRight className="h-4 w-4" aria-hidden />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
 export default function BlogPost() {
   const params = useParams<{ slug: string }>();
-  const post = getPostBySlug(params.slug || "");
+  const post = getPostBySlug(params.slug ?? "");
+  const canonicalUrl = post
+    ? `${SITE_URL}/insights/${post.slug}`
+    : `${SITE_URL}/insights`;
+  const socialImage = post?.featuredImage
+    ? `${SITE_URL}${post.featuredImage}`
+    : `${SITE_URL}/og-image.png`;
 
-  // SEO — update document title and meta tags for social sharing
   useSEO({
-    title: post?.title || "Post not found",
-    description: post?.excerpt || "This post could not be found.",
+    title: post?.seoTitle ?? post?.title ?? "Article not found",
+    description:
+      post?.seoDescription ??
+      post?.excerpt ??
+      "This article could not be found.",
+    ogTitle: post?.ogTitle,
+    ogDescription: post?.ogDescription,
+    url: canonicalUrl,
+    type: "article",
+    image: socialImage,
+    publishedTime: post?.publishedAt,
+    modifiedTime: post?.updatedAt,
+    author: post?.author,
   });
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <h1 className="text-3xl font-bold text-foreground">
-            Post not found
-          </h1>
-          <Link href="/insights">
-            <Button variant="outline">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Insights
-            </Button>
-          </Link>
+      <div className="grid min-h-screen place-items-center bg-background px-6 text-center">
+        <div>
+          <h1 className="text-3xl font-bold">Article not found</h1>
+          <Button className="mt-6" variant="outline" asChild>
+            <Link href="/insights">
+              <ArrowLeft className="mr-2 h-4 w-4" aria-hidden /> Back to News
+              &amp; Insights
+            </Link>
+          </Button>
         </div>
       </div>
     );
   }
 
-  const cat = CATEGORIES[post.category];
-  const currentIdx = blogPosts.findIndex((p) => p.slug === post.slug);
-  const prevPost = currentIdx > 0 ? blogPosts[currentIdx - 1] : null;
-  const nextPost =
-    currentIdx < blogPosts.length - 1 ? blogPosts[currentIdx + 1] : null;
-
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-  const shareText = `${post.title} — by EaseIntoAI`;
+  const relatedPosts = blogPosts
+    .filter(
+      candidate =>
+        candidate.slug !== post.slug &&
+        getEditorialCategory(candidate) === getEditorialCategory(post)
+    )
+    .slice(0, 3);
+  const shareText = `${post.title} — EaseIntoAI`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -209,155 +330,174 @@ export default function BlogPost() {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: post.title,
-          description: post.excerpt,
-          url: `https://easeintoai.co/insights/${post.slug}`,
-          datePublished: new Date(post.date).toISOString().split("T")[0],
-          author: {
-            "@type": "Person",
-            name: "Emmanuel Kerkulah",
-            url: "https://easeintoai.co/#about",
-          },
+          description: post.seoDescription ?? post.excerpt,
+          url: canonicalUrl,
+          datePublished: post.publishedAt,
+          ...(post.updatedAt ? { dateModified: post.updatedAt } : {}),
+          author: { "@type": "Person", name: post.author },
           publisher: {
             "@type": "Organization",
             name: "EaseIntoAI",
-            url: "https://easeintoai.co/",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://easeintoai.co/logo.png",
-            },
+            url: SITE_URL,
+            logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
           },
-          image: "https://easeintoai.co/og-image.png",
-          mainEntityOfPage: `https://easeintoai.co/insights/${post.slug}`,
+          image: socialImage,
+          mainEntityOfPage: canonicalUrl,
         }}
       />
       <Navigation />
+      <main>
+        <article className="py-10 md:py-16">
+          <div className="container">
+            <div className="mx-auto max-w-5xl">
+              <Link
+                href="/insights"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden /> Back to News &amp;
+                Insights
+              </Link>
 
-      {/* Article */}
-      <article className="py-14 md:py-20">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            {/* Back link */}
-            <Link
-              href="/insights"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-10"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Insights
-            </Link>
+              <header className="mt-9 max-w-4xl">
+                <CategoryBadge post={post} />
+                <h1 className="mt-5 text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
+                  {post.title}
+                </h1>
+                <p className="mt-6 max-w-3xl text-xl leading-relaxed text-muted-foreground">
+                  {post.excerpt}
+                </p>
+                <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-2">
+                    <UserRound className="h-4 w-4" aria-hidden /> {post.author}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <CalendarDays className="h-4 w-4" aria-hidden /> Published{" "}
+                    {formatPublishedDate(post.publishedAt)}
+                  </span>
+                  {post.updatedAt ? (
+                    <span>Updated {formatPublishedDate(post.updatedAt)}</span>
+                  ) : null}
+                  <span className="inline-flex items-center gap-2">
+                    <Clock3 className="h-4 w-4" aria-hidden />{" "}
+                    {post.readingTime}
+                  </span>
+                </div>
+              </header>
 
-            {/* Header */}
-            <header className="space-y-6 mb-12">
-              <div className="flex items-center gap-3">
-                <span
-                  className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wide ${cat.color}`}
-                >
-                  {cat.label}
-                </span>
-              </div>
+              <ArticleCover
+                post={post}
+                priority
+                className="mt-9 aspect-video w-full rounded-2xl border border-border shadow-sm"
+              />
+              {post.featuredImageCaption || post.featuredImageCredit ? (
+                <p className="mt-3 text-sm text-muted-foreground">
+                  {post.featuredImageCaption}
+                  {post.featuredImageCredit ? (
+                    <>
+                      {post.featuredImageCaption ? " · " : ""}
+                      {post.featuredImageSourceUrl ? (
+                        <a
+                          href={post.featuredImageSourceUrl}
+                          className="underline underline-offset-4"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {post.featuredImageCredit}
+                        </a>
+                      ) : (
+                        post.featuredImageCredit
+                      )}
+                    </>
+                  ) : null}
+                </p>
+              ) : null}
 
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                {post.title}
-              </h1>
+              <div className="mx-auto mt-12 max-w-3xl">
+                {post.newsSections ? (
+                  <RenderNewsSections sections={post.newsSections} />
+                ) : (
+                  <RenderContent content={post.content} />
+                )}
 
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                {post.excerpt}
-              </p>
-
-              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground pt-2 pb-4 border-b border-border">
-                <span className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  {post.date}
-                </span>
-                <span className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  {post.readTime}
-                </span>
-                <span>By EaseIntoAI</span>
-              </div>
-            </header>
-
-            {/* Content */}
-            <div className="mb-16">
-              <RenderContent content={post.content} />
-            </div>
-
-            {/* ── Share Bar ────────────────────────────────────── */}
-            <div className="py-8 px-6 md:px-8 bg-secondary/50 rounded-xl border border-border">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                    <Share2 className="w-4 h-4 text-accent" />
-                    Share this article
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Know someone who'd find this useful? Send them the link.
+                <aside className="mt-12 rounded-2xl border border-accent/20 bg-accent/[0.05] p-6 md:p-8">
+                  <h2 className="text-2xl font-bold">
+                    Put Practical AI Into Your Business
+                  </h2>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">
+                    Bring one repetitive task to the current EaseIntoAI workshop
+                    and learn where AI can help while you remain in control.
                   </p>
-                </div>
+                  <Button className="mt-5" variant="primary" asChild>
+                    <Link href="/#upcoming">
+                      View the Current Workshop
+                      <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                    </Link>
+                  </Button>
+                </aside>
 
-                <div className="flex flex-wrap gap-2">
-                  {/* Copy link — primary sharing action */}
-                  <CopyLinkButton />
-
-                  {/* LinkedIn */}
-                  <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    LinkedIn
-                  </a>
-
-                  {/* X / Twitter */}
-                  <a
-                    href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
-                  >
-                    <Twitter className="w-4 h-4" />
-                    Post on X
-                  </a>
-                </div>
+                <section className="mt-10 border-y border-border py-6">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="inline-flex items-center gap-2 font-bold">
+                        <Share2 className="h-4 w-4 text-accent" aria-hidden />
+                        Share this article
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        Send this practical explanation to someone who needs it.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <CopyLinkButton />
+                      <a
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      >
+                        <Linkedin className="h-4 w-4" aria-hidden /> LinkedIn
+                      </a>
+                      <a
+                        href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(canonicalUrl)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      >
+                        <Twitter className="h-4 w-4" aria-hidden /> Post on X
+                      </a>
+                    </div>
+                  </div>
+                </section>
               </div>
-            </div>
-
-            {/* Prev / Next navigation */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-12">
-              {prevPost ? (
-                <Link href={`/insights/${prevPost.slug}`}>
-                  <Card className="p-5 hover:border-accent/20 transition-colors cursor-pointer group h-full">
-                    <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
-                      <ArrowLeft className="w-3 h-3" /> Previous
-                    </p>
-                    <p className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
-                      {prevPost.title}
-                    </p>
-                  </Card>
-                </Link>
-              ) : (
-                <div />
-              )}
-              {nextPost ? (
-                <Link href={`/insights/${nextPost.slug}`}>
-                  <Card className="p-5 hover:border-accent/20 transition-colors cursor-pointer group h-full text-right">
-                    <p className="text-xs text-muted-foreground mb-2 flex items-center justify-end gap-1">
-                      Next <ArrowRight className="w-3 h-3" />
-                    </p>
-                    <p className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
-                      {nextPost.title}
-                    </p>
-                  </Card>
-                </Link>
-              ) : (
-                <div />
-              )}
             </div>
           </div>
-        </div>
-      </article>
+        </article>
 
+        {relatedPosts.length > 0 ? (
+          <section className="border-t border-border bg-secondary/35 py-12 md:py-16">
+            <div className="container">
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+                    Keep Reading
+                  </p>
+                  <h2 className="mt-2 text-3xl font-bold">Related Articles</h2>
+                </div>
+                <Link
+                  href="/insights"
+                  className="hidden text-sm font-bold text-accent sm:inline-flex"
+                >
+                  All News &amp; Insights
+                </Link>
+              </div>
+              <div className="mt-7 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {relatedPosts.map(related => (
+                  <RelatedCard key={related.slug} post={related} />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+      </main>
       <Footer />
     </div>
   );
