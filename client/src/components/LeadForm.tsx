@@ -80,7 +80,9 @@ export function LeadForm({
       onSuccess?.();
     } catch (err) {
       const message =
-        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
       form.setError("root", { message });
     }
   };
@@ -99,7 +101,12 @@ export function LeadForm({
         <p className="font-semibold">
           {isWebinar ? "You're registered!" : "You're on the list!"}
         </p>
-        <p className={cn("mt-1", inverted ? "text-background/80" : "text-muted-foreground")}>
+        <p
+          className={cn(
+            "mt-1",
+            inverted ? "text-background/80" : "text-muted-foreground"
+          )}
+        >
           {isWebinar
             ? "Check your email for the webinar link and calendar details. We'll also text you a confirmation and a reminder before the session."
             : "We'll send updates on webinars, courses, and AI insights — no spam."}
@@ -109,7 +116,9 @@ export function LeadForm({
           onClick={() => setSubmitted(false)}
           className={cn(
             "mt-3 text-xs font-medium underline underline-offset-2",
-            inverted ? "text-background/70 hover:text-background" : "text-muted-foreground hover:text-foreground"
+            inverted
+              ? "text-background/70 hover:text-background"
+              : "text-muted-foreground hover:text-foreground"
           )}
         >
           Submit another
@@ -124,7 +133,11 @@ export function LeadForm({
     : undefined;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("space-y-4", className)} noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={cn("space-y-4", className)}
+      noValidate
+    >
       {/* Honeypot — hidden from users, bots often fill it */}
       <input
         type="text"
@@ -138,7 +151,7 @@ export function LeadForm({
       {isWebinar && (
         <div className="space-y-2">
           <Label htmlFor={`${source}-name`} className={labelClass}>
-            Full name
+            Full name <span aria-hidden="true">*</span>
           </Label>
           <Input
             id={`${source}-name`}
@@ -156,7 +169,14 @@ export function LeadForm({
       {!isWebinar && (
         <div className="space-y-2">
           <Label htmlFor={`${source}-name-opt`} className={labelClass}>
-            Name <span className={inverted ? "text-background/50" : "text-muted-foreground"}>(optional)</span>
+            Name{" "}
+            <span
+              className={
+                inverted ? "text-background/50" : "text-muted-foreground"
+              }
+            >
+              (optional)
+            </span>
           </Label>
           <Input
             id={`${source}-name-opt`}
@@ -170,7 +190,7 @@ export function LeadForm({
 
       <div className="space-y-2">
         <Label htmlFor={`${source}-email`} className={labelClass}>
-          Email
+          Email <span aria-hidden="true">*</span>
         </Label>
         <Input
           id={`${source}-email`}
@@ -181,7 +201,12 @@ export function LeadForm({
           {...register("email")}
         />
         {errors.email && (
-          <p className={cn("text-xs", inverted ? "text-red-200" : "text-destructive")}>
+          <p
+            className={cn(
+              "text-xs",
+              inverted ? "text-red-200" : "text-destructive"
+            )}
+          >
             {errors.email.message}
           </p>
         )}
@@ -190,7 +215,7 @@ export function LeadForm({
       {isWebinar && (
         <div className="space-y-2">
           <Label htmlFor={`${source}-phone`} className={labelClass}>
-            Phone
+            Phone <span aria-hidden="true">*</span>
           </Label>
           <Input
             id={`${source}-phone`}
@@ -201,18 +226,35 @@ export function LeadForm({
             {...register("phone")}
           />
           {"phone" in errors && errors.phone && (
-            <p className={cn("text-xs", inverted ? "text-red-200" : "text-destructive")}>
+            <p
+              className={cn(
+                "text-xs",
+                inverted ? "text-red-200" : "text-destructive"
+              )}
+            >
               {errors.phone.message}
             </p>
           )}
-          <p className={cn("text-xs", inverted ? "text-background/60" : "text-muted-foreground")}>
-            We&apos;ll text you a confirmation and a reminder before the session.
+          <p
+            className={cn(
+              "text-xs",
+              inverted ? "text-background/60" : "text-muted-foreground"
+            )}
+          >
+            By providing your phone number, you agree to receive registration
+            and reminder texts for this event. Message and data rates may apply.
+            Reply STOP to opt out.
           </p>
         </div>
       )}
 
       {errors.root && (
-        <p className={cn("text-xs", inverted ? "text-red-200" : "text-destructive")}>
+        <p
+          className={cn(
+            "text-xs",
+            inverted ? "text-red-200" : "text-destructive"
+          )}
+        >
           {errors.root.message}
         </p>
       )}
@@ -232,7 +274,7 @@ export function LeadForm({
             Submitting…
           </>
         ) : (
-          submitLabel ?? (isWebinar ? "Register Now" : "Subscribe")
+          (submitLabel ?? (isWebinar ? "Register Now" : "Subscribe"))
         )}
       </Button>
     </form>

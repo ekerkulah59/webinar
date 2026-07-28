@@ -1,25 +1,6 @@
 import { useState } from "react";
 import { Globe, User } from "lucide-react";
 
-const pillars = [
-  {
-    title: "We Start With Your Workload",
-    text: "We identify the repetitive tasks consuming your time before recommending any AI tool.",
-  },
-  {
-    title: "We Build Something Practical",
-    text: "Every session helps you apply AI to a real email, follow-up, content task, form, or business process.",
-  },
-  {
-    title: "We Protect Your Voice",
-    text: "AI helps prepare the work, but your personality, judgment, and client relationships remain yours."
-  },
-  {
-    title: "We Keep You in Control",
-    text: "You learn what AI can handle, what information should remain private, and what always requires human review.",
-  },
-];
-
 export default function AboutSection() {
   return (
     <section id="about" className="py-20">
@@ -28,27 +9,33 @@ export default function AboutSection() {
           {/* Main content */}
           <div>
             <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
-              About EaseIntoAI
+              Meet the Founder
             </p>
             <h2 className="text-4xl md:text-[2.75rem] font-bold text-foreground leading-[1.15] tracking-tight max-w-2xl">
-              You’re Not Behind on AI. You’re Carrying Too Much.
+              Built for Business Owners Who Need Practical Support, Not More
+              Hype.
             </h2>
 
             <div className="mt-8 space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               <p>
-              AI is everywhere—your inbox, social media, and every “10 tools you need” post. But when you’re serving clients, creating content, answering inquiries, managing appointments, and handling the administration, learning another tool can feel like one more responsibility.
-
-The problem isn’t that you’re unwilling to learn. The problem is that you’re already doing the work of several people.
+                EaseIntoAI was created after recognizing that most AI education
+                is designed for people excited about technology—not for women
+                working full-time, building businesses after hours, serving
+                clients, managing families, and trying to grow without a full
+                team.
               </p>
               <p>
-              You do the work customers pay you for. Then you do all the work behind it: the emails, follow-ups, forms, content, planning, and client communication that keep the business moving.
-
-If you also have family or caregiving responsibilities, unfinished business work often competes with the time and energy the people you love need from you.
+                They do not need another list of tools. They need practical
+                support for the hours they actually have—whether their work
+                happens behind a salon chair, at an event venue, on a coaching
+                call, in front of a camera, or while preparing customer orders.
               </p>
               <p>
-              EaseIntoAI helps women business owners identify the repetitive work taking up their time and learn how to use AI to make that work lighter.
-
-We teach practical ways to use AI for first drafts, client communication, content preparation, follow-ups, business documents, and everyday admin—while you remain responsible for reviewing and approving the final result.
+                Emmanuel brings hands-on experience building websites,
+                applications, automation systems, and AI tools. EaseIntoAI turns
+                that experience into beginner-friendly guidance that starts with
+                a real business task and keeps the owner responsible for
+                reviewing and approving the result.
               </p>
             </div>
 
@@ -56,22 +43,6 @@ We teach practical ways to use AI for first drafts, client communication, conten
             <aside className="mt-10 lg:hidden">
               <ProfileCard />
             </aside>
-
-            <div className="mt-10 grid sm:grid-cols-2 gap-4">
-              {pillars.map((pillar) => (
-                <div
-                  key={pillar.title}
-                  className="rounded-lg bg-accent/[0.06] pl-5 pr-5 py-5 border-l-4 border-l-accent surface-card surface-card-hover"
-                >
-                  <p className="text-sm font-bold text-foreground mb-1.5">
-                    {pillar.title}
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {pillar.text}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Profile sidebar — desktop */}
@@ -113,16 +84,14 @@ function ProfileCard() {
 
       <div className="mt-5 space-y-4 text-sm text-background/75 leading-relaxed">
         <p>
-          EaseIntoAI was started after noticing that most AI content is made
-          for people excited about technology — not for women running a
-          business all day and a home all evening. They don&apos;t need
-          another tool list. They need hours back.
+          EaseIntoAI is for non-technical women building serious businesses
+          around full-time work and already-full lives. The teaching starts with
+          the work they need to complete—not with a list of tools.
         </p>
         <p>
-          Emmanuel&apos;s approach is built on real-world experimentation:
-          building automation systems, websites, and applications, making every
-          mistake and turning those lessons into webinars so you don&apos;t
-          have to figure it out alone.
+          Emmanuel&apos;s approach is grounded in building websites,
+          applications, automation systems, and AI tools, then explaining the
+          useful parts in everyday language.
         </p>
       </div>
 

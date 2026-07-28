@@ -30,49 +30,51 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const DISCOVERY_CALL_URL = (
-  import.meta.env.VITE_DISCOVERY_CALL_URL ?? ""
-).trim() ||
+const DISCOVERY_CALL_URL =
+  (import.meta.env.VITE_DISCOVERY_CALL_URL ?? "").trim() ||
   "mailto:theaibootcamp09@gmail.com?subject=Discovery%20Call%20%E2%80%94%20Custom%20AI%20Assistant";
 
 const CONTACT_EMAIL = "theaibootcamp09@gmail.com";
+const HAS_SCHEDULING_URL = !DISCOVERY_CALL_URL.startsWith("mailto:");
 
 function scrollToSection(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document
+    .getElementById(id)
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 const useCaseCategories = [
   {
     icon: MessageSquare,
-    title: "Customer communication",
+    title: "Beauty and wellness",
     explanation:
-      "Reply to clients faster and more consistently, in a voice that sounds like your business.",
+      "Prepare useful client-facing work from your approved services, prices, policies, and care information.",
     examples: [
-      "Draft answers to common questions about your services, pricing, and availability",
-      "Write first-pass replies to inquiry emails for you to review and send",
-      "Turn a rough note into a polished, on-brand follow-up message",
+      "A salon assistant that knows services, prices, policies, and aftercare information",
+      "A spa assistant that helps prepare treatment explanations and client education",
+      "Draft FAQs, appointment preparation, and promotion ideas for your review",
     ],
   },
   {
     icon: BookOpen,
-    title: "Internal operations",
+    title: "Events and rentals",
     explanation:
-      "Give your team a reliable place to look things up so the same questions stop landing on you.",
+      "Organize the repeatable information behind inquiries, packages, inventory, and event delivery.",
     examples: [
-      "Answer 'how do we handle this?' from your own process notes and SOPs",
-      "Help new hires or contractors find service details during onboarding",
-      "Summarize a long document or thread into the key points your team needs",
+      "An event-business assistant that prepares package descriptions, proposals, and checklists",
+      "A rental assistant that knows inventory categories, packages, policies, and customer instructions",
+      "Organize event procedures and customer follow-up drafts",
     ],
   },
   {
     icon: FileText,
-    title: "Admin & content support",
+    title: "Coaches, authors, and creators",
     explanation:
-      "Take the repetitive writing and prep work off your plate while you stay in control of the final version.",
+      "Protect your expertise and voice while making support materials easier to prepare and reuse.",
     examples: [
-      "Draft social posts, newsletters, or proposals from your offers and examples",
-      "Prepare meeting briefs, intake summaries, and recurring checklists",
-      "Reformat or tidy up rough text into clean, ready-to-edit drafts",
+      "A coaching assistant that organizes frameworks, session materials, and follow-up drafts",
+      "An author or creator assistant that understands ideas, audience, tone, and a content library",
+      "Prepare outlines, worksheets, launch plans, and content repurposing drafts",
     ],
   },
 ];
@@ -189,10 +191,9 @@ export default function CustomAIAssistant() {
     type: "website",
   });
 
-  const discoveryLinkProps =
-    DISCOVERY_CALL_URL.startsWith("mailto:")
-      ? {}
-      : { target: "_blank" as const, rel: "noopener noreferrer" };
+  const discoveryLinkProps = DISCOVERY_CALL_URL.startsWith("mailto:")
+    ? {}
+    : { target: "_blank" as const, rel: "noopener noreferrer" };
 
   return (
     <div className="min-h-screen bg-background scroll-smooth">
@@ -252,22 +253,24 @@ export default function CustomAIAssistant() {
                 id="hero-heading"
                 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground leading-[1.1] tracking-tight max-w-4xl"
               >
-                Stop Explaining Your Business to Every AI Tool. 
-
-{" "}
+                Stop Explaining Your Business to Every AI Tool.{" "}
                 <span className="text-accent">This One Already Knows It.</span>
               </h1>
 
               <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Most AI assistants make you do all the work re-explaining your services, your prices, your process, every single conversation. A custom AI assistant built on your documents, your knowledge, and your voice answers like someone who's been on your team for years. From the very first message.
+                Most AI assistants make you do all the work re-explaining your
+                services, your prices, your process, every single conversation.
+                A custom AI assistant built on your documents, your knowledge,
+                and your voice answers like someone who's been on your team for
+                years. From the very first message.
               </p>
-
-             
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                 <Button variant="primary" size="lg" className="px-8" asChild>
                   <a href={DISCOVERY_CALL_URL} {...discoveryLinkProps}>
-                    Book a Discovery Call
+                    {HAS_SCHEDULING_URL
+                      ? "Book a Discovery Call"
+                      : "Ask About a Custom AI Assistant"}
                     <ArrowRight className="w-4 h-4" aria-hidden />
                   </a>
                 </Button>
@@ -281,14 +284,16 @@ export default function CustomAIAssistant() {
                   <ChevronDown className="w-4 h-4" aria-hidden />
                 </Button>
               </div>
-
             </div>
 
             <div className="relative">
-              <div className="absolute -inset-4 bg-accent/10 rounded-3xl blur-2xl -z-10" aria-hidden />
+              <div
+                className="absolute -inset-4 bg-accent/10 rounded-3xl blur-2xl -z-10"
+                aria-hidden
+              />
               <img
                 src="/herocustom.png"
-                alt="Custom AI Assistant dashboard showing a follow-up email drafted in the business's brand voice"
+                alt="Custom AI assistant using approved business information to prepare work for owner review"
                 className="w-full h-auto rounded-2xl border border-border shadow-2xl"
                 loading="eager"
               />
@@ -315,14 +320,21 @@ export default function CustomAIAssistant() {
                 id="problem-heading"
                 className="text-3xl md:text-4xl font-bold text-foreground leading-tight tracking-tight"
               >
-               Here's the Real Problem No One Talks About
+                Here's the Real Problem No One Talks About
               </h2>
               <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed">
-              You've tried ChatGPT. Maybe Claude. Maybe a few others. And they're impressive but not helpful until you actually need them to help a real customer with a real question about your business.
-Suddenly you're typing out your pricing again. Explaining your process again. Correcting answers that were close but just... wrong enough to erode trust.
-The AI isn't broken. It just doesn't know you. <br /> <br /> 
-And every time a customer gets a generic answer, a slow response, or no response at all  that's a lead getting colder. A sale walking away. A client quietly deciding to look elsewhere.
-You didn't build your business by being generic. Your AI shouldn't be either.
+                You've tried ChatGPT. Maybe Claude. Maybe a few others. And
+                they're impressive but not helpful until you actually need them
+                to help a real customer with a real question about your
+                business. Suddenly you're typing out your pricing again.
+                Explaining your process again. Correcting answers that were
+                close but just... wrong enough to erode trust. The AI isn't
+                broken. It just doesn't know you. <br /> <br />
+                And every time a customer gets a generic answer, a slow
+                response, or no response at all that's a lead getting colder. A
+                sale walking away. A client quietly deciding to look elsewhere.
+                You didn't build your business by being generic. Your AI
+                shouldn't be either.
               </p>
             </div>
             <img
@@ -381,17 +393,14 @@ You didn't build your business by being generic. Your AI shouldn't be either.
             </div>
 
             <Card className="p-8 md:p-10 border-border/60 shadow-sm">
-               
-            <img
-              src="/custmgpt.png"
-              alt="What your AI assistant can be trained on: services and packages, FAQs, SOPs, templates, brand voice, and repeated tasks"
-              className="w-full h-auto rounded-2xl border border-border shadow-lg bg-card"
-              loading="lazy"
-            />
+              <img
+                src="/custmgpt.png"
+                alt="What your AI assistant can be trained on: services and packages, FAQs, SOPs, templates, brand voice, and repeated tasks"
+                className="w-full h-auto rounded-2xl border border-border shadow-lg bg-card"
+                loading="lazy"
+              />
             </Card>
           </div>
-
-           
 
           <div className="mt-10 max-w-5xl rounded-xl border border-accent/25 bg-accent/[0.06] p-7 md:p-8">
             <div className="flex items-center gap-2 mb-3">
@@ -441,36 +450,38 @@ You didn't build your business by being generic. Your AI shouldn't be either.
           </div>
 
           <div className="grid gap-5 lg:grid-cols-3">
-            {useCaseCategories.map(({ icon: Icon, title, explanation, examples }) => (
-              <article key={title} className="area-card p-7 flex flex-col">
-                <div className="area-card-icon-chip mb-4">
-                  <Icon className="w-5 h-5" aria-hidden />
-                </div>
-                <h3 className="text-lg font-bold text-foreground">{title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  {explanation}
-                </p>
-                <ul className="mt-5 space-y-3 border-t border-border/70 pt-5">
-                  {examples.map((example) => (
-                    <li key={example} className="flex gap-2.5">
-                      <CheckCircle2
-                        className="w-4 h-4 text-accent shrink-0 mt-0.5"
-                        aria-hidden
-                      />
-                      <span className="text-sm text-muted-foreground leading-relaxed">
-                        {example}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+            {useCaseCategories.map(
+              ({ icon: Icon, title, explanation, examples }) => (
+                <article key={title} className="area-card p-7 flex flex-col">
+                  <div className="area-card-icon-chip mb-4">
+                    <Icon className="w-5 h-5" aria-hidden />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground">{title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {explanation}
+                  </p>
+                  <ul className="mt-5 space-y-3 border-t border-border/70 pt-5">
+                    {examples.map(example => (
+                      <li key={example} className="flex gap-2.5">
+                        <CheckCircle2
+                          className="w-4 h-4 text-accent shrink-0 mt-0.5"
+                          aria-hidden
+                        />
+                        <span className="text-sm text-muted-foreground leading-relaxed">
+                          {example}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              )
+            )}
           </div>
 
           <p className="mt-10 text-sm text-muted-foreground max-w-3xl">
             The assistant speeds up the repetitive parts and keeps your team
-            focused on the work that needs a human — it doesn&apos;t replace
-            the people who run your business.
+            focused on the work that needs a human — it doesn&apos;t replace the
+            people who run your business.
           </p>
         </div>
       </section>
@@ -492,12 +503,13 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               id="process-heading"
               className="text-3xl md:text-4xl font-bold text-foreground leading-tight tracking-tight"
             >
-             From "I Have No Idea Where to Start" to "This Thing Knows My Business" in Four Steps
+              From "I Have No Idea Where to Start" to "This Thing Knows My
+              Business" in Four Steps
             </h2>
             <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed">
-              You don&apos;t need to know anything technical to get started.
-              We work through it together, one clear step at a time, and you
-              always know exactly what happens next.
+              You don&apos;t need to know anything technical to get started. We
+              work through it together, one clear step at a time, and you always
+              know exactly what happens next.
             </p>
           </div>
 
@@ -509,10 +521,6 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               loading="lazy"
             />
           </div>
-
-  
-
-
         </div>
       </section>
 
@@ -576,7 +584,7 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               </p>
               <Button variant="primary" className="w-full mt-6" asChild>
                 <a href={DISCOVERY_CALL_URL} {...discoveryLinkProps}>
-                  Book a Discovery Call
+                  {HAS_SCHEDULING_URL ? "Book a Discovery Call" : "Request a Discovery Conversation"}
                   <ArrowRight className="w-4 h-4" aria-hidden />
                 </a>
               </Button>
@@ -640,17 +648,23 @@ You didn't build your business by being generic. Your AI shouldn't be either.
               Your Business Is One-of-a-Kind. Your AI Should Be Too.
             </h2>
             <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
-            In 30 minutes, we'll map out exactly what a custom AI assistant could do for your specific business what it would know, how it would respond, and what that means for your time and revenue.
+              In 30 minutes, we'll map out exactly what a custom AI assistant
+              could do for your specific business what it would know, how it
+              would respond, and what that means for your time and revenue.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="primary" size="lg" className="px-8" asChild>
                 <a href={DISCOVERY_CALL_URL} {...discoveryLinkProps}>
-                  Book a Discovery Call
+                  {HAS_SCHEDULING_URL
+                    ? "Book a Discovery Call"
+                    : "Ask About a Custom AI Assistant"}
                   <ArrowRight className="w-4 h-4" aria-hidden />
                 </a>
               </Button>
               <Button variant="secondary" size="lg" className="px-8" asChild>
-                <a href={`mailto:${CONTACT_EMAIL}?subject=Custom%20AI%20Assistant%20%E2%80%94%20Question`}>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=Custom%20AI%20Assistant%20%E2%80%94%20Question`}
+                >
                   Email Me Instead
                 </a>
               </Button>
@@ -666,8 +680,8 @@ You didn't build your business by being generic. Your AI shouldn't be either.
             </p>
             <p className="mt-4 text-xs text-muted-foreground">
               Based in Delaware · Serving business owners in New Jersey,
-              Maryland, Pennsylvania, Virginia, New York, and the Washington,
-              DC area · All services fully remote, available nationwide
+              Maryland, Pennsylvania, Virginia, New York, and the Washington, DC
+              area · All services fully remote, available nationwide
             </p>
           </div>
         </div>

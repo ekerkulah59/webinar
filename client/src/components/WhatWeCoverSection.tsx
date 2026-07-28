@@ -33,7 +33,7 @@ const coverageAreas: CoverageArea[] = [
     eyebrow: "Area",
     title: "What AI Can and Can't Do",
     description:
-      "From drafting a client welcome email to summarizing a long DM thread before you reply, we show real use cases from real businesses — a boutique owner planning a seasonal launch, a coach outlining her signature program, a food truck owner writing menu descriptions. No cherry-picked demos.",
+      "From preparing a service description or event checklist to organizing a launch or outlining a coaching program, we use examples from beauty, wellness, events, rentals, creative work, and local businesses.",
     icon: Lightbulb,
     href: "/courses",
   },
@@ -42,7 +42,7 @@ const coverageAreas: CoverageArea[] = [
     eyebrow: "Area",
     title: "How to Ask AI the Right Way",
     description:
-      "The quality of what you get back depends entirely on how you ask. If ChatGPT has ever handed you something generic and robotic, it's not you — it's the prompt. We teach a simple framework so AI's drafts sound like your brand, not a template.",
+      "The quality of what you get back depends on the business context you provide. We teach a simple, everyday-language framework so the first draft fits your task, audience, and voice.",
     icon: PenLine,
     href: "/courses",
   },
@@ -60,7 +60,7 @@ const coverageAreas: CoverageArea[] = [
     eyebrow: "Area",
     title: "How to Use AI Responsibly",
     description:
-      "What happens to a client's information when you paste it into a free AI tool to \"clean up\" an email? What should you never share about a client, a booking, or a payment? We cover the responsible habits every business owner needs before AI touches client-facing work.",
+      'What happens to a client\'s information when you paste it into a free AI tool to "clean up" an email? What should you never share about a client, a booking, or a payment? We cover the responsible habits every business owner needs before AI touches client-facing work.',
     icon: ShieldCheck,
     href: "/courses",
   },
@@ -91,8 +91,6 @@ function AreaCard({ area }: { area: CoverageArea }) {
       <p className="mt-4 flex-1 text-[1.01rem] leading-[1.65] text-muted-foreground">
         {area.description}
       </p>
-
-      
     </article>
   );
 }
@@ -118,7 +116,7 @@ export default function WhatWeCoverSection() {
         </header>
 
         <div className="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
-          {coverageAreas.map((area) => (
+          {coverageAreas.map(area => (
             <AreaCard key={area.number} area={area} />
           ))}
         </div>

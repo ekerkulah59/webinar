@@ -11,7 +11,7 @@ Founded and hosted by Emmanuel Kerkulah. Audience: coaches, consultants, creator
 - [AI for Women Entrepreneurs & Small Business Owners](https://easeintoai.co/courses/ai-for-women-entrepreneurs): Flagship six-module course — content, client communication, offers and pricing, simple automations
 - [Custom AI Assistant](https://easeintoai.co/custom-ai-assistant): Done-for-you private AI assistant built on a business's services, FAQs, and brand voice
 - [Past Webinars](https://easeintoai.co/past-webinars): Archive of completed sessions with outcomes
-- [Insights](https://easeintoai.co/insights): Practical AI tutorials, honest takes on AI news, and webinar recaps
+- [News & Insights](https://easeintoai.co/insights): Current AI developments, practical guidance, business use cases, EaseIntoAI updates, and webinar recaps
 
 ## Key Concepts
 
