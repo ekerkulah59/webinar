@@ -13,10 +13,10 @@
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 
 const WEBINAR = {
-  slug: "ai-for-women-entrepreneurs-july-2026",
-  title: "You Run the Business. Who Handles Everything Behind It?",
-  startsAt: new Date("2026-07-22T12:00:00-04:00"),
-  whenLabel: "Tuesday, July 22 at 12:00 PM New York Time",
+  slug: "two-weeks-marketing-content-september-2026",
+  title: "Stop Creating Content After Work",
+  startsAt: new Date("2026-09-10T20:00:00-04:00"),
+  whenLabel: "Thursday, September 10 at 8:00 PM Eastern Time",
 };
 
 type ReminderKind = "day_before" | "hour_before";
@@ -52,12 +52,16 @@ async function getSecret(
     console.error(`vault read failed for ${name}:`, error.message);
   }
 
-  const value = (typeof data === "string" ? data : null) ?? ENV_FALLBACK[name] ?? null;
+  const value =
+    (typeof data === "string" ? data : null) ?? ENV_FALLBACK[name] ?? null;
   if (value) secretCache.set(name, value);
   return value;
 }
 
-function buildMessage(kind: "confirmation" | ReminderKind, name?: string | null): string {
+function buildMessage(
+  kind: "confirmation" | ReminderKind,
+  name?: string | null
+): string {
   const firstName = name?.trim().split(/\s+/)[0];
   switch (kind) {
     case "confirmation":
@@ -72,7 +76,11 @@ function buildMessage(kind: "confirmation" | ReminderKind, name?: string | null)
 /** Normalize to E.164; assumes US numbers when no country code is given. */
 function normalizePhone(raw: string): string | null {
   const digits = raw.replace(/\D/g, "");
-  if (raw.trim().startsWith("+") && digits.length >= 10 && digits.length <= 15) {
+  if (
+    raw.trim().startsWith("+") &&
+    digits.length >= 10 &&
+    digits.length <= 15
+  ) {
     return `+${digits}`;
   }
   if (digits.length === 10) return `+1${digits}`;
@@ -190,7 +198,11 @@ Deno.serve(async (req: Request) => {
   let payload: {
     type?: string;
     kind?: ReminderKind;
-    record?: { name?: string | null; phone?: string | null; webinar_slug?: string | null };
+    record?: {
+      name?: string | null;
+      phone?: string | null;
+      webinar_slug?: string | null;
+    };
   };
   try {
     payload = await req.json();
@@ -204,11 +216,19 @@ Deno.serve(async (req: Request) => {
   if (payload.type === "confirmation") {
     const record = payload.record;
     if (!record?.phone) {
-      return new Response(JSON.stringify({ result: "skipped", reason: "no_phone" }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ result: "skipped", reason: "no_phone" }),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
-    const result = await sendOne(supabase, record.phone, "confirmation", record.name);
+    const result = await sendOne(
+      supabase,
+      record.phone,
+      "confirmation",
+      record.name
+    );
     return new Response(JSON.stringify({ result }), {
       headers: { "Content-Type": "application/json" },
     });
@@ -224,7 +244,10 @@ Deno.serve(async (req: Request) => {
     }
     if (!reminderWindowOpen(kind)) {
       return new Response(
-        JSON.stringify({ result: "skipped", reason: "outside_reminder_window" }),
+        JSON.stringify({
+          result: "skipped",
+          reason: "outside_reminder_window",
+        }),
         { headers: { "Content-Type": "application/json" } }
       );
     }

@@ -29,11 +29,26 @@ import { pastWebinars } from "@/lib/webinarData";
 import { useSEO } from "@/hooks/useSEO";
 
 const UPCOMING_WEBINAR = {
-  slug: "let-ai-take-the-night-shift-july-2026",
-  dateLabel: "July 31, 2026",
-  startIso: "2026-07-31T20:00:00-04:00",
-  timeLabel: "8:00 PM New York time",
+  slug: "two-weeks-marketing-content-september-2026",
+  startIso: "2026-09-10T20:00:00-04:00",
+  timeZone: "America/New_York",
 };
+
+const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
+
+const upcomingDateLabel = new Intl.DateTimeFormat("en-US", {
+  timeZone: UPCOMING_WEBINAR.timeZone,
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+}).format(upcomingDate);
+
+const upcomingTimeLabel = `${new Intl.DateTimeFormat("en-US", {
+  timeZone: UPCOMING_WEBINAR.timeZone,
+  hour: "numeric",
+  minute: "2-digit",
+}).format(upcomingDate)} Eastern Time`;
 
 const industries = [
   {
@@ -218,11 +233,11 @@ function IndustryCard({
 }
 
 const learningOutcomes = [
-  "Identify the business task consuming too much of your limited time.",
-  "Learn what AI can prepare and what still requires your judgment.",
-  "See examples from beauty, wellness, events, rentals, coaching, writing, and content creation.",
-  "Begin building a reusable AI-assisted workflow.",
-  "Learn how to review AI’s work before using it in your business.",
+  "Plan two weeks of content around your business goals and current offers.",
+  "Give AI the business context it needs to produce more relevant drafts.",
+  "Create and edit content that sounds natural, accurate, and like you.",
+  "Organize your content so it is ready for final review and scheduling.",
+  "Leave with a repeatable content-creation process you can use again.",
 ];
 
 function useCountdown(targetDate: Date) {
@@ -293,23 +308,22 @@ export default function Home() {
   });
 
   const [videoUnavailable, setVideoUnavailable] = useState(false);
-  const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
-
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Event",
-          name: "Let AI Take the Night Shift",
+          name: "Stop Creating Content After Work",
           description:
-            "A free beginner-friendly workshop for women building businesses after working a full day. Bring one repetitive business task and learn where practical AI can support it.",
+            "Build two weeks of marketing content in 90 minutes with practical AI while preserving your voice, judgment, and final control. A free beginner-friendly workshop for women building businesses around full-time jobs and full lives.",
           startDate: UPCOMING_WEBINAR.startIso,
-          duration: "PT60M",
+          duration: "PT90M",
           eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
           eventStatus: "https://schema.org/EventScheduled",
           location: {
             "@type": "VirtualLocation",
+            name: "Live on Zoom",
             url: "https://easeintoai.co/#upcoming",
           },
           organizer: {
@@ -550,31 +564,40 @@ export default function Home() {
             <div className="mx-auto grid max-w-6xl gap-8 rounded-3xl border border-border/70 bg-background p-6 shadow-sm lg:grid-cols-[1.65fr_1fr] lg:gap-10 md:p-10">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-                  Free Live Workshop · Let AI Take the Night Shift
+                  Free Live Workshop · Content Without the Late Nights
                 </p>
                 <h2
                   id="webinar-heading"
-                  className="mt-4 max-w-3xl text-3xl font-bold leading-tight md:text-4xl"
+                  className="mt-4 max-w-3xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl"
                 >
-                  You Already Worked One Shift. Your Business Shouldn’t Require
-                  Another One Every Night.
+                  Stop Creating Content After Work
                 </h2>
-                <p className="mt-4 text-lg font-semibold text-foreground">
-                  A free beginner-friendly workshop for women building
-                  businesses after working a full day.
+                <p className="mt-5 max-w-3xl text-xl font-semibold leading-snug text-foreground md:text-2xl">
+                  Build <span className="text-accent">two weeks</span> of
+                  marketing content in{" "}
+                  <span className="text-accent">90 minutes</span>
+                  —with AI, without losing your voice.
                 </p>
-                <div className="mt-4 space-y-3 leading-relaxed text-muted-foreground">
+                <p className="mt-4 text-lg font-medium leading-relaxed text-foreground">
+                  A practical, beginner-friendly workshop for women building
+                  businesses around full-time jobs and full lives.
+                </p>
+                <div className="mt-5 space-y-4 leading-relaxed text-muted-foreground">
                   <p>
-                    You don’t need technical experience, an automation system,
-                    or knowledge of every AI tool.
+                    Your business needs consistent marketing, but creating
+                    content after working all day can consume the little time
+                    and energy you have left.
                   </p>
                   <p>
-                    Bring one repetitive task from your business—preparing a
-                    quote, responding to an inquiry, planning content, writing a
-                    service description, organizing client information, creating
-                    a checklist, or developing a follow-up. We’ll help you
-                    identify where AI can support it and begin turning it into a
-                    simple, reusable process.
+                    In this live workshop, you’ll use practical AI to plan,
+                    draft, and organize two weeks of marketing content around
+                    your real business, offers, and customers.
+                  </p>
+                  <p>
+                    You won’t be handed generic prompts or asked to let AI speak
+                    for your business. You’ll learn a repeatable process that
+                    helps you create content more efficiently while keeping your
+                    voice, judgment, and final approval.
                   </p>
                 </div>
                 <ul className="mt-7 space-y-3 border-y border-border py-6">
@@ -593,7 +616,7 @@ export default function Home() {
                 </ul>
                 <aside
                   className="mt-6 rounded-2xl border border-accent/20 bg-accent/[0.05] p-5 md:p-6"
-                  aria-labelledby="safe-check-webinar-heading"
+                  aria-labelledby="voice-callout-heading"
                 >
                   <div className="flex gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
@@ -601,26 +624,24 @@ export default function Home() {
                     </div>
                     <div>
                       <h3
-                        id="safe-check-webinar-heading"
+                        id="voice-callout-heading"
                         className="text-lg font-bold text-foreground"
                       >
-                        Use AI Without Risking Your Reputation
+                        Your Voice Stays in the Content
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
-                        Learn the SAFE Check—a simple four-question method for
-                        reviewing AI-created work before it reaches your
-                        customers.
+                        AI can help you plan and draft, but you remain the
+                        editor and decision-maker. You’ll review every piece for
+                        accuracy, personality, relevance, and customer trust
+                        before publishing it.
                       </p>
                       <p className="mt-3 text-sm font-semibold leading-relaxed text-accent">
-                        Safe to share · Accurate · Fair to send · Edited by me
+                        Your business context · Your judgment · Your final
+                        approval
                       </p>
                     </div>
                   </div>
                 </aside>
-                <p className="mt-6 text-lg font-semibold text-foreground">
-                  If you can explain how you currently complete a task, we can
-                  help you understand how AI may support it.
-                </p>
               </div>
 
               <Card className="h-fit border-0 bg-accent text-accent-foreground shadow-xl">
@@ -629,11 +650,11 @@ export default function Home() {
                   <div className="space-y-3 text-sm">
                     <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
                       <Calendar className="h-4 w-4" aria-hidden />
-                      {UPCOMING_WEBINAR.dateLabel}
+                      {upcomingDateLabel}
                     </p>
                     <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
                       <Clock className="h-4 w-4" aria-hidden />
-                      {UPCOMING_WEBINAR.timeLabel}
+                      {upcomingTimeLabel}
                     </p>
                     <p className="flex items-center gap-2 border-b border-accent-foreground/20 pb-2">
                       <MapPin className="h-4 w-4" aria-hidden />
@@ -641,7 +662,7 @@ export default function Home() {
                     </p>
                     <p className="flex items-center gap-2">
                       <Clock className="h-4 w-4" aria-hidden />
-                      60 minutes including Q&amp;A
+                      90 minutes including Q&amp;A
                     </p>
                   </div>
                   <CountdownTimer targetDate={upcomingDate} />

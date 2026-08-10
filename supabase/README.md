@@ -75,9 +75,26 @@ select * from sms_messages order by created_at desc; -- send log (status: pendin
 select * from net._http_response order by id desc;   -- raw function call results
 ```
 
+## 6. Appointment scheduling (`/book`)
+
+Self-hosted booking backed by Google Calendar — see **`supabase/BOOKING-SETUP.md`**
+for the full walkthrough. The pieces:
+
+- **Edge Function** `appointments` (`supabase/functions/appointments/`) — slots,
+  booking, cancel, reschedule
+- **`availability_rules`** — your recurring hours, editable from the Table Editor
+- **`availability_blackouts`** — one-off blocks not on Google Calendar
+- **`appointments`** — bookings, with an exclusion constraint that makes
+  double-booking impossible
+- **Vault secrets** — Google service account + Resend key
+
 ## Security
 
 - RLS allows **insert only** for anonymous users (no public read of emails).
+- The scheduling tables have RLS on with **no policies at all** — the browser
+  never touches them directly. Only the `appointments` Edge Function (service
+  role) can read or write, which is what keeps availability logic and Google
+  credentials off the client.
 - Never put the **service_role** key in the Vite app.
 - Use the service role only in server-side scripts or Edge Functions if you add an admin export later.
 - The `webinar-sms` function has JWT verification off; it authenticates callers

@@ -97,6 +97,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/#about"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses"
                   className="text-sm text-background/60 hover:text-background transition-colors"
                 >
@@ -117,6 +125,14 @@ export default function Footer() {
                   className="text-sm text-background/60 hover:text-background transition-colors"
                 >
                   News &amp; Insights
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/book"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  Book a Call
                 </Link>
               </li>
             </ul>
