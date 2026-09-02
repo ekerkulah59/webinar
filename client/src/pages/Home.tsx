@@ -32,6 +32,13 @@ const UPCOMING_WEBINAR = {
   slug: "two-weeks-marketing-content-september-2026",
   startIso: "2026-09-10T20:00:00-04:00",
   timeZone: "America/New_York",
+  slug: "ai-for-women-entrepreneurs-july-2026",
+  dateLabel: "July 28, 2026",
+  startIso: "2026-07-28T19:00:00-04:00",
+  timeLabel: "7:00 PM New York Time",
+  dateLabel: "July 31, 2026",
+  startIso: "2026-07-31T20:00:00-04:00",
+  timeLabel: "8:00 PM New York time",
 };
 
 const upcomingDate = new Date(UPCOMING_WEBINAR.startIso);
