@@ -164,7 +164,7 @@ export default function BookAppointment() {
                         Try again
                       </Button>
                       <Button variant="outline" asChild>
-                        <a href="mailto:theaibootcamp09@gmail.com">
+                        <a href="mailto:hello@easeintoai.co">
                           Email to schedule
                         </a>
                       </Button>

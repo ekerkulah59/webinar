@@ -144,14 +144,13 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href="mailto:theaibootcamp09@gmail.com"
+                  href="mailto:hello@easeintoai.co"
                   className="text-sm text-background/60 hover:text-background transition-colors"
                 >
-                  theaibootcamp09@gmail.com
+                  hello@easeintoai.co
                 </a>
               </li>
             </ul>
-            {/* Replace this Gmail address only when a verified @easeintoai.co inbox is configured. */}
             <div className="pt-4">
               <a
                 href="https://www.easetranslate.com/"

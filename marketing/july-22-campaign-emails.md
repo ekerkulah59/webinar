@@ -92,7 +92,7 @@ I'd love to offer **two free seats for members of your community**, and if the s
 Would a quick call or email exchange make sense? Happy to send the full session outline.
 
 Emmanuel Kerkulah
-EaseIntoAI · easeintoai.co · theaibootcamp09@gmail.com
+EaseIntoAI · easeintoai.co · hello@easeintoai.co
 
 ---
 

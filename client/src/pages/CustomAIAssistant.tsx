@@ -32,9 +32,9 @@ import {
 
 const DISCOVERY_CALL_URL =
   (import.meta.env.VITE_DISCOVERY_CALL_URL ?? "").trim() ||
-  "mailto:theaibootcamp09@gmail.com?subject=Discovery%20Call%20%E2%80%94%20Custom%20AI%20Assistant";
+  "mailto:hello@easeintoai.co?subject=Discovery%20Call%20%E2%80%94%20Custom%20AI%20Assistant";
 
-const CONTACT_EMAIL = "theaibootcamp09@gmail.com";
+const CONTACT_EMAIL = "hello@easeintoai.co";
 const HAS_SCHEDULING_URL = !DISCOVERY_CALL_URL.startsWith("mailto:");
 
 function scrollToSection(id: string) {

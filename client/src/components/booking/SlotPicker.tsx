@@ -89,7 +89,7 @@ export function SlotPicker({
           Check back soon, or email us and we&apos;ll find a time together.
         </p>
         <a
-          href="mailto:theaibootcamp09@gmail.com"
+          href="mailto:hello@easeintoai.co"
           className="mt-3 inline-block text-sm font-medium text-accent underline underline-offset-4"
         >
           Email to schedule
