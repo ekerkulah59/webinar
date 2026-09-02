@@ -13,6 +13,8 @@ import PastWebinars from "./pages/PastWebinars";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import CustomAIAssistant from "./pages/CustomAIAssistant";
+import BookAppointment from "./pages/BookAppointment";
+import ManageAppointment from "./pages/ManageAppointment";
 
 function Router() {
   return (
@@ -24,6 +26,8 @@ function Router() {
       <Route path="/courses/:slug" component={CourseDetail} />
       <Route path="/insights" component={Blog} />
       <Route path="/insights/:slug" component={BlogPost} />
+      <Route path="/book" component={BookAppointment} />
+      <Route path="/appointment/:token" component={ManageAppointment} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

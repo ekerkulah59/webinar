@@ -598,13 +598,13 @@ In keeping with how we do everything at EaseIntoAI: no hype, no affiliate links,
 
 ## Continue Learning
 
-The July 22 session has concluded. Head to the [homepage](/#upcoming) to see the current July 31 workshop and reserve your spot.
+The July 22 session has concluded. Head to the [homepage](/#upcoming) to see the current free workshop and reserve your spot.
 
 See you on July 28.
     `.trim(),
     category: "ai-news",
     publishedAt: "2026-07-02",
-    updatedAt: "2026-07-28",
+    updatedAt: "2026-08-06",
     author: "Emmanuel Kerkulah",
     readingTime: "4 min read",
   },

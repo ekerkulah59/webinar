@@ -13,12 +13,9 @@ import {
 
 const navLinks = [
   { label: "Who We Help", href: "/#who-we-help" },
-  { label: "About", href: "/#about" },
-  { label: "Past Webinars", href: "/past-webinars" },
   { label: "Courses", href: "/courses" },
   { label: "Custom AI", href: "/custom-ai-assistant" },
-  { label: "Upcoming", href: "/#upcoming" },
-  { label: "News & Insights", href: "/insights" },
+  { label: "Insights", href: "/insights" },
 ];
 
 export default function Navigation() {
@@ -34,7 +31,20 @@ export default function Navigation() {
   }, []);
 
   const closeMobile = () => setMobileOpen(false);
+  const handleMobileUpcomingClick = () => {
+    closeMobile();
+    window.setTimeout(() => {
+      const target = document.getElementById("upcoming");
+      if (!target) return;
+      window.scrollTo({
+        top: target.offsetTop - 80,
+        left: 0,
+        behavior: "auto",
+      });
+    }, 700);
+  };
   const currentHash = typeof window !== "undefined" ? window.location.hash : "";
+  const webinarHref = location === "/" ? "#upcoming" : "/#upcoming";
 
   const isActiveLink = (href: string) => {
     if (href.startsWith("/#")) {
@@ -50,7 +60,6 @@ export default function Navigation() {
     }
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
-
   return (
     <nav
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -59,18 +68,18 @@ export default function Navigation() {
           : "bg-background/80 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
       }`}
     >
-      <div className="container py-4 flex items-center justify-between gap-4">
+      <div className="container flex items-center justify-between gap-6 py-3.5">
         <Link
           href="/"
           onClick={handleHomeLinkClick}
           className="flex shrink-0 items-center"
           aria-label="EaseIntoAI — home"
         >
-          <img src="/logo.svg" alt="EaseIntoAI" className="h-9 w-auto" />
+          <img src="/logo.svg" alt="EaseIntoAI" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-7">
+        <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map(({ label, href }) => (
             <Link
               key={label}
@@ -84,11 +93,11 @@ export default function Navigation() {
               {label}
             </Link>
           ))}
-          <Link href="/#upcoming">
+          <a href={webinarHref}>
             <Button size="sm" variant="primary">
-              Next Webinar
+              Free Workshop
             </Button>
-          </Link>
+          </a>
         </div>
 
         {/* Mobile nav */}
@@ -109,7 +118,7 @@ export default function Navigation() {
             <SheetContent side="right" className="w-72 gap-0 p-0 sm:max-w-xs">
               <SheetTitle className="sr-only">Site navigation</SheetTitle>
               <SheetDescription className="sr-only">
-                Navigate to EaseIntoAI pages and homepage sections.
+                Navigate to EaseIntoAI pages and the free workshop.
               </SheetDescription>
               <nav className="flex flex-col gap-1 px-4 pt-14 pb-8">
                 {navLinks.map(({ label, href }) => (
@@ -117,7 +126,7 @@ export default function Navigation() {
                     key={label}
                     href={href}
                     onClick={closeMobile}
-                    className={`text-base font-medium px-3 py-3 rounded-md transition-colors ${
+                    className={`rounded-md px-3 py-3 text-base font-medium transition-colors ${
                       isActiveLink(href)
                         ? "bg-accent/10 text-foreground"
                         : "text-foreground hover:bg-muted"
@@ -126,12 +135,12 @@ export default function Navigation() {
                     {label}
                   </Link>
                 ))}
-                <div className="mt-4 px-3">
-                  <Link href="/#upcoming" onClick={closeMobile}>
+                <div className="mt-5 border-t border-border px-3 pt-5">
+                  <a href={webinarHref} onClick={handleMobileUpcomingClick}>
                     <Button className="w-full" variant="primary">
-                      Next Webinar
+                      Free Workshop
                     </Button>
-                  </Link>
+                  </a>
                 </div>
               </nav>
             </SheetContent>

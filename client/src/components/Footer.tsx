@@ -97,6 +97,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/#about"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/courses"
                   className="text-sm text-background/60 hover:text-background transition-colors"
                 >
@@ -119,6 +127,14 @@ export default function Footer() {
                   News &amp; Insights
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/book"
+                  className="text-sm text-background/60 hover:text-background transition-colors"
+                >
+                  Book a Call
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -128,14 +144,13 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a
-                  href="mailto:theaibootcamp09@gmail.com"
+                  href="mailto:hello@easeintoai.co"
                   className="text-sm text-background/60 hover:text-background transition-colors"
                 >
-                  theaibootcamp09@gmail.com
+                  hello@easeintoai.co
                 </a>
               </li>
             </ul>
-            {/* Replace this Gmail address only when a verified @easeintoai.co inbox is configured. */}
             <div className="pt-4">
               <a
                 href="https://www.easetranslate.com/"
