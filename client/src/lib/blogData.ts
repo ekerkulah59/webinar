@@ -228,7 +228,7 @@ There is nothing small about building something after you have already given a f
 
 You do not need another eight hours in the day. You need support that respects the hours you already have.
 
-[See the Next Live EaseIntoAI Workshop](/#upcoming)
+[Check the Homepage for the Latest Workshop or Learning Option](/#upcoming)
     `.trim(),
     category: "opinion",
     publishedAt: "2026-07-28",
@@ -365,7 +365,7 @@ Before any AI-supported draft reaches a customer, use the SAFE Check: safe to sh
 
 The best use of AI is not replacing the work you love. It is reducing the work around it.
 
-[Find the First Task AI Could Help You Prepare](/#upcoming)
+[Explore the Latest EaseIntoAI Learning Options](/#upcoming)
     `.trim(),
     category: "tutorial",
     publishedAt: "2026-07-28",
@@ -526,7 +526,7 @@ If you are fitting this work around a full-time job or other responsibilities, [
 
 The goal is not to become an AI expert. The goal is to make one part of your business easier to run.
 
-[Learn It Step by Step in the Next EaseIntoAI Workshop](/#upcoming)
+[Explore Current EaseIntoAI Learning Options](/#upcoming)
     `.trim(),
     category: "tutorial",
     publishedAt: "2026-07-28",
@@ -546,19 +546,19 @@ The goal is not to become an AI expert. The goal is to make one part of your bus
     excerpt:
       "A look back at the July 22 session created for women running businesses—including coaches, consultants, creators, salons, boutiques, and food trucks.",
     content: `
-> Update: The July 22 session has concluded. The event details below are preserved for historical accuracy. [See the current free workshop and reserve your spot](/#upcoming).
+> Update: The July 22 session has concluded. The event details below are preserved for historical accuracy. [Check the homepage for the latest workshop status and learning options](/#upcoming).
 
 ## The Short Version
 
 **AI for Women Entrepreneurs and Small Business Owners** was announced as our July 22 live webinar.
 
-- **When:** Tuesday, July 22, 2026 at 12:00 PM New York Time
+- **When:** Wednesday, July 22, 2026 at 12:00 PM New York Time
 - **Where:** Live on Zoom
 - **How long:** 60 minutes, including live Q&A
 - **Cost:** Free
 - **Tech background required:** None
 
-Current workshop registration is available on the [homepage](/#upcoming).
+The [homepage](/#upcoming) shows the latest workshop status and current learning options.
 
 ## Who This Session Is For
 
@@ -599,7 +599,7 @@ In keeping with how we do everything at EaseIntoAI: no hype, no affiliate links,
 
 ## Continue Learning
 
-The July 22 session has concluded. Head to the [homepage](/#upcoming) to see the current free workshop and reserve your spot.
+The July 22 session has concluded. Head to the [homepage](/#upcoming) for the latest workshop status and current learning options.
 
 The original July 22 event details remain above as a historical record.
     `.trim(),
@@ -656,7 +656,7 @@ What one hour *can* do is replace the vague guilt of "I should figure out AI" wi
 
 ## Join Us
 
-The July 22 session has passed. You can [see the current free workshop and reserve your spot on the homepage](/#upcoming).
+The July 22 session has passed. You can [check the homepage for the latest workshop status and current learning options](/#upcoming).
 
 Bring your real questions. That's what the hour is for.
     `.trim(),
@@ -670,13 +670,13 @@ Bring your real questions. That's what the hour is for.
     slug: "ai-literacy-framework-practical-guide",
     title: "The AI Literacy Framework, Explained for Real-World Use",
     excerpt:
-      "The U.S. Department of Labor's AI Literacy Framework gives people a clear way to learn AI without the hype. Here's what it means in practice.",
+      "A practical reading of a public U.S. Department of Labor AI literacy resource—and what its themes can mean for everyday work.",
     content: `
 ## Why This Framework Matters
 
 Most people don't avoid AI because they're lazy. They avoid it because the advice they get is either too technical or too vague.
 
-The U.S. Department of Labor's AI Literacy Framework fixes that by giving a practical roadmap. It focuses on what people need to know to use AI confidently, responsibly, and in context.
+A public U.S. Department of Labor AI literacy resource offers one useful way to organize the subject. It focuses on what people need to know to use AI with greater confidence, responsibility, and context. EaseIntoAI references it as an independent educational resource, not as an endorsement, certification, or official partnership.
 
 This isn't about becoming a machine learning engineer. It's about becoming fluent enough to use AI well in your actual work.
 
@@ -713,7 +713,7 @@ This is the part most programs miss. People don't need one webinar and a badge. 
 
 ## What This Means for Everyday Professionals
 
-If you're a business owner, coach, consultant, teacher, nonprofit leader, or healthcare worker, this framework gives you permission to learn AI in a grounded way.
+If you're a business owner, coach, consultant, teacher, nonprofit leader, or healthcare worker, the themes offer a grounded way to organize your learning.
 
 You don't need to "master AI." You need to:
 
@@ -730,7 +730,7 @@ Most people say they want to "keep up" with AI. That's a stressful goal because 
 
 A better goal is this: **build a stable decision-making framework** so you can adapt no matter which tool is trending next month.
 
-That's exactly why this AI Literacy Framework is important. It shifts the conversation from tools to thinking, from hype to habit, and from anxiety to confidence.
+That is why the resource is useful as one educational reference: it shifts attention from individual tools to judgment, practice, and continued learning.
     `.trim(),
     category: "tutorial",
     publishedAt: "2026-05-25",
@@ -877,11 +877,11 @@ Notice something? Every tool on this list works alongside something you probably
     slug: "webinar-3-recap-prompt-engineering",
     title: "Webinar Recap: Prompt Engineering — Get Better Results From AI",
     excerpt:
-      "Our best session yet. Here's what we covered, the questions that sparked the most discussion, and the prompt habits that will stick with attendees.",
+      "A recap of the examples, questions, and prompt-writing habits covered in the March session.",
     content: `
 ## What We Covered
 
-Webinar #3, "Prompt Engineering: Get Better Results From AI," ran on March 14, 2026 with over 100 attendees — our biggest live session yet.
+Webinar #3, "Prompt Engineering: Get Better Results From AI," ran on March 14, 2026 as part of the early EaseIntoAI webinar series.
 
 The goal was simple: take the tools people discovered in Webinar #2 and teach them how to actually talk to those tools. Because knowing about AI and knowing how to use it well are two very different things.
 
@@ -910,11 +910,11 @@ We took real tasks from attendees in the chat and rewrote their prompts together
 
 ## What's Next
 
-At the time of this recap, Webinar #4 was scheduled for April 11, 2026: **"Build Your AI Workflow: Make AI Part of Your Daily Life."**
+At the time of this recap, Webinar #4 was scheduled for March 28, 2026: **"Build Your AI Workflow: Make AI Part of Your Daily Life."**
 
 We've covered what AI is, which tools to use, and how to prompt. Now it's time to build a system — so AI becomes a reliable daily habit, not just something you try occasionally.
 
-That session has since concluded. You can [browse completed webinars](/past-webinars) or [see the current free workshop](/#upcoming).
+That session has since concluded. You can [browse completed webinars](/past-webinars) or [check the homepage for current learning options](/#upcoming).
     `.trim(),
     category: "webinar-recap",
     publishedAt: "2026-03-16",
@@ -930,7 +930,7 @@ That session has since concluded. You can [browse completed webinars](/past-webi
     content: `
 ## What We Covered
 
-Our first webinar, "Understand AI Without the Confusion," was held on February 14, 2025. Over 50 people joined live, and the recording has been shared with dozens more since.
+Our first webinar, "Understand AI Without the Confusion," was held on February 14, 2025. It introduced the plain-language approach that continues to shape EaseIntoAI courses and workshops.
 
 The session was structured around four key questions:
 
@@ -948,15 +948,15 @@ We closed with a practical roadmap: try one tool, build one habit, and stay curi
 
 ## The Most-Asked Questions
 
-- "Is AI safe to use for work?" — Yes, with caveats about not sharing sensitive data and always reviewing outputs.
+- "Is AI safe to use for work?" — It depends on the tool, information, task, employer policy, and review process. Sensitive information should not be shared without appropriate authorization.
 - "What's the difference between ChatGPT and AI?" — ChatGPT is one AI product. AI is the broader technology.
-- "Will AI take my job?" — It will change your job. Learning to work with AI is the best defense.
+- "How could AI affect my job?" — The effect varies by role and task. A useful starting point is understanding where AI may assist, where judgment remains essential, and what policies apply.
 
 ## What's Next
 
 At the time of this recap, Webinar #2—"AI Tools You Can Start Using Today"—was in development. It built directly on the first session with hands-on demonstrations and practical workflows.
 
-That session has since concluded. You can [browse completed webinars](/past-webinars) or [see the current free workshop](/#upcoming).
+That session has since concluded. You can [browse completed webinars](/past-webinars) or [check the homepage for current learning options](/#upcoming).
     `.trim(),
     category: "webinar-recap",
     publishedAt: "2026-02-16",
@@ -1001,13 +1001,13 @@ The best AI user isn't the one with the newest model — it's the one who knows 
     slug: "stop-fearing-ai-start-learning",
     title: "Stop Fearing AI. Start Learning It.",
     excerpt:
-      "Fear of AI comes from not understanding it. And that's fixable. Here's why the best time to start learning is right now.",
+      "Uncertainty about AI is understandable. A clear explanation and one low-risk practice task can make the subject easier to approach.",
     content: `
 ## Where the Fear Comes From
 
-Most fear around AI falls into two buckets: "it's going to take my job" and "I don't understand it." Both are valid feelings. Neither is a reason to avoid it.
+Concern about AI often includes questions about work, privacy, accuracy, or simply where to begin. Those are reasonable questions, and learning can start without dismissing them.
 
-The job displacement concern is real but nuanced. AI isn't replacing entire jobs overnight — it's changing what certain tasks look like. The people who will be most affected are those who refuse to learn how AI fits into their work.
+The effect on jobs is real but uneven. AI may change some tasks, create new expectations, or have little immediate impact in other roles. Understanding where it fits—and where it does not—supports better decisions than either panic or hype.
 
 The "I don't understand it" concern is even more straightforward to address. You can fix that in an afternoon.
 
@@ -1034,9 +1034,9 @@ If you start learning now, you'll be comfortable when those features arrive. If 
 
 ## My Offer
 
-This is exactly why I host live webinars — the early sessions were free, and every session since is built the same way. No sales pitch, no technical jargon, no pressure. Just a clear hour of learning that gives you a foundation to build on.
+This is why I host live webinars. The early sessions used clear explanations, practical examples, and room for questions so participants could build a foundation without unnecessary pressure.
 
-If this resonates, [see the current free workshop](/#upcoming) or browse the past sessions on this site. The goal is always the same: less confusion, more confidence.
+If this resonates, [check the homepage for current learning options](/#upcoming) or browse the past sessions on this site. The goal is always the same: less confusion, more confidence.
     `.trim(),
     category: "opinion",
     publishedAt: "2026-01-28",

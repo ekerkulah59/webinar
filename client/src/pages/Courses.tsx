@@ -1,385 +1,220 @@
-import {
-  Clock,
-  BookOpen,
-  CheckCircle2,
-  Lock,
-  Gift,
-  ArrowRight,
-  GraduationCap,
-} from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Navigation from "@/components/Navigation";
+import { ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
+import { Button } from "@/components/ui/button";
 import { courses } from "@/lib/courseData";
 import { useSEO } from "@/hooks/useSEO";
 
+const categoryFor = (slug: string) => {
+  if (
+    [
+      "ai-101-understand-ai",
+      "ai-foundations-from-curious-to-confident",
+      "prompt-engineering-masterclass",
+    ].includes(slug)
+  )
+    return "AI Foundations";
+  if (slug === "ai-for-women-entrepreneurs")
+    return "Business and Entrepreneurship";
+  if (slug === "ai-at-work") return "Workplace and Professional Skills";
+  return "Education and Community Learning";
+};
+
 export default function Courses() {
   useSEO({
-    title:
-      "Self-Paced AI Courses for Women Entrepreneurs & Small Business Owners",
+    title: "Practical AI Courses for Everyday Work",
     description:
-      "Beginner-friendly AI courses for non-technical women building businesses around full-time work. Start with practical tasks, build confidence, and apply AI without losing control.",
+      "Plain-language AI courses for curious learners, professionals, business owners, and educators who want to use AI with more confidence and judgment.",
+    url: "https://easeintoai.co/courses",
     type: "website",
   });
 
-  const freeCourse = courses.find(c => c.type === "free");
-  const featuredCourse = courses.find(c => c.featured);
-  const paidCourses = courses.filter(c => c.type === "paid" && !c.featured);
+  const available = courses.filter(course => course.status === "available");
+  const inDevelopment = courses.filter(
+    course => course.status === "coming-soon"
+  );
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-
-      {/* ── Header ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden py-16 md:py-24">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-10 right-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[100px]" />
-          <div className="absolute -bottom-10 -left-10 w-[300px] h-[300px] bg-accent/8 rounded-full blur-[80px]" />
-        </div>
-        <div className="container">
-          <div className="max-w-2xl mx-auto text-center space-y-5">
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-              Learn at Your Own Pace
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground tracking-tight leading-tight">
-              Courses
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              A clear learning path for non-technical business owners. Start
-              with the basics, build confidence, and apply AI to real business
-              tasks at your own pace.
+      <main>
+        <section
+          className="border-b border-border py-16 md:py-24"
+          aria-labelledby="courses-heading"
+        >
+          <div className="container grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
+                Learn at your own pace
+              </p>
+              <h1
+                id="courses-heading"
+                className="mt-4 max-w-3xl text-4xl font-bold tracking-[-0.04em] sm:text-5xl md:text-6xl"
+              >
+                Understand AI, use it with confidence, and keep your judgment in
+                control.
+              </h1>
+            </div>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              You do not need to become a technology expert to use AI well.
+              Learn at your own pace, practice with familiar tasks, and build a
+              foundation you can apply to everyday life, work, or business.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="section-divider" />
-
-      {/* ── Free Course ──────────────────────────────────────── */}
-      <section className="py-16">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <Gift className="w-5 h-5 text-accent" />
-              <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                1. Start Here
+        <section className="py-20 md:py-24" aria-labelledby="available-heading">
+          <div className="container">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
+                Available now
               </p>
+              <h2
+                id="available-heading"
+                className="mt-3 text-4xl font-bold tracking-tight"
+              >
+                Choose the foundation that fits your next step
+              </h2>
             </div>
-
-            {freeCourse && (
-              <Card className="overflow-hidden border-accent/30 shadow-md">
-                <div className="p-8 md:p-10">
-                  <div className="flex flex-col md:flex-row md:items-start gap-8">
-                    <div className="flex-1 space-y-5">
-                      {/* Badges */}
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                          Free
-                        </span>
-                        {freeCourse.enrollUrl ? (
-                          <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                            Available Now
-                          </span>
-                        ) : (
-                          <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                            Coming Soon
-                          </span>
-                        )}
-                      </div>
-
-                      <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
-                        {freeCourse.title}
-                      </h2>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
-                        {freeCourse.description}
-                      </p>
-
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="w-4 h-4 text-accent" />
-                        {freeCourse.duration}
-                      </div>
-                    </div>
-
-                    {/* Modules */}
-                    <div className="md:w-72 flex-shrink-0 bg-secondary/50 rounded-xl p-5 space-y-3">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                        What's Inside
-                      </p>
-                      <ul className="space-y-2.5">
-                        {freeCourse.modules.map((mod, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2.5 text-sm text-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                            {mod}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              {available.map((course, index) => (
+                <article
+                  key={course.slug}
+                  className={`flex flex-col rounded-2xl border p-7 md:p-9 ${index === 1 ? "border-[#171663] bg-[#171663] text-white" : "border-border bg-background"}`}
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p
+                      className={`text-xs font-bold uppercase tracking-[0.15em] ${index === 1 ? "text-indigo-200" : "text-accent"}`}
+                    >
+                      {categoryFor(course.slug)}
+                    </p>
+                    <span
+                      className={`text-sm font-bold ${index === 1 ? "text-white" : "text-foreground"}`}
+                    >
+                      {course.type === "free" ? "Free" : course.price}
+                    </span>
                   </div>
-
-                  <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    {freeCourse.enrollUrl ? (
+                  <h3 className="mt-6 text-3xl font-bold leading-tight">
+                    {course.title}
+                  </h3>
+                  <p
+                    className={`mt-4 leading-relaxed ${index === 1 ? "text-white/70" : "text-muted-foreground"}`}
+                  >
+                    {course.description}
+                  </p>
+                  <ul
+                    className={`mt-7 list-disc space-y-3 border-t pl-5 pt-6 text-sm ${index === 1 ? "border-white/15 text-white/80" : "border-border text-foreground"}`}
+                  >
+                    {course.modules.slice(0, 4).map(module => (
+                      <li key={module}>{module}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-8">
+                    <Button
+                      asChild
+                      variant={index === 1 ? "secondary" : "primary"}
+                    >
                       <a
-                        href={freeCourse.enrollUrl}
+                        href={course.enrollUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Button
-                          variant="primary"
-                          size="lg"
-                          className="font-semibold px-8"
-                        >
-                          Enroll Free
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
+                        {course.type === "free"
+                          ? "Enroll Free"
+                          : `Enroll for ${course.price}`}
                       </a>
-                    ) : (
-                      <Button
-                        disabled
-                        variant="primary"
-                        size="lg"
-                        className="font-semibold px-8 cursor-not-allowed"
-                      >
-                        Available Now
-                        <Clock className="w-4 h-4 ml-2" />
-                      </Button>
-                    )}
-                    <p className="text-sm text-muted-foreground">
-                      Be the first to know —{" "}
-                      <a
-                        href="/#newsletter"
-                        className="text-accent hover:text-accent/80 font-medium transition-colors"
-                      >
-                        join the newsletter
-                      </a>
-                      .
-                    </p>
+                    </Button>
+                    <Link
+                      href={`/courses/${course.slug}`}
+                      className={`text-sm font-bold ${index === 1 ? "text-indigo-200 hover:text-white" : "text-accent"}`}
+                    >
+                      View course details
+                    </Link>
                   </div>
-                </div>
-              </Card>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <div className="section-divider" />
-
-      {/* ── Paid Courses ─────────────────────────────────────── */}
-      <section className="py-16 bg-secondary/40">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <BookOpen className="w-5 h-5 text-accent" />
-              <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                2. Build Confidence
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {paidCourses.map(course => (
-                <Card
-                  key={course.id}
-                  className="overflow-hidden border-border/60 opacity-80"
-                >
-                  <div className="p-8 md:p-10">
-                    <div className="flex flex-col md:flex-row md:items-start gap-8">
-                      <div className="flex-1 space-y-4">
-                        {/* Badges */}
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                            {course.price}
-                          </span>
-                          {course.enrollUrl ? (
-                            <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                              Available Now
-                            </span>
-                          ) : (
-                            <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                              Coming Soon
-                            </span>
-                          )}
-                        </div>
-
-                        <h2 className="text-xl md:text-2xl font-bold text-foreground leading-tight">
-                          {course.title}
-                        </h2>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {course.description}
-                        </p>
-
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Clock className="w-4 h-4 text-accent" />
-                          {course.duration}
-                        </div>
-                      </div>
-
-                      {/* Modules */}
-                      <div className="md:w-72 flex-shrink-0 bg-secondary/50 rounded-xl p-5 space-y-3">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                          What's Inside
-                        </p>
-                        <ul className="space-y-2.5">
-                          {course.modules.map((mod, i) => (
-                            <li
-                              key={i}
-                              className="flex items-start gap-2.5 text-sm text-foreground"
-                            >
-                              <Lock className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                              {mod}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="mt-8 pt-6 border-t border-border">
-                      {course.enrollUrl ? (
-                        <a
-                          href={course.enrollUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button variant="primary" className="font-semibold">
-                            Enroll Now
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Button>
-                        </a>
-                      ) : (
-                        <Button
-                          disabled
-                          variant="secondary"
-                          className="font-semibold cursor-not-allowed opacity-60"
-                        >
-                          Coming Soon
-                          <Clock className="w-4 h-4 ml-2" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </Card>
+                </article>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="section-divider" />
-
-      {/* ── Featured Specialty Course ────────────────────────── */}
-      {featuredCourse && (
-        <section className="py-16">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex items-center gap-3 mb-8">
-                <GraduationCap className="w-5 h-5 text-accent" />
-                <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-                  3. Apply AI to Your Business
-                </p>
-              </div>
-
-              <Card className="overflow-hidden border-accent/40 shadow-lg ring-1 ring-accent/20">
-                <div className="p-8 md:p-10">
-                  <div className="flex flex-col md:flex-row md:items-start gap-8">
-                    <div className="flex-1 space-y-5">
-                      {/* Badges */}
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full uppercase tracking-wide">
-                          {featuredCourse.price}
-                        </span>
-                        <span className="px-3 py-1 bg-violet-100 text-violet-700 text-xs font-semibold rounded-full uppercase tracking-wide flex items-center gap-1.5">
-                          <GraduationCap className="w-3 h-3" />
-                          {featuredCourse.audience}
-                        </span>
-                        <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                          Coming Soon
-                        </span>
-                      </div>
-
-                      <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
-                        {featuredCourse.title}
-                      </h2>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
-                        {featuredCourse.description}
-                      </p>
-
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="w-4 h-4 text-accent" />
-                        {featuredCourse.duration}
-                      </div>
-                    </div>
-
-                    {/* Modules */}
-                    <div className="md:w-72 flex-shrink-0 bg-secondary/50 rounded-xl p-5 space-y-3">
-                      <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                        What's Inside
-                      </p>
-                      <ul className="space-y-2.5">
-                        {featuredCourse.modules.map((mod, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2.5 text-sm text-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                            {mod}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                    <Button
-                      disabled
-                      variant="primary"
-                      size="lg"
-                      className="font-semibold px-8 cursor-not-allowed"
-                    >
-                      Coming Soon
-                      <Clock className="w-4 h-4 ml-2" />
-                    </Button>
-                    <p className="text-sm text-muted-foreground">
-                      Built for coaches, consultants, creators, and local
-                      business owners — at any tech comfort level.
+        <section
+          className="border-y border-border bg-accent/[0.04] py-20"
+          aria-labelledby="development-heading"
+        >
+          <div className="container grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
+                Programs in development
+              </p>
+              <h2
+                id="development-heading"
+                className="mt-4 text-4xl font-bold tracking-tight"
+              >
+                What we&apos;re building next
+              </h2>
+              <p className="mt-5 leading-relaxed text-muted-foreground">
+                These planned courses extend the same practical approach into
+                prompting, workplace use, education, and entrepreneurship. They
+                are not yet open for enrollment.
+              </p>
+              <Button asChild variant="primary" className="mt-7">
+                <a href="/#newsletter">Get course updates</a>
+              </Button>
+            </div>
+            <div className="divide-y divide-border border-y border-border">
+              {inDevelopment.map(course => (
+                <article
+                  key={course.slug}
+                  className="grid gap-3 py-6 sm:grid-cols-[1fr_auto] sm:items-center"
+                >
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-accent">
+                      {categoryFor(course.slug)}
+                    </p>
+                    <h3 className="mt-2 text-xl font-bold">{course.title}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                      {course.description}
                     </p>
                   </div>
-                </div>
-              </Card>
+                  <div className="flex items-center gap-4 sm:pl-6">
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      In development
+                    </span>
+                    <Link
+                      href={`/courses/${course.slug}`}
+                      aria-label={`View ${course.title}`}
+                      className="text-accent"
+                    >
+                      <ArrowRight className="h-5 w-5" aria-hidden />
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
-      )}
 
-      <div className="section-divider" />
-
-      {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-16 bg-accent">
-        <div className="container">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-accent-foreground">
-              4. Get It Built for You
-            </h2>
-            <p className="text-lg text-accent-foreground/80 leading-relaxed">
-              If you know which work needs to become easier but do not want to
-              build the setup alone, explore a custom AI assistant built around
-              your approved business information.
-            </p>
-            <a href="/custom-ai-assistant">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="font-semibold px-10"
-              >
-                Explore Custom AI Assistants
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
+        <section className="py-16">
+          <div className="container flex flex-col gap-5 rounded-2xl border border-accent/20 p-7 sm:flex-row sm:items-center sm:justify-between md:p-9">
+            <div>
+              <h2 className="text-2xl font-bold">
+                Want to bring this learning to a team or community?
+              </h2>
+              <p className="mt-2 text-muted-foreground">
+                Compare customizable workshops, learning series, and focused
+                pilots for employees, entrepreneurs, members, or residents.
+              </p>
+            </div>
+            <Button asChild variant="secondary">
+              <Link href="/for-organizations">
+                Explore Organization Programs{" "}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </Button>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
       <Footer />
     </div>
   );

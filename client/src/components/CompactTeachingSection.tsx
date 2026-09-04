@@ -1,20 +1,12 @@
-import type { LucideIcon } from "lucide-react";
-import {
-  ArrowRight,
-  BrainCircuit,
-  ClipboardCheck,
-  Lightbulb,
-  MessageSquareText,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 
-const skills: Array<{ label: string; icon: LucideIcon }> = [
-  { label: "Understand AI", icon: BrainCircuit },
-  { label: "Know What It Can Do", icon: Lightbulb },
-  { label: "Give Better Instructions", icon: MessageSquareText },
-  { label: "Review the Results", icon: ClipboardCheck },
-  { label: "Use It Responsibly", icon: ShieldCheck },
+const skills = [
+  "Understand AI",
+  "Know What It Can Do",
+  "Give Better Instructions",
+  "Review the Results",
+  "Use It Responsibly",
 ];
 
 export default function CompactTeachingSection() {
@@ -34,24 +26,21 @@ export default function CompactTeachingSection() {
               id="teaching-heading"
               className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-tight md:text-4xl"
             >
-              Practical AI Skills. Explained Without the Technical Language.
+              Learn the habits that make AI more useful.
             </h2>
             <p className="mt-4 max-w-2xl leading-relaxed text-background/70 md:text-lg">
-              Learn how to understand AI, choose the right tasks, give clear
-              instructions, review the results, and use it responsibly—through
-              examples from businesses like yours.
+              Understand what AI can do, choose an appropriate task, give useful
+              context, and check the result through examples drawn from everyday
+              work.
             </p>
           </header>
 
           <ol className="grid border-y border-background/15 sm:grid-cols-2 lg:grid-cols-1">
-            {skills.map(({ label, icon: Icon }) => (
+            {skills.map(label => (
               <li
                 key={label}
-                className="flex min-h-14 items-center gap-3 border-background/15 py-3.5 sm:border-b sm:px-4 sm:odd:border-r lg:min-h-0 lg:border-b lg:px-0 lg:odd:border-r-0 last:border-b-0"
+                className="flex min-h-14 items-center border-background/15 py-3.5 sm:border-b sm:px-4 sm:odd:border-r lg:min-h-0 lg:border-b lg:px-0 lg:odd:border-r-0 last:border-b-0"
               >
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent">
-                  <Icon className="h-4 w-4" aria-hidden />
-                </span>
                 <span className="font-semibold">{label}</span>
               </li>
             ))}
@@ -61,13 +50,12 @@ export default function CompactTeachingSection() {
         <div className="mt-8 flex flex-col gap-5 border-t border-background/15 pt-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-sm leading-relaxed text-background/75 md:text-base">
-              Aligned with the U.S. Department of Labor&apos;s AI Literacy
-              Framework. Explained in everyday language for non-technical
-              business owners.
+              Informed by public AI literacy resources and explained in everyday
+              language for people with different levels of technical confidence.
             </p>
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-accent md:text-sm">
-              DOL-aligned AI literacy · Beginner-friendly · Built around real
-              business tasks
+              Plain-language AI literacy · Practical exercises · Built around
+              real work
             </p>
           </div>
 

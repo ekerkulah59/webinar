@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, Video, Phone } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,19 +40,16 @@ const MEETING_MODES: {
   value: MeetingMode;
   label: string;
   hint: string;
-  Icon: typeof Video;
 }[] = [
   {
     value: "video",
     label: "Video call",
     hint: "We'll send you a link",
-    Icon: Video,
   },
   {
     value: "phone",
     label: "Phone call",
     hint: "We'll call you",
-    Icon: Phone,
   },
 ];
 
@@ -147,7 +144,7 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
           }
           className="grid gap-3 sm:grid-cols-2"
         >
-          {MEETING_MODES.map(({ value, label, hint, Icon }) => (
+          {MEETING_MODES.map(({ value, label, hint }) => (
             <Label
               key={value}
               htmlFor={`mode-${value}`}
@@ -164,10 +161,7 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
                 className="mt-1"
               />
               <span className="space-y-0.5">
-                <span className="flex items-center gap-2 font-medium text-foreground">
-                  <Icon className="h-4 w-4" aria-hidden="true" />
-                  {label}
-                </span>
+                <span className="font-medium text-foreground">{label}</span>
                 <span className="block text-xs font-normal text-muted-foreground">
                   {hint}
                 </span>
@@ -203,7 +197,7 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
         <Textarea
           id="booking-topic"
           rows={3}
-          placeholder="The one thing eating most of your time right now."
+          placeholder="Tell us what you want to learn, improve, or help your team accomplish."
           disabled={submitting}
           {...register("topic")}
         />

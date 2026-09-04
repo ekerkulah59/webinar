@@ -1,4 +1,3 @@
-import { Globe } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -38,7 +37,6 @@ export function TimezoneSelect({ value, onChange }: TimezoneSelectProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <Globe className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger
           className="h-9 w-auto min-w-[200px] text-sm"

@@ -23,9 +23,9 @@ export const courses: Course[] = [
     slug: "ai-101-understand-ai",
     title: "AI 101: Understand AI Without the Confusion",
     description:
-      "The perfect starting point. No jargon, no hype — just a clear, honest introduction to what AI is, how it works in everyday life, and how to stop feeling overwhelmed by it.",
+      "A clear, grounded introduction to what AI is, how it appears in everyday life, and how to decide what you want to learn next.",
     longDescription:
-      "Most people feel overwhelmed by AI because nobody has taken the time to explain it clearly. This free one-hour course changes that. We strip away the jargon, skip the hype, and give you a grounded, practical understanding of what AI actually is — and what it isn't. By the end, you'll have a foundation you can build on.",
+      "If AI explanations have felt technical, rushed, or disconnected from daily life, this free one-hour course offers a clearer starting point. It explains what AI is, what it is not, and where you may already encounter it so you can choose your next step with more confidence.",
     type: "free",
     duration: "1 hour",
     modules: [
@@ -38,14 +38,14 @@ export const courses: Course[] = [
     enrollUrl:
       "https://easeintoai.gumroad.com/l/UnderstandAIWithouttheConfusion",
     whoIsItFor: [
-      "Complete beginners who feel lost every time AI comes up",
+      "People who want a clear starting point when AI comes up",
       "Professionals who want to understand AI without learning to code",
       "Anyone who's curious but doesn't know where to start",
     ],
     whatYouWillLeave: [
       "A clear mental model of how AI works",
       "Confidence to explore AI tools on your own",
-      "Zero confusion about the terms everyone keeps using",
+      "A clearer understanding of commonly used AI terms",
       "A personal roadmap for the next step in your AI learning",
     ],
   },
@@ -54,9 +54,9 @@ export const courses: Course[] = [
     slug: "ai-foundations-from-curious-to-confident",
     title: "AI Foundations: From Curious to Confident",
     description:
-      "The complete beginner-to-capable journey. Five structured modules covering everything from understanding AI to building a daily workflow — all in one place, at your own pace.",
+      "Five structured modules that move from understanding AI to prompting, fact-checking, and building a workflow you can adapt to your own needs.",
     longDescription:
-      'This is the most complete AI course for non-technical learners. Five modules, built in a logical sequence, that take you from "I don\'t know where to start" to "I use AI every single day." Everything covered in the webinar series, packaged into a self-paced format you can work through on your schedule.',
+      "This self-paced course brings the core EaseIntoAI webinar topics into one structured sequence. Move from a clear explanation of AI into tools, prompting, workflow design, and fact-checking, then decide which practices are genuinely useful in your role or routine.",
     type: "paid",
     price: "$39",
     priceAmount: 39,
@@ -78,10 +78,10 @@ export const courses: Course[] = [
       "Anyone who attended the webinar series and wants to go deeper",
     ],
     whatYouWillLeave: [
-      "A working AI toolkit you actually use every day",
-      "Prompt writing skills that get consistent, high-quality results",
+      "A practical AI toolkit you can adapt to your routine",
+      "Prompt-writing habits for clearer, more relevant first drafts",
       "The ability to fact-check AI output and catch hallucinations",
-      "A personal AI workflow built around your specific role",
+      "A draft AI workflow built around your specific role",
       "A library of ready-to-use prompt templates",
     ],
   },
@@ -90,9 +90,9 @@ export const courses: Course[] = [
     slug: "prompt-engineering-masterclass",
     title: "Prompt Engineering Masterclass",
     description:
-      "Go deep on the skill that separates casual AI users from people who get real results. Learn how to write prompts that are clear, specific, and consistently effective.",
+      "Learn how context, examples, constraints, and clear requests can produce more relevant AI responses—and how to revise when they do not.",
     longDescription:
-      "Prompting is the most important skill you can develop as an AI user. This focused two-hour masterclass teaches you exactly how to communicate with AI tools so you get outputs you can actually use. We go beyond the basics — you'll understand why prompts work, not just what to type.",
+      "This planned two-hour masterclass focuses on communicating clearly with AI tools. It goes beyond formulas to explain why context, examples, constraints, and output formats matter, with practice diagnosing prompts that are not working.",
     type: "paid",
     price: "$19",
     priceAmount: 19,
@@ -123,9 +123,9 @@ export const courses: Course[] = [
     slug: "ai-at-work",
     title: "AI at Work: Using AI in Your Job Confidently",
     description:
-      "Built for professionals. Learn what's safe to share with AI, the best workplace use cases, and how to use AI output responsibly — so you can move faster without cutting corners.",
+      "Built for professionals. Explore common workplace use cases, what may be unsafe to share, and how to review AI output without cutting corners.",
     longDescription:
-      "AI at work is different from AI at home. There are data privacy concerns, professional standards, and workplace policies to navigate. This two-hour course gives you the knowledge and practical skills to use AI confidently in a professional context — without putting your job or your company at risk.",
+      "AI at work brings data privacy, professional standards, and workplace policies into the picture. This planned two-hour course helps professionals identify appropriate tasks, protect sensitive information, and review AI-assisted work with those responsibilities in mind.",
     type: "paid",
     price: "$19",
     priceAmount: 19,
@@ -156,9 +156,9 @@ export const courses: Course[] = [
     slug: "ai-basics-for-teachers",
     title: "AI Basics for Teachers",
     description:
-      "A practical, six-module course built specifically for educators. Learn how to use AI to plan lessons, create worksheets, give feedback, communicate with parents, build classroom resources, and automate time-consuming tasks.",
+      "A planned six-module course for educators exploring AI-assisted lesson planning, classroom resources, feedback, communication, and repeated administrative work.",
     longDescription:
-      "Teachers are one of the professionals who stand to benefit most from AI — and one of the groups with the least time to figure it out on their own. This course was built specifically for educators. Six focused modules cover everything from the basics to advanced time-saving workflows, all in the context of real classroom situations. No tech background needed.",
+      "Educators need AI guidance that accounts for classroom context, student information, school policies, and professional judgment. This planned course uses familiar teaching tasks to explore where AI may help, what requires careful review, and what should remain with the educator.",
     type: "paid",
     price: "$49",
     priceAmount: 49,
@@ -181,10 +181,10 @@ export const courses: Course[] = [
       "Teachers who've heard about AI but aren't sure how it applies to their classroom",
     ],
     whatYouWillLeave: [
-      "The ability to plan a full lesson in minutes, not hours",
-      "Worksheet and assessment templates you can customize instantly",
-      "A parent communication system that sounds like you, not a robot",
-      "Automated grading and feedback workflows",
+      "A repeatable starting process for lesson planning",
+      "Worksheet and assessment templates you can adapt and review",
+      "A parent-communication drafting process that preserves your judgment",
+      "Ideas for educator-reviewed grading and feedback support",
       "Presentation and visual creation skills using free AI tools",
       "A personal automation system for your most time-consuming tasks",
     ],
@@ -194,7 +194,7 @@ export const courses: Course[] = [
     slug: "ai-for-women-entrepreneurs",
     title: "AI for Women Entrepreneurs & Small Business Owners",
     description:
-      "Built for women growing beauty, wellness, event, rental, coaching, creative, local-service, and product businesses. Apply AI to real work in everyday language—no technical experience required.",
+      "A planned program for women growing beauty, wellness, event, rental, coaching, creative, local-service, and product businesses who want to apply AI to real work in plain language.",
     longDescription:
       "You're running a business—not a tech company. Between full-time work, clients, bookings, products, events, content, and the work only you can do, AI can feel like one more thing to learn. This course is built for women growing salons, spas, event and rental businesses, coaching practices, creative platforms, boutiques, and other local or product-based businesses. Six focused modules show you how to apply AI to the business you already have, in plain language, while you remain in control.",
     type: "paid",
@@ -221,7 +221,7 @@ export const courses: Course[] = [
     whatYouWillLeave: [
       "Reusable processes for the repetitive work around your expertise",
       "A system for turning one idea into useful content and promotions",
-      "Customer-response, quote, service-description, and follow-up drafts that still sound like you",
+      "Customer-response, quote, service-description, and follow-up drafts you can revise into your own voice",
       "Clear packages and offers shaped with AI as a thinking partner",
       "Practical workflows for bookings, FAQs, checklists, and business procedures",
       "The SAFE Check habit for anything AI writes under your business's name",

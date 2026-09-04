@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRoute, Link } from "wouter";
-import { CalendarX, Loader2, Video, Phone, ArrowLeft } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -133,10 +133,6 @@ export default function ManageAppointment() {
               </div>
             ) : !appointment ? (
               <div className="rounded-xl border border-border bg-muted/30 px-6 py-10 text-center">
-                <CalendarX
-                  className="mx-auto mb-3 h-8 w-8 text-muted-foreground"
-                  aria-hidden="true"
-                />
                 <p className="font-medium text-foreground">
                   {error ?? "We couldn't find that appointment."}
                 </p>
@@ -165,9 +161,8 @@ export default function ManageAppointment() {
                     setRescheduling(false);
                     setSelected(null);
                   }}
-                  className="mb-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  className="mb-5 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                   Keep my current time
                 </button>
 
@@ -223,18 +218,10 @@ export default function ManageAppointment() {
                   <p className="text-lg font-semibold text-foreground">
                     {formatSlotDateTime(appointment.startsAt, timeZone)}
                   </p>
-                  <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                    {appointment.meetingMode === "video" ? (
-                      <>
-                        <Video className="h-4 w-4" aria-hidden="true" />
-                        Video call
-                      </>
-                    ) : (
-                      <>
-                        <Phone className="h-4 w-4" aria-hidden="true" />
-                        We'll call you
-                      </>
-                    )}
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {appointment.meetingMode === "video"
+                      ? "Video call"
+                      : "We'll call you"}
                   </p>
                   {appointment.topic && (
                     <p className="mt-4 border-t border-border pt-4 text-sm text-muted-foreground">
