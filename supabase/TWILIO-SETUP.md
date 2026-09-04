@@ -77,8 +77,8 @@ limit 5;
 | When | Message |
 |---|---|
 | Someone registers on the homepage | Confirmation text immediately |
-| July 21, 4:00 PM UTC (day before) | "Tomorrow" reminder to all registrants |
-| July 22, 3:00 PM UTC (hour before) | "Starting in about an hour" reminder |
+| July 27, 11:00 PM UTC (day before) | "Tomorrow" reminder to all registrants |
+| July 28, 10:00 PM UTC (hour before) | "Starting in about an hour" reminder |
 
 Each phone number gets each message type at most once (tracked in `sms_messages`).
 
