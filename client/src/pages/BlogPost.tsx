@@ -1,17 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useParams } from "wouter";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CalendarDays,
-  Check,
-  Clock3,
-  LinkIcon,
-  Linkedin,
-  Share2,
-  Twitter,
-  UserRound,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ArticleCover } from "@/components/ArticleCover";
 import Footer from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
@@ -240,13 +229,8 @@ function CopyLinkButton() {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold transition-colors hover:border-accent/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      className="inline-flex items-center rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold transition-colors hover:border-accent/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
     >
-      {copied ? (
-        <Check className="h-4 w-4" aria-hidden />
-      ) : (
-        <LinkIcon className="h-4 w-4" aria-hidden />
-      )}
       <span aria-live="polite">{copied ? "Link copied" : "Copy link"}</span>
     </button>
   );
@@ -304,10 +288,7 @@ export default function BlogPost() {
         <div>
           <h1 className="text-3xl font-bold">Article not found</h1>
           <Button className="mt-6" variant="outline" asChild>
-            <Link href="/insights">
-              <ArrowLeft className="mr-2 h-4 w-4" aria-hidden /> Back to News
-              &amp; Insights
-            </Link>
+            <Link href="/insights">Back to News &amp; Insights</Link>
           </Button>
         </div>
       </div>
@@ -352,10 +333,9 @@ export default function BlogPost() {
             <div className="mx-auto max-w-5xl">
               <Link
                 href="/insights"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+                className="inline-flex items-center text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
               >
-                <ArrowLeft className="h-4 w-4" aria-hidden /> Back to News &amp;
-                Insights
+                Back to News &amp; Insights
               </Link>
 
               <header className="mt-9 max-w-4xl">
@@ -367,20 +347,12 @@ export default function BlogPost() {
                   {post.excerpt}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 border-t border-border pt-5 text-sm text-muted-foreground">
-                  <span className="inline-flex items-center gap-2">
-                    <UserRound className="h-4 w-4" aria-hidden /> {post.author}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4" aria-hidden /> Published{" "}
-                    {formatPublishedDate(post.publishedAt)}
-                  </span>
+                  <span>{post.author}</span>
+                  <span>Published {formatPublishedDate(post.publishedAt)}</span>
                   {post.updatedAt ? (
                     <span>Updated {formatPublishedDate(post.updatedAt)}</span>
                   ) : null}
-                  <span className="inline-flex items-center gap-2">
-                    <Clock3 className="h-4 w-4" aria-hidden />{" "}
-                    {post.readingTime}
-                  </span>
+                  <span>{post.readingTime}</span>
                 </div>
               </header>
 
@@ -438,10 +410,7 @@ export default function BlogPost() {
                 <section className="mt-10 border-y border-border py-6">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="inline-flex items-center gap-2 font-bold">
-                        <Share2 className="h-4 w-4 text-accent" aria-hidden />
-                        Share this article
-                      </p>
+                      <p className="font-bold">Share this article</p>
                       <p className="mt-1 text-sm text-muted-foreground">
                         Send this practical explanation to someone who needs it.
                       </p>
@@ -452,17 +421,17 @@ export default function BlogPost() {
                         href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonicalUrl)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        className="inline-flex items-center rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       >
-                        <Linkedin className="h-4 w-4" aria-hidden /> LinkedIn
+                        LinkedIn
                       </a>
                       <a
                         href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(canonicalUrl)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        className="inline-flex items-center rounded-lg border border-border px-4 py-2.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       >
-                        <Twitter className="h-4 w-4" aria-hidden /> Post on X
+                        Post on X
                       </a>
                     </div>
                   </div>

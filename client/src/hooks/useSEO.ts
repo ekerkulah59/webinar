@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const SITE_URL = "https://easeintoai.co";
 const DEFAULT_TITLE =
-  "EaseIntoAI — Practical AI for Women Entrepreneurs & Small Business Owners";
+  "EaseIntoAI — Practical AI for People, Businesses & Organizations";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 interface SEOProps {

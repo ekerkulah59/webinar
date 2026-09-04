@@ -1,15 +1,5 @@
 import { Link, useParams } from "wouter";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  Clock,
-  ExternalLink,
-  Gift,
-  GraduationCap,
-  Lock,
-  Users,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
@@ -35,17 +25,14 @@ export default function CourseDetail() {
             Course not found
           </h1>
           <Link href="/courses">
-            <Button variant="outline">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Courses
-            </Button>
+            <Button variant="outline">Back to Courses</Button>
           </Link>
         </div>
       </div>
     );
   }
 
-  const currentIdx = courses.findIndex((c) => c.slug === course.slug);
+  const currentIdx = courses.findIndex(c => c.slug === course.slug);
   const prevCourse = currentIdx > 0 ? courses[currentIdx - 1] : null;
   const nextCourse =
     currentIdx < courses.length - 1 ? courses[currentIdx + 1] : null;
@@ -66,15 +53,14 @@ export default function CourseDetail() {
             name: "EaseIntoAI",
             url: "https://easeintoai.co/",
           },
-          ...(course.priceAmount !== undefined || course.type === "free"
+          ...(isAvailable &&
+          (course.priceAmount !== undefined || course.type === "free")
             ? {
                 offers: {
                   "@type": "Offer",
                   price: String(course.priceAmount ?? 0),
                   priceCurrency: "USD",
-                  availability: isAvailable
-                    ? "https://schema.org/InStock"
-                    : "https://schema.org/PreOrder",
+                  availability: "https://schema.org/InStock",
                 },
               }
             : {}),
@@ -92,17 +78,15 @@ export default function CourseDetail() {
           <div className="max-w-3xl mx-auto">
             <Link
               href="/courses"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-10"
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-10"
             >
-              <ArrowLeft className="w-4 h-4" />
               Back to Courses
             </Link>
 
             {/* Badges */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
               {course.type === "free" ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                  <Gift className="w-3 h-3" />
+                <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                   Free
                 </span>
               ) : (
@@ -112,15 +96,15 @@ export default function CourseDetail() {
               )}
 
               {course.audience && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100 text-violet-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                  <GraduationCap className="w-3 h-3" />
+                <span className="inline-flex items-center px-3 py-1 bg-violet-100 text-violet-700 text-xs font-semibold rounded-full uppercase tracking-wide">
                   {course.audience}
                 </span>
               )}
 
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
-                <Clock className="w-3 h-3" />
-                {course.status === "coming-soon" ? "Coming Soon" : "Available Now"}
+              <span className="inline-flex items-center px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full uppercase tracking-wide">
+                {course.status === "coming-soon"
+                  ? "In Development"
+                  : "Available Now"}
               </span>
             </div>
 
@@ -132,10 +116,9 @@ export default function CourseDetail() {
               {course.longDescription}
             </p>
 
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-10">
-              <Clock className="w-4 h-4 text-accent" />
+            <p className="text-sm text-muted-foreground mb-10">
               {course.duration}
-            </div>
+            </p>
 
             {/* CTA */}
             {isAvailable ? (
@@ -145,8 +128,9 @@ export default function CourseDetail() {
                 rel="noopener noreferrer"
               >
                 <Button size="lg" className="font-semibold px-10">
-                  {course.type === "free" ? "Start for Free" : `Enroll for ${course.price}`}
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  {course.type === "free"
+                    ? "Start for Free"
+                    : `Enroll for ${course.price}`}
                 </Button>
               </a>
             ) : (
@@ -156,8 +140,7 @@ export default function CourseDetail() {
                   size="lg"
                   className="bg-accent/50 text-accent-foreground font-semibold px-10 cursor-not-allowed"
                 >
-                  Coming Soon
-                  <Clock className="w-4 h-4 ml-2" />
+                  In Development
                 </Button>
                 <p className="text-sm text-muted-foreground">
                   Be first to know —{" "}
@@ -183,30 +166,14 @@ export default function CourseDetail() {
       <section className="py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
             {/* Modules */}
             <Card className="p-6 md:p-8 space-y-4 border-border/60">
-              <div className="flex items-center gap-2.5">
-                {course.type === "free" ? (
-                  <CheckCircle2 className="w-5 h-5 text-accent" />
-                ) : (
-                  <Lock className="w-5 h-5 text-accent" />
-                )}
-                <h2 className="text-lg font-bold text-foreground">
-                  What's Inside
-                </h2>
-              </div>
-              <ul className="space-y-3">
+              <h2 className="text-lg font-bold text-foreground">
+                What's Inside
+              </h2>
+              <ul className="list-disc space-y-3 pl-5">
                 {course.modules.map((mod, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-2.5 text-sm text-foreground"
-                  >
-                    {course.type === "free" ? (
-                      <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                    ) : (
-                      <Lock className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                    )}
+                  <li key={i} className="text-sm text-foreground">
                     {mod}
                   </li>
                 ))}
@@ -215,19 +182,18 @@ export default function CourseDetail() {
 
             {/* Who it's for */}
             <Card className="p-6 md:p-8 space-y-4 border-border/60">
-              <div className="flex items-center gap-2.5">
-                <Users className="w-5 h-5 text-accent" />
-                <h2 className="text-lg font-bold text-foreground">
-                  Who This Is For
-                </h2>
-              </div>
+              <h2 className="text-lg font-bold text-foreground">
+                Who This Is For
+              </h2>
               <ul className="space-y-3">
                 {course.whoIsItFor.map((item, i) => (
                   <li
                     key={i}
                     className="flex items-start gap-2.5 text-sm text-foreground/90 leading-relaxed"
                   >
-                    <span className="text-accent mt-1.5 text-xs flex-shrink-0">•</span>
+                    <span className="text-accent mt-1.5 text-xs flex-shrink-0">
+                      •
+                    </span>
                     {item}
                   </li>
                 ))}
@@ -250,9 +216,8 @@ export default function CourseDetail() {
               {course.whatYouWillLeave.map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-4 bg-background rounded-xl border border-border/60"
+                  className="p-4 bg-background rounded-xl border border-border/60"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-foreground leading-relaxed">
                     {item}
                   </p>
@@ -274,12 +239,12 @@ export default function CourseDetail() {
                 ? course.type === "free"
                   ? "Start Learning for Free"
                   : `Ready to Enroll?`
-                : "This Course Is Coming Soon"}
+                : "This Course Is in Development"}
             </h2>
             <p className="text-lg text-accent-foreground/80 leading-relaxed">
               {isAvailable
                 ? "Join now and start building real AI skills at your own pace."
-                : "Join the newsletter to get notified the moment it launches — plus early access and launch pricing."}
+                : "Join the course updates list to hear when enrollment details are available."}
             </p>
             {isAvailable ? (
               <a
@@ -294,7 +259,6 @@ export default function CourseDetail() {
                   {course.type === "free"
                     ? "Start for Free"
                     : `Enroll for ${course.price}`}
-                  <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </a>
             ) : (
@@ -307,7 +271,7 @@ export default function CourseDetail() {
                   size="lg"
                   className="bg-accent-foreground text-accent hover:bg-accent-foreground/90 font-semibold px-10"
                 >
-                  Join the Newsletter
+                  Get Course Updates
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </a>
@@ -325,8 +289,8 @@ export default function CourseDetail() {
             {prevCourse ? (
               <Link href={`/courses/${prevCourse.slug}`}>
                 <Card className="p-5 hover:border-accent/20 transition-colors cursor-pointer group h-full">
-                  <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
-                    <ArrowLeft className="w-3 h-3" /> Previous Course
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Previous Course
                   </p>
                   <p className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
                     {prevCourse.title}

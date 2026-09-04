@@ -15,11 +15,13 @@ import CourseDetail from "./pages/CourseDetail";
 import CustomAIAssistant from "./pages/CustomAIAssistant";
 import BookAppointment from "./pages/BookAppointment";
 import ManageAppointment from "./pages/ManageAppointment";
+import ForOrganizations from "./pages/ForOrganizations";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/for-organizations" component={ForOrganizations} />
       <Route path="/custom-ai-assistant" component={CustomAIAssistant} />
       <Route path="/past-webinars" component={PastWebinars} />
       <Route path="/courses" component={Courses} />
@@ -62,13 +64,13 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider
         defaultTheme="light"
-      // switchable
+        // switchable
       >
         <TooltipProvider>
           <Toaster />
           <ScrollManager />
           <Router />
-           <ChatWidget /> 
+          <ChatWidget />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

@@ -1,15 +1,17 @@
-import { Calendar, Clock, Users, CheckCircle2, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { pastWebinars } from "@/lib/webinarData";
 import { useSEO } from "@/hooks/useSEO";
+import { Button } from "@/components/ui/button";
 
 export default function PastWebinars() {
   useSEO({
     title: "Past AI Webinars",
     description:
-      "Browse every EaseIntoAI session — practical, plain-language AI webinars covering AI basics, tools, prompting, workflows, and fact-checking. 100+ attendees so far.",
+      "Browse five completed EaseIntoAI webinars covering AI basics, tools, prompting, workflows, and fact-checking in plain language.",
     type: "website",
   });
 
@@ -28,17 +30,21 @@ export default function PastWebinars() {
               Past Webinars
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Every session is designed to deliver real understanding, not just
-              information. Browse the full archive below.
+              See the topics, practical exercises, and participant outcomes
+              covered in earlier EaseIntoAI sessions.
             </p>
             <div className="flex justify-center gap-8 pt-4">
               <div className="text-center">
-                <p className="text-3xl font-bold text-accent">{pastWebinars.length}</p>
+                <p className="text-3xl font-bold text-accent">
+                  {pastWebinars.length}
+                </p>
                 <p className="text-sm text-muted-foreground">Sessions</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-accent">100+</p>
-                <p className="text-sm text-muted-foreground">Attendees</p>
+                <p className="text-sm text-muted-foreground">
+                  Recorded attendances
+                </p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold text-accent">Free</p>
@@ -55,7 +61,7 @@ export default function PastWebinars() {
       <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto space-y-8">
-            {pastWebinars.map((webinar) => (
+            {pastWebinars.map(webinar => (
               <Card
                 key={webinar.id}
                 className="overflow-hidden border-border/60 hover:border-accent/30 transition-colors"
@@ -81,18 +87,9 @@ export default function PastWebinars() {
                       </p>
 
                       <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-accent" />
-                          {webinar.date}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-accent" />
-                          {webinar.duration}
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-accent" />
-                          {webinar.attendees} attendees
-                        </span>
+                        <span>{webinar.date}</span>
+                        <span>{webinar.duration}</span>
+                        <span>{webinar.attendees} attendees</span>
                       </div>
                     </div>
 
@@ -101,13 +98,9 @@ export default function PastWebinars() {
                       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
                         Key Outcomes
                       </p>
-                      <ul className="space-y-2.5">
+                      <ul className="list-disc space-y-2.5 pl-5">
                         {webinar.outcomes.map((outcome, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2.5 text-sm text-foreground"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+                          <li key={idx} className="text-sm text-foreground">
                             {outcome}
                           </li>
                         ))}
@@ -115,15 +108,39 @@ export default function PastWebinars() {
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-border flex items-center gap-3">
-                    <Play className="w-5 h-5 text-accent" />
-                    <span className="text-sm text-muted-foreground">
-                      Replay available for registered attendees
-                    </span>
+                  <div className="mt-8 pt-6 border-t border-border">
+                    <p className="text-sm text-muted-foreground">
+                      Replay access was provided to registered attendees
+                    </p>
                   </div>
                 </div>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-16">
+        <div className="container">
+          <div className="mx-auto max-w-3xl rounded-2xl bg-accent/[0.06] p-8 text-center md:p-10">
+            <h2 className="text-3xl font-bold tracking-tight">
+              Ready for a current way to learn?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+              Start with a self-paced course, or join the update list for the
+              next live workshop.
+            </p>
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button asChild variant="primary">
+                <Link href="/courses">
+                  Start With a Course{" "}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Button>
+              <Button asChild variant="secondary">
+                <a href="/#newsletter">Get Workshop Updates</a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

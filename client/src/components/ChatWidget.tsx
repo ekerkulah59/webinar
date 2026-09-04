@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, X, Send, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { nanoid } from "nanoid";
 
 // Dev: Vite proxies /api/chat → FastAPI (port 8000). Prod: set VITE_RAG_API_URL to your API host.
 const API_BASE =
-  (import.meta.env.VITE_RAG_API_URL as string | undefined)?.replace(/\/$/, "") ?? "/api";
+  (import.meta.env.VITE_RAG_API_URL as string | undefined)?.replace(
+    /\/$/,
+    ""
+  ) ?? "/api";
 const API_KEY = import.meta.env.VITE_RAG_API_KEY as string | undefined;
 
 interface Source {
@@ -28,7 +31,7 @@ const GREETING: Message = {
   id: "greeting",
   role: "assistant",
   content:
-    "👋 Hi! I'm the EaseIntoAI Assistant.\n\nAsk me anything about using AI in your business — content, prompting, simple automations, or the EaseIntoAI courses. I answer only from our actual course content.\n\nWhat would you like to learn today?",
+    "👋 Hi! I'm the EaseIntoAI Assistant.\n\nAsk me anything about using AI in your work, your business, or a program for your team — content, prompting, simple automations, or the EaseIntoAI courses. I answer only from our actual course content.\n\nWhat would you like to learn today?",
 };
 
 // ── Typing indicator ──────────────────────────────────────────────────────────
@@ -36,7 +39,7 @@ const GREETING: Message = {
 function TypingDots() {
   return (
     <div className="flex items-center gap-1 py-1 px-0.5">
-      {[0, 1, 2].map((i) => (
+      {[0, 1, 2].map(i => (
         <motion.span
           key={i}
           className="block w-2 h-2 rounded-full bg-current opacity-60"
@@ -58,11 +61,13 @@ function Sources({ sources }: { sources: Source[] }) {
   return (
     <div className="mt-1.5 max-w-[85%]">
       <button
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(v => !v)}
         className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
       >
-        <span>📚 {sources.length} source{sources.length > 1 ? "s" : ""}</span>
-        {open ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
+        <span>
+          {sources.length} source{sources.length > 1 ? "s" : ""}
+          {open ? " (hide)" : " (show)"}
+        </span>
       </button>
 
       <AnimatePresence>
@@ -80,8 +85,12 @@ function Sources({ sources }: { sources: Source[] }) {
                   key={i}
                   className="bg-muted/60 border border-border/60 rounded-xl px-3 py-2.5 text-xs"
                 >
-                  <p className="font-semibold text-foreground mb-1 truncate">{src.file}</p>
-                  <p className="text-muted-foreground leading-relaxed line-clamp-3">{src.preview}</p>
+                  <p className="font-semibold text-foreground mb-1 truncate">
+                    {src.file}
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed line-clamp-3">
+                    {src.preview}
+                  </p>
                 </div>
               ))}
             </div>
@@ -110,10 +119,15 @@ function MessageBubble({ msg }: { msg: Message }) {
           isUser
             ? "bg-primary text-primary-foreground rounded-br-sm"
             : "bg-muted text-foreground rounded-bl-sm",
-          msg.error && "bg-destructive/10 text-destructive border border-destructive/20 rounded-bl-sm"
+          msg.error &&
+            "bg-destructive/10 text-destructive border border-destructive/20 rounded-bl-sm"
         )}
       >
-        {msg.loading ? <TypingDots /> : <p className="whitespace-pre-wrap">{msg.content}</p>}
+        {msg.loading ? (
+          <TypingDots />
+        ) : (
+          <p className="whitespace-pre-wrap">{msg.content}</p>
+        )}
       </div>
 
       {!msg.loading && msg.sources && <Sources sources={msg.sources} />}
@@ -154,7 +168,7 @@ function AutoResizeTextarea({
       rows={1}
       disabled={disabled}
       placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       onKeyDown={onKeyDown}
       className={cn(
         "flex-1 resize-none text-sm leading-relaxed py-2.5 px-3.5 rounded-xl",
@@ -201,7 +215,7 @@ export function ChatWidget() {
     const userMsgId = nanoid();
     const loadingMsgId = nanoid();
 
-    setMessages((prev) => [
+    setMessages(prev => [
       ...prev,
       { id: userMsgId, role: "user", content: question },
       { id: loadingMsgId, role: "assistant", content: "", loading: true },
@@ -210,7 +224,9 @@ export function ChatWidget() {
     setLoading(true);
 
     try {
-      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
       if (API_KEY) headers["X-API-Key"] = API_KEY;
 
       const res = await fetch(`${API_BASE}/chat`, {
@@ -221,15 +237,23 @@ export function ChatWidget() {
 
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
-        throw new Error((errBody as { detail?: string }).detail ?? `Server error ${res.status}`);
+        throw new Error(
+          (errBody as { detail?: string }).detail ??
+            `Server error ${res.status}`
+        );
       }
 
       const data = (await res.json()) as { answer: string; sources: Source[] };
 
-      setMessages((prev) =>
-        prev.map((m) =>
+      setMessages(prev =>
+        prev.map(m =>
           m.id === loadingMsgId
-            ? { ...m, content: data.answer, sources: data.sources, loading: false }
+            ? {
+                ...m,
+                content: data.answer,
+                sources: data.sources,
+                loading: false,
+              }
             : m
         )
       );
@@ -241,8 +265,8 @@ export function ChatWidget() {
           ? err.message
           : "Could not reach the assistant. Check that the API is running.";
 
-      setMessages((prev) =>
-        prev.map((m) =>
+      setMessages(prev =>
+        prev.map(m =>
           m.id === loadingMsgId
             ? { ...m, content: `⚠️ ${detail}`, loading: false, error: true }
             : m
@@ -276,9 +300,9 @@ export function ChatWidget() {
               <button
                 onClick={() => setOpen(true)}
                 aria-label="Open EaseIntoAI Assistant"
-                className="relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all"
+                className="relative flex items-center justify-center min-w-14 h-14 px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all"
               >
-                <Bot className="size-6" />
+                Ask
 
                 {/* Pulsing ring — draws attention */}
                 <span className="absolute inset-0 rounded-full bg-primary/25 animate-ping" />
@@ -312,21 +336,20 @@ export function ChatWidget() {
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-3 bg-primary text-primary-foreground shrink-0">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20 shrink-0">
-                <Bot className="size-4" />
-              </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold leading-tight truncate">
                   EaseIntoAI Assistant
                 </p>
-                <p className="text-[11px] opacity-75">Powered by your course content</p>
+                <p className="text-[11px] opacity-75">
+                  Powered by your course content
+                </p>
               </div>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-white/20 active:bg-white/30 transition-colors shrink-0"
+                className="rounded-full px-2.5 py-1 text-xs font-semibold hover:bg-white/20 active:bg-white/30 transition-colors shrink-0"
               >
-                <X className="size-4" />
+                Close
               </button>
             </div>
 
@@ -336,7 +359,7 @@ export function ChatWidget() {
               className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 py-4 scroll-smooth"
             >
               <div className="flex flex-col gap-4">
-                {messages.map((msg) => (
+                {messages.map(msg => (
                   <MessageBubble key={msg.id} msg={msg} />
                 ))}
               </div>
@@ -356,14 +379,13 @@ export function ChatWidget() {
                 <Button
                   onClick={send}
                   disabled={loading || !input.trim()}
-                  size="icon"
-                  className="shrink-0 rounded-xl h-10 w-10"
+                  className="shrink-0 rounded-xl h-10 px-4"
                   aria-label="Send message"
                 >
                   {loading ? (
                     <Loader2 className="size-4 animate-spin" />
                   ) : (
-                    <Send className="size-4" />
+                    "Send"
                   )}
                 </Button>
               </div>

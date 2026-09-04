@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
-import { Link } from "wouter";
-import { useLocation } from "wouter";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "wouter";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetTrigger,
   SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 
 const navLinks = [
   { label: "Who We Help", href: "/#who-we-help" },
   { label: "Courses", href: "/courses" },
-  { label: "Custom AI", href: "/custom-ai-assistant" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "For Organizations", href: "/for-organizations" },
   { label: "Insights", href: "/insights" },
+  { label: "About", href: "/#about" },
 ];
 
 export default function Navigation() {
@@ -24,129 +25,116 @@ export default function Navigation() {
   const [location] = useLocation();
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handler);
-    handler();
-    return () => window.removeEventListener("scroll", handler);
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const closeMobile = () => setMobileOpen(false);
-  const handleMobileUpcomingClick = () => {
-    closeMobile();
-    window.setTimeout(() => {
-      const target = document.getElementById("upcoming");
-      if (!target) return;
-      window.scrollTo({
-        top: target.offsetTop - 80,
-        left: 0,
-        behavior: "auto",
-      });
-    }, 700);
-  };
-  const currentHash = typeof window !== "undefined" ? window.location.hash : "";
-  const webinarHref = location === "/" ? "#upcoming" : "/#upcoming";
-
-  const isActiveLink = (href: string) => {
+  const isActive = (href: string) => {
     if (href.startsWith("/#")) {
-      if (location !== "/") return false;
-      return currentHash === href.slice(1);
+      return location === "/" && window.location.hash === href.slice(1);
     }
     return location === href;
   };
-  const handleHomeLinkClick = () => {
-    if (window.location.pathname !== "/") return;
-    if (window.location.hash) {
+
+  const handleHomeClick = () => {
+    setMobileOpen(false);
+    if (window.location.pathname === "/") {
       window.history.replaceState(null, "", "/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
+
   return (
-    <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-          : "bg-background/80 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
-      }`}
+    <header
+      className={`sticky top-0 z-50 border-b transition-colors duration-200 ${scrolled ? "border-border bg-background/95 shadow-sm backdrop-blur-md" : "border-transparent bg-background/90 backdrop-blur-sm"}`}
     >
-      <div className="container flex items-center justify-between gap-6 py-3.5">
+      <nav
+        className="container flex min-h-16 items-center justify-between gap-6"
+        aria-label="Primary navigation"
+      >
         <Link
           href="/"
-          onClick={handleHomeLinkClick}
-          className="flex shrink-0 items-center"
-          aria-label="EaseIntoAI — home"
+          onClick={handleHomeClick}
+          className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          aria-label="EaseIntoAI home"
         >
           <img src="/logo.svg" alt="EaseIntoAI" className="h-8 w-auto" />
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden items-center gap-7 lg:flex">
-          {navLinks.map(({ label, href }) => (
+        <div className="hidden items-center gap-5 lg:flex">
+          {navLinks.map(link => (
             <Link
-              key={label}
-              href={href}
-              className={`text-sm font-medium transition-colors ${
-                isActiveLink(href)
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              key={link.label}
+              href={link.href}
+              className={`rounded-sm text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${isActive(link.href) ? "text-accent" : "text-muted-foreground hover:text-foreground"}`}
             >
-              {label}
+              {link.label}
             </Link>
           ))}
-          <a href={webinarHref}>
-            <Button size="sm" variant="primary">
-              Free Workshop
-            </Button>
-          </a>
+          <Button asChild size="sm" variant="primary">
+            <Link href="/book">Book Intro Call</Link>
+          </Button>
         </div>
 
-        {/* Mobile nav */}
-        <div className="flex shrink-0 items-center lg:hidden">
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
+        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="secondary"
+              size="icon"
+              className="size-11 lg:hidden"
+              aria-label="Open menu"
+              aria-expanded={mobileOpen}
+            >
+              <Menu className="size-5" aria-hidden />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[min(88vw,22rem)] p-0">
+            <SheetTitle className="sr-only">Site navigation</SheetTitle>
+            <SheetDescription className="sr-only">
+              Explore EaseIntoAI solutions, programs, and resources.
+            </SheetDescription>
+            <nav
+              className="flex flex-col gap-1 px-5 pb-8 pt-16"
+              aria-label="Mobile navigation"
+            >
+              {navLinks.map(link => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`rounded-lg px-4 py-3 text-base font-semibold transition-colors ${isActive(link.href) ? "bg-accent/10 text-accent" : "text-foreground hover:bg-secondary"}`}
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Button
-                type="button"
-                variant="secondary"
-                size="icon"
-                className="size-10 border-border bg-background text-foreground shadow-sm"
-                aria-label="Open menu"
-                aria-expanded={mobileOpen}
+                asChild
+                className="mt-5 w-full"
+                size="lg"
+                variant="primary"
               >
-                <Menu className="size-5" aria-hidden />
+                <Link href="/book" onClick={() => setMobileOpen(false)}>
+                  Book Intro Call
+                </Link>
               </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72 gap-0 p-0 sm:max-w-xs">
-              <SheetTitle className="sr-only">Site navigation</SheetTitle>
-              <SheetDescription className="sr-only">
-                Navigate to EaseIntoAI pages and the free workshop.
-              </SheetDescription>
-              <nav className="flex flex-col gap-1 px-4 pt-14 pb-8">
-                {navLinks.map(({ label, href }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    onClick={closeMobile}
-                    className={`rounded-md px-3 py-3 text-base font-medium transition-colors ${
-                      isActiveLink(href)
-                        ? "bg-accent/10 text-foreground"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {label}
-                  </Link>
-                ))}
-                <div className="mt-5 border-t border-border px-3 pt-5">
-                  <a href={webinarHref} onClick={handleMobileUpcomingClick}>
-                    <Button className="w-full" variant="primary">
-                      Free Workshop
-                    </Button>
-                  </a>
-                </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </nav>
+              <div className="mt-6 border-t border-border pt-5">
+                <p className="px-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  More ways to work with us
+                </p>
+                <Link
+                  href="/custom-ai-assistant"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-2 block rounded-lg px-4 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                >
+                  Custom AI Assistants
+                </Link>
+              </div>
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </nav>
+    </header>
   );
 }

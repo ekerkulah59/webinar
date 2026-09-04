@@ -1,111 +1,59 @@
-import { useState } from "react";
-import { Globe, User } from "lucide-react";
-
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20">
-      <div className="container">
-        <div className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-12 lg:gap-16 items-start">
-          {/* Main content */}
-          <div>
-            <p className="text-sm font-semibold text-accent uppercase tracking-widest mb-3">
-              Meet the Founder
+    <section
+      id="about"
+      className="scroll-mt-24 py-20 md:py-28"
+      aria-labelledby="about-heading"
+    >
+      <div className="container grid gap-12 lg:grid-cols-[1fr_21rem] lg:items-start">
+        <div className="max-w-3xl">
+          <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
+            Meet the founder
+          </p>
+          <h2
+            id="about-heading"
+            className="mt-4 max-w-2xl text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl"
+          >
+            Making Useful AI Easier to Understand and Apply.
+          </h2>
+          <div className="mt-7 space-y-5 text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p>
+              EaseIntoAI began with a simple conviction: people should not need
+              a technical background to benefit from AI.
             </p>
-            <h2 className="text-4xl md:text-[2.75rem] font-bold text-foreground leading-[1.15] tracking-tight max-w-2xl">
-              Built for Business Owners Who Need Practical Support, Not More
-              Hype.
-            </h2>
-
-            <div className="mt-8 space-y-5 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              <p>
-                EaseIntoAI was created after recognizing that most AI education
-                is designed for people excited about technology—not for women
-                working full-time, building businesses after hours, serving
-                clients, managing families, and trying to grow without a full
-                team.
-              </p>
-              <p>
-                They do not need another list of tools. They need practical
-                support for the hours they actually have—whether their work
-                happens behind a salon chair, at an event venue, on a coaching
-                call, in front of a camera, or while preparing customer orders.
-              </p>
-              <p>
-                Emmanuel brings hands-on experience building websites,
-                applications, automation systems, and AI tools. EaseIntoAI turns
-                that experience into beginner-friendly guidance that starts with
-                a real business task and keeps the owner responsible for
-                reviewing and approving the result.
-              </p>
-            </div>
-
-            {/* Profile card — mobile only, before feature grid */}
-            <aside className="mt-10 lg:hidden">
-              <ProfileCard />
-            </aside>
+            <p>
+              Emmanuel Kerkulah created EaseIntoAI after seeing individuals and
+              business owners struggle to connect fast-moving AI tools with the
+              real work they needed to complete. The approach begins with that
+              work, explains where AI can help, and keeps people responsible for
+              the final result.
+            </p>
+            <p>
+              Emmanuel builds the things he teaches—websites, applications,
+              automation, AI-supported tools—which is mostly useful because it
+              means he knows which parts are worth your time and which parts you
+              can safely ignore.
+            </p>
           </div>
-
-          {/* Profile sidebar — desktop */}
-          <aside className="hidden lg:block lg:sticky lg:top-28">
-            <ProfileCard />
-          </aside>
         </div>
+
+        <aside className="overflow-hidden rounded-2xl border border-border bg-[#071027] text-white shadow-xl lg:sticky lg:top-24">
+          <img
+            src="/emam.jpeg"
+            alt="Emmanuel Kerkulah, founder of EaseIntoAI"
+            className="aspect-[4/3] w-full object-cover object-top"
+            loading="lazy"
+          />
+          <div className="p-6">
+            <p className="text-sm font-bold">Emmanuel Kerkulah</p>
+            <p className="mt-2 text-sm text-white/65">Founder, EaseIntoAI</p>
+            <p className="mt-5 text-xs leading-relaxed text-white/55">
+              Based in Delaware, with virtual learning and partnership
+              conversations available more broadly.
+            </p>
+          </div>
+        </aside>
       </div>
     </section>
-  );
-}
-
-function ProfileCard() {
-  const [hasPortraitError, setHasPortraitError] = useState(false);
-
-  return (
-    <div className="rounded-2xl bg-foreground text-background p-7 shadow-xl">
-      <div className="mb-5">
-        {!hasPortraitError ? (
-          <img
-            src="/image.jpeg"
-            alt="Portrait of Emmanuel Kerkulah, founder of EaseIntoAI"
-            className="h-24 w-24 rounded-full object-cover border-2 border-background/25"
-            loading="lazy"
-            onError={() => setHasPortraitError(true)}
-          />
-        ) : (
-          <div className="h-24 w-24 rounded-full border border-background/20 bg-background/10 flex items-center justify-center">
-            <User className="w-10 h-10 text-background/65" aria-hidden />
-          </div>
-        )}
-      </div>
-      <h3 className="text-xl font-bold text-background leading-tight">
-        Emmanuel Kerkulah
-      </h3>
-      <p className="mt-1 text-sm font-medium text-accent">
-        Creator &amp; Host · easeintoai.co
-      </p>
-
-      <div className="mt-5 space-y-4 text-sm text-background/75 leading-relaxed">
-        <p>
-          EaseIntoAI is for non-technical women building serious businesses
-          around full-time work and already-full lives. The teaching starts with
-          the work they need to complete—not with a list of tools.
-        </p>
-        <p>
-          Emmanuel&apos;s approach is grounded in building websites,
-          applications, automation systems, and AI tools, then explaining the
-          useful parts in everyday language.
-        </p>
-      </div>
-
-      <div className="mt-6 pt-5 border-t border-background/15">
-        <a
-          href="https://easeintoai.co"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-        >
-          <Globe className="w-4 h-4" />
-          easeintoai.co
-        </a>
-      </div>
-    </div>
   );
 }

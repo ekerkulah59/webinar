@@ -86,10 +86,11 @@ export function SlotPicker({
           No times available right now
         </p>
         <p className="mt-1 text-sm text-muted-foreground">
-          Check back soon, or email us and we&apos;ll find a time together.
+          Check back soon, or email us with your goal and we&apos;ll find a time
+          together.
         </p>
         <a
-          href="mailto:hello@easeintoai.co"
+          href="mailto:hello@easeintoai.co?subject=Schedule%20an%20EaseIntoAI%20conversation"
           className="mt-3 inline-block text-sm font-medium text-accent underline underline-offset-4"
         >
           Email to schedule

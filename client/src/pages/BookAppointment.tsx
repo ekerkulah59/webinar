@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { Clock, CalendarDays, ArrowLeft } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -29,9 +28,9 @@ type Booked = {
 
 export default function BookAppointment() {
   useSEO({
-    title: "Book a Free Intro Call",
+    title: "Talk With EaseIntoAI",
     description:
-      "Pick a time that works for you. A short, no-pressure call about what's eating your time and whether AI can take any of it off your plate.",
+      "Start a focused conversation about practical AI education, implementation, or an organizational partnership.",
     type: "website",
   });
 
@@ -130,22 +129,17 @@ export default function BookAppointment() {
                   Free 30-minute intro call
                 </p>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
-                  Let&apos;s talk about what&apos;s taking too much time
+                  Let&apos;s find the right next step for your AI goal
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Pick a time that works for you. We&apos;ll look at the work
-                  consuming your week and decide whether practical AI can help.
-                  No pitch and no technical preparation.
+                  Bring a question, a repeated task, or a goal for your team or
+                  community. We&apos;ll identify whether a course, workflow,
+                  assistant, or organization program is the most useful next
+                  step. No pitch and no technical preparation.
                 </p>
                 <div className="flex items-center justify-center gap-5 pt-2 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1.5">
-                    <Clock className="h-4 w-4" aria-hidden="true" />
-                    {slotMinutes} minutes
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                    Video or phone
-                  </span>
+                  <span>{slotMinutes} minutes</span>
+                  <span>Video or phone</span>
                 </div>
               </div>
 
@@ -156,15 +150,17 @@ export default function BookAppointment() {
                       Online booking is temporarily unavailable
                     </h2>
                     <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-                      We couldn&apos;t load the available times. Try again or
-                      email us and we&apos;ll find a time together.
+                      The live scheduling service is not returning available
+                      times. Try again, or email us with your role or
+                      organization and what you want to learn or improve so we
+                      can find a time together.
                     </p>
                     <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
                       <Button onClick={() => void loadSlots()}>
                         Try again
                       </Button>
                       <Button variant="outline" asChild>
-                        <a href="mailto:hello@easeintoai.co">
+                        <a href="mailto:hello@easeintoai.co?subject=Conversation%20with%20EaseIntoAI&body=Role%20or%20organization%3A%0A%0AWhat%20I%20want%20to%20learn%20or%20improve%3A%0A%0APreferred%20next%20step%3A">
                           Email to schedule
                         </a>
                       </Button>
@@ -178,9 +174,8 @@ export default function BookAppointment() {
                         setSelected(null);
                         setSubmitError(null);
                       }}
-                      className="mb-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                      className="mb-5 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                       Pick a different time
                     </button>
 

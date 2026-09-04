@@ -1,12 +1,6 @@
 import { useState, type MouseEvent } from "react";
 import { Link } from "wouter";
-import {
-  ArrowRight,
-  CalendarDays,
-  Check,
-  Clock3,
-  LinkIcon,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ArticleCover } from "@/components/ArticleCover";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
@@ -46,14 +40,8 @@ function CategoryBadge({ post }: { post: BlogPost }) {
 function ArticleMeta({ post }: { post: BlogPost }) {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
-      <span className="inline-flex items-center gap-1.5">
-        <CalendarDays className="h-3.5 w-3.5" aria-hidden />
-        {formatPublishedDate(post.publishedAt)}
-      </span>
-      <span className="inline-flex items-center gap-1.5">
-        <Clock3 className="h-3.5 w-3.5" aria-hidden />
-        {post.readingTime}
-      </span>
+      <span>{formatPublishedDate(post.publishedAt)}</span>
+      <span>{post.readingTime}</span>
     </div>
   );
 }
@@ -73,16 +61,11 @@ function CopyPostLink({ post }: { post: BlogPost }) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex min-h-9 items-center gap-1.5 rounded-md px-2 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      className="inline-flex min-h-9 items-center rounded-md px-2 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       aria-label={
         copied ? `Link copied for ${post.title}` : `Copy link for ${post.title}`
       }
     >
-      {copied ? (
-        <Check className="h-3.5 w-3.5" aria-hidden />
-      ) : (
-        <LinkIcon className="h-3.5 w-3.5" aria-hidden />
-      )}
       <span aria-live="polite">{copied ? "Copied" : "Copy link"}</span>
     </button>
   );
@@ -184,7 +167,7 @@ export default function Blog() {
   useSEO({
     title: "News & Insights",
     description:
-      "Current AI developments, practical guidance, and real business use cases—explained for non-technical women building businesses around full-time jobs and full lives.",
+      "Plain-language AI explanations, practical guides, business examples, workshop lessons, and responsible-use commentary from EaseIntoAI.",
     url: "https://easeintoai.co/insights",
     type: "website",
   });
@@ -197,15 +180,15 @@ export default function Blog() {
           <div className="container">
             <header className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-                AI News, Guidance &amp; Business Application
+                Explanations, examples, and lessons
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
                 News &amp; Insights
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-                Current AI developments, practical guidance, and real business
-                use cases—explained for non-technical women building businesses
-                around full-time jobs and full lives.
+                Practical explanations, business examples, workshop lessons, and
+                careful commentary for people deciding how AI belongs in their
+                work.
               </p>
             </header>
 
