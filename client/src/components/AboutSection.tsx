@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 export default function AboutSection() {
   return (
     <section
@@ -14,25 +16,37 @@ export default function AboutSection() {
             id="about-heading"
             className="mt-4 max-w-2xl text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl"
           >
-            Making Useful AI Easier to Understand and Apply.
+            Hi — I&apos;m Emmanuel. I&apos;m right here in Delaware.
           </h2>
           <div className="mt-7 space-y-5 text-base leading-relaxed text-muted-foreground md:text-lg">
             <p>
-              EaseIntoAI began with a simple conviction: people should not need
-              a technical background to benefit from AI.
+              You are not going to be handed off to a support queue or a
+              chatbot. When you work with EaseIntoAI, you work with me — the
+              same person who taught the session, wrote the course, and will be
+              on the call.
             </p>
             <p>
-              Emmanuel Kerkulah created EaseIntoAI after seeing individuals and
-              business owners struggle to connect fast-moving AI tools with the
-              real work they needed to complete. The approach begins with that
-              work, explains where AI can help, and keeps people responsible for
-              the final result.
+              I started this after watching the same thing happen over and over:
+              a smart owner, genuinely willing to try, opening an AI tool and
+              getting back something that sounded nothing like them. The problem
+              was never that they were behind. It was that nobody had started
+              with their actual work.
             </p>
             <p>
-              Emmanuel builds the things he teaches—websites, applications,
-              automation, AI-supported tools—which is mostly useful because it
-              means he knows which parts are worth your time and which parts you
-              can safely ignore.
+              I build the things I teach — websites, applications, automation,
+              AI-supported tools. That is mostly useful because it means I know
+              which parts are worth your time and which parts you can safely
+              ignore. I will tell you when AI is the wrong answer, including
+              when that costs me the job.
+            </p>
+            <p>
+              I am based in Delaware, and I would rather build this business one
+              local owner at a time than scale something impersonal. If you
+              would like to talk before committing to anything,{" "}
+              <Link href="/book" className="font-semibold text-accent">
+                book a short call
+              </Link>{" "}
+              — no pitch.
             </p>
           </div>
         </div>
@@ -48,8 +62,8 @@ export default function AboutSection() {
             <p className="text-sm font-bold">Emmanuel Kerkulah</p>
             <p className="mt-2 text-sm text-white/65">Founder, EaseIntoAI</p>
             <p className="mt-5 text-xs leading-relaxed text-white/55">
-              Based in Delaware, with virtual learning and partnership
-              conversations available more broadly.
+              Based in Delaware. Happy to meet local owners in person, and works
+              virtually with everyone else.
             </p>
           </div>
         </aside>

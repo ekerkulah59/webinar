@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
 const safeItems = [
@@ -45,31 +46,25 @@ export default function SafeCheckSection() {
               The SAFE Check
             </h2>
             <p className="text-base md:text-lg text-background/75 leading-relaxed">
-              Before you submit anything that AI helped create, run it through
-              these four questions. This is the framework we teach in Session 1
-              — and one of the most practical things you&apos;ll take away.
+              Before you send anything AI helped you create, run it through
+              these four questions. It takes about thirty seconds, and it is the
+              habit that lets you use AI on customer-facing work without lying
+              awake about it.
             </p>
             <p className="text-base md:text-lg text-background/75 leading-relaxed">
               AI can be confidently wrong. Your name goes on the work. The SAFE
               Check is how you stay in control.
             </p>
-            <Button
-              onClick={() =>
-                document
-                  .getElementById("upcoming")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              variant="primary"
-              size="lg"
-              className="mt-2"
-            >
-              Learn it in Session 1
-              <ArrowRight className="w-4 h-4 ml-2" />
+            <Button asChild variant="primary" size="lg" className="mt-2">
+              <Link href="/pilot">
+                Put it to work in the Pilot
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {safeItems.map((item) => (
+            {safeItems.map(item => (
               <div
                 key={item.letter}
                 className="rounded-xl border border-background/15 bg-background/[0.07] p-5"

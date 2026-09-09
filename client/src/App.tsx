@@ -16,11 +16,17 @@ import CustomAIAssistant from "./pages/CustomAIAssistant";
 import BookAppointment from "./pages/BookAppointment";
 import ManageAppointment from "./pages/ManageAppointment";
 import ForOrganizations from "./pages/ForOrganizations";
+import Pilot from "./pages/Pilot";
+import HowItWorks from "./pages/HowItWorks";
+import Results from "./pages/Results";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/pilot" component={Pilot} />
+      <Route path="/how-it-works" component={HowItWorks} />
+      <Route path="/results" component={Results} />
       <Route path="/for-organizations" component={ForOrganizations} />
       <Route path="/custom-ai-assistant" component={CustomAIAssistant} />
       <Route path="/past-webinars" component={PastWebinars} />

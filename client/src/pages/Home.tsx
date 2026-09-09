@@ -20,51 +20,47 @@ const UPCOMING_WORKSHOP = {
   timeZone: "America/New_York",
 };
 
-const individualAudiences = [
-  "People curious about using AI",
-  "Professionals applying AI at work",
-  "Entrepreneurs and small-business owners",
-  "Women building businesses alongside full-time work",
-  "Coaches, consultants, and creators",
-  "Local, service, and product businesses",
+const ownerAudiences = [
+  "Salons, spas, and barbershops",
+  "Coaches, consultants, and therapists",
+  "Boutiques and product businesses",
+  "Event, rental, and photography businesses",
+  "Local trades and service companies",
+  "Women running a business alongside a full-time job",
 ];
 
-const organizationAudiences = [
-  "Teams and employers",
-  "Nonprofits and community organizations",
-  "Chambers and business associations",
-  "Libraries and educational institutions",
-  "Workforce and economic-development organizations",
-  "Cities, towns, and state agencies",
-];
-
+// Owner-first. Organizations are a channel, not a co-equal audience, so they
+// are handled by one quiet line further down rather than a third card here.
 const pathways = [
   {
-    eyebrow: "If you're figuring this out on your own",
-    title: "I want to stop guessing and start using it well",
-    copy: "Courses and workshops in plain language: what AI is genuinely good at, how to ask for what you actually want, and how to spot the answers you shouldn't trust. No technical background assumed. No question too basic.",
+    eyebrow: "Start here",
+    title: "Get one thing running in my business",
+    copy: "Bring the task you redo every week. We build it into a process with you, in plain language, using your own words and examples — and you approve anything that goes out under your name.",
+    ctaLabel: "See the Pilot",
+    href: "/pilot",
+    external: false,
+    variant: "primary",
+    featured: true,
+  },
+  {
+    eyebrow: "Not ready to commit",
+    title: "Learn it myself first",
+    copy: "Self-paced courses in plain language: what AI is genuinely good at, how to ask for what you actually want, and how to spot the answers you should not trust. One of them is free.",
     ctaLabel: "See the courses",
     href: "/courses",
     external: false,
     variant: "secondary",
+    featured: false,
   },
   {
-    eyebrow: "If you're applying it at work or in your business",
-    title: "I want a few hours back every week",
-    copy: "Take the work you keep redoing—the same drafts, the same follow-ups, the same setup every time—and turn it into a process that runs the way you would run it. Your voice, your standards, your approval before anything goes out.",
-    ctaLabel: "Compare the two ways to start",
-    href: "#business-solutions",
+    eyebrow: "Rather not do it yourself",
+    title: "Have it built for me",
+    copy: "An AI receptionist for the questions that come in after hours, a website that actually books people, or the follow-ups that keep getting forgotten. We build it and hand it over working.",
+    ctaLabel: "See done-for-you",
+    href: "/pilot#done-for-you",
     external: true,
     variant: "secondary",
-  },
-  {
-    eyebrow: "If you're responsible for other people's readiness",
-    title: "I want my people ready — and careful about it",
-    copy: "Workshops, learning series, and pilots scoped to the employees, members, business owners, students, or residents you serve. Built to be reported on: what people learned, what they built, and what you should do next.",
-    ctaLabel: "See program options",
-    href: "/for-organizations",
-    external: false,
-    variant: "secondary",
+    featured: false,
   },
 ] as const;
 
@@ -84,7 +80,7 @@ const solutions = [
   {
     number: "02",
     title: "Get repeated work off your plate",
-    copy: "Turn the drafting and setup you rebuild every week into a workflow that runs on your own approved information, with clear steps and a review point before anything goes out.",
+    copy: "Turn the drafting and setup you rebuild every week into a process that runs on your own approved information, with clear steps and a review point before anything goes out.",
     examples: [
       "Custom AI Assistants",
       "Content and communication workflows",
@@ -95,14 +91,14 @@ const solutions = [
   },
   {
     number: "03",
-    title: "Prepare the people you serve",
-    copy: "Give employees, members, business owners, or residents a structured way to learn, practice on their own tasks, and leave with something they keep using.",
+    title: "Have it built for you",
+    copy: "If you would rather not build it yourself, we build the piece you need and hand it over working — then show you how to run it without calling us every time.",
     examples: [
-      "AI-readiness assessments",
-      "Community pilot programs",
-      "Responsible-use guidance",
-      "Adoption roadmaps",
-      "Program evaluation",
+      "AI receptionist",
+      "Website that books people",
+      "Follow-up automation",
+      "Custom AI Assistants",
+      "Customer-response systems",
     ],
   },
 ];
@@ -151,9 +147,9 @@ function Countdown({ startsAt }: { startsAt: string }) {
 
 export default function Home() {
   useSEO({
-    title: "Practical AI for People, Businesses & Organizations",
+    title: "Practical AI for Small-Business Owners",
     description:
-      "AI is good at a narrow set of tasks and unreliable at others. EaseIntoAI helps individuals, businesses, and organizations tell the difference and put it to work on something they already do.",
+      "Get AI actually working in your business without the tech overwhelm. EaseIntoAI starts with the work you already repeat every week, builds the process with you, and keeps you in control of what goes out.",
     url: "https://easeintoai.co/",
     type: "website",
   });
@@ -183,7 +179,7 @@ export default function Home() {
           url: "https://easeintoai.co/",
           email: "hello@easeintoai.co",
           description:
-            "Practical AI education, workflow support, and organizational programs for individuals, professionals, businesses, and organizations.",
+            "Practical AI help for small-business owners: plain-language education and hands-on implementation that starts with the work you already do, with a person responsible for what goes out.",
         }}
       />
       {workshopIsUpcoming && (
@@ -214,21 +210,19 @@ export default function Home() {
           <div className="container grid gap-10 py-14 md:py-20 lg:grid-cols-[1fr_.96fr] lg:items-center lg:gap-16 lg:py-16">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.17em] text-accent">
-                For individuals, businesses, and organizations
+                For small-business owners
               </p>
               <h1
                 id="home-heading"
                 className="mt-5 max-w-2xl text-balance text-[1.75rem] font-bold leading-[1.12] tracking-[-0.035em] text-foreground sm:text-4xl md:text-5xl lg:text-[3.25rem] lg:leading-[1.06]"
               >
-                Find the Two or Three Places AI Actually Helps You. Skip the
-                Rest.
+                Get AI actually working in your business — without the tech
+                overwhelm.
               </h1>
               <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-                AI is genuinely good at a narrow set of tasks and quietly
-                unreliable at others. We help you tell the difference, put it to
-                work on something you already do every week, and keep a person
-                responsible for what goes out. Learn it yourself, apply it in
-                your business, or bring it to the people you serve.
+                Plain-language help that starts with your real work, builds the
+                system with you, and keeps you in control. You bring the task
+                you redo every week. You leave with it running.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button
@@ -237,20 +231,8 @@ export default function Home() {
                   size="lg"
                   className="h-auto min-h-12 w-full whitespace-normal px-6 py-3 text-center sm:w-auto"
                 >
-                  <a href="#pathways">
-                    Show Me Where AI Can Help{" "}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="secondary"
-                  size="lg"
-                  className="h-auto min-h-12 w-full whitespace-normal px-6 py-3 text-center sm:w-auto"
-                >
-                  <Link href="/for-organizations">
-                    Explore Programs for Organizations{" "}
-                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  <Link href="/pilot">
+                    See the Pilot <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                 </Button>
               </div>
@@ -264,6 +246,22 @@ export default function Home() {
                 <span className="whitespace-nowrap">
                   You approve everything before it goes out
                 </span>
+              </p>
+              {/*
+                The organizations door. Deliberately one quiet line, not a
+                second headline or a co-equal button — chambers, libraries and
+                workforce boards are a channel to owners, not the buyer this
+                page is written for.
+              */}
+              <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                With a chamber, library, nonprofit, or employer?{" "}
+                <Link
+                  href="/for-organizations"
+                  className="font-semibold text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
+                >
+                  Bring this to your members
+                </Link>
+                .
               </p>
             </div>
 
@@ -305,15 +303,24 @@ export default function Home() {
               id="pathways-heading"
               className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl"
             >
-              Choose the path that matches your work.
+              Three ways in. Most owners want the first one.
             </h2>
 
             <div className="mt-9 grid gap-5 md:grid-cols-3">
               {pathways.map(
-                ({ eyebrow, title, copy, ctaLabel, href, external, variant }) => (
+                ({
+                  eyebrow,
+                  title,
+                  copy,
+                  ctaLabel,
+                  href,
+                  external,
+                  variant,
+                  featured,
+                }) => (
                   <article
                     key={title}
-                    className="flex flex-col rounded-2xl border border-accent/25 p-7 transition-colors hover:border-accent/55 md:p-8"
+                    className={`flex flex-col rounded-2xl border p-7 transition-colors md:p-8 ${featured ? "border-accent bg-accent/[0.06] shadow-sm md:-my-2 md:py-10" : "border-border hover:border-accent/45"}`}
                   >
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">
                       {eyebrow}
@@ -363,49 +370,48 @@ export default function Home() {
                 </p>
                 <h2
                   id="solutions-heading"
-                  className="mt-4 max-w-3xl font-serif text-4xl font-bold leading-tight tracking-tight md:text-6xl"
+                  className="mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight md:text-6xl"
                 >
-                  Understand It. Apply It. Bring It to Your People.
+                  Understand it. Apply it. Or hand it over.
                 </h2>
               </div>
               <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
-                Every engagement starts with one task someone actually does,
-                then builds the skill, the process, and the review step that
-                make it hold up.
+                Every engagement starts with one task you actually do, then
+                builds the skill, the process, and the review step that make it
+                hold up.
               </p>
             </div>
 
             <div className="mt-12 grid gap-0 lg:grid-cols-3">
               {solutions.map(({ number, title, copy, examples }, index) => (
-                  <article
-                    key={title}
-                    className={`border border-border p-7 md:p-9 ${index === 0 ? "rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none" : "border-t-0 lg:border-l-0 lg:border-t"} ${index === 2 ? "rounded-b-2xl bg-[#171663] text-white lg:rounded-bl-none lg:rounded-r-2xl" : "bg-background"}`}
+                <article
+                  key={title}
+                  className={`border border-border p-7 md:p-9 ${index === 0 ? "rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none" : "border-t-0 lg:border-l-0 lg:border-t"} ${index === 2 ? "rounded-b-2xl bg-[#171663] text-white lg:rounded-bl-none lg:rounded-r-2xl" : "bg-background"}`}
+                >
+                  <span
+                    className={`text-sm font-bold ${index === 2 ? "text-indigo-200" : "text-accent"}`}
                   >
-                    <span
-                      className={`text-sm font-bold ${index === 2 ? "text-indigo-200" : "text-accent"}`}
-                    >
-                      {number}
-                    </span>
-                    <h3
-                      className={`mt-6 font-serif text-3xl font-bold ${index === 2 ? "text-white" : "text-foreground"}`}
-                    >
-                      {title}
-                    </h3>
-                    <p
-                      className={`mt-4 leading-relaxed ${index === 2 ? "text-white/75" : "text-muted-foreground"}`}
-                    >
-                      {copy}
-                    </p>
-                    <ul
-                      className={`mt-7 list-disc space-y-2.5 border-t pl-5 pt-6 text-sm ${index === 2 ? "border-white/15 text-white/80" : "border-border text-foreground"}`}
-                    >
-                      {examples.map(example => (
-                        <li key={example}>{example}</li>
-                      ))}
-                    </ul>
-                  </article>
-                )
-              )}
+                    {number}
+                  </span>
+                  <h3
+                    className={`mt-6 text-3xl font-bold ${index === 2 ? "text-white" : "text-foreground"}`}
+                  >
+                    {title}
+                  </h3>
+                  <p
+                    className={`mt-4 leading-relaxed ${index === 2 ? "text-white/75" : "text-muted-foreground"}`}
+                  >
+                    {copy}
+                  </p>
+                  <ul
+                    className={`mt-7 list-disc space-y-2.5 border-t pl-5 pt-6 text-sm ${index === 2 ? "border-white/15 text-white/80" : "border-border text-foreground"}`}
+                  >
+                    {examples.map(example => (
+                      <li key={example}>{example}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
             </div>
 
             <div
@@ -414,12 +420,11 @@ export default function Home() {
             >
               <div>
                 <h3 className="text-xl font-bold">
-                  Two ways to get repeated work off your plate.
+                  Ready to get one thing running?
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Learn to build the process yourself at your own pace, or have
-                  one built with you that draws on your own approved information
-                  and stops for your review.
+                  The Pilot is the paid starting point: bring one repeated task,
+                  build it into a process with us, keep the approval.
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap gap-3">
@@ -427,8 +432,8 @@ export default function Home() {
                   <Link href="/courses">Learn it myself</Link>
                 </Button>
                 <Button asChild variant="primary">
-                  <Link href="/custom-ai-assistant">
-                    Have one built with me
+                  <Link href="/pilot">
+                    See the Pilot <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
                 </Button>
               </div>
@@ -448,6 +453,10 @@ export default function Home() {
               >
                 Early, and honest about it.
               </h2>
+              <p className="mt-5 max-w-lg leading-relaxed text-muted-foreground">
+                We are not going to show you a wall of testimonials we do not
+                have. Here is what exists so far.
+              </p>
               <div className="mt-7 grid grid-cols-2 gap-4">
                 <div className="border-l-2 border-accent pl-4">
                   <p className="text-3xl font-bold">{pastWebinars.length}</p>
@@ -475,6 +484,13 @@ export default function Home() {
               <footer className="mt-5 text-sm text-muted-foreground">
                 Esther, House Of Zion
               </footer>
+              <Link
+                href="/results"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-accent"
+              >
+                See recaps and case studies{" "}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </blockquote>
           </div>
         </section>
@@ -490,51 +506,45 @@ export default function Home() {
             </p>
             <h2
               id="who-heading"
-              className="mt-4 font-serif text-5xl font-bold md:text-6xl"
+              className="mt-4 text-5xl font-bold md:text-6xl"
             >
               You&apos;ve probably already tried this alone.
             </h2>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-white/65">
-              Whether you&apos;re one person with a full plate or responsible
-              for a few hundred, the starting point is the same: one task, done
-              better, with someone still checking it.
+              You opened a chatbot, typed something in, got back a paragraph
+              that did not sound like you, and closed the tab. That is the
+              normal experience. It is also a solvable one.
             </p>
-            <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-0">
-              <div className="lg:border-r lg:border-white/15 lg:pr-12">
-                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-indigo-300">
-                  Individuals, professionals, and business owners
-                </h3>
-                <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {individualAudiences.map(item => (
-                    <li key={item} className="text-white/85">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-7 text-sm leading-relaxed text-white/55">
-                  Start with a course, or bring one repeated task and leave with
-                  a process you can reuse. Some programs are built for a
-                  specific situation—including women running a business
-                  alongside a full-time job.
-                </p>
-              </div>
-              <div className="lg:pl-12">
-                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-indigo-300">
-                  Organizations, employers, and communities
-                </h3>
-                <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {organizationAudiences.map(item => (
-                    <li key={item} className="text-white/85">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-7 text-sm leading-relaxed text-white/55">
-                  Start with one focused workshop, series, or pilot—scoped to
-                  your audience, and set up so you can report what people
-                  learned and what they built.
-                </p>
-              </div>
+            <ul className="mt-11 grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+              {ownerAudiences.map(item => (
+                <li
+                  key={item}
+                  className="border-t border-white/15 pt-4 text-white/85"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-9 max-w-3xl leading-relaxed text-white/55">
+              If you run something small and the admin keeps eating the hours
+              you wanted for the actual work, you are who this is built for.
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-[#071027] hover:bg-white/90"
+              >
+                <Link href="/pilot">
+                  See the Pilot <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Button>
+              <Link
+                href="/for-organizations"
+                className="text-sm font-semibold text-indigo-200 hover:text-white"
+              >
+                Serving business owners as an organization? Start here
+              </Link>
             </div>
           </div>
         </section>
@@ -667,6 +677,46 @@ export default function Home() {
                   </Link>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="border-t border-border bg-accent/[0.045] py-20 md:py-24"
+          aria-labelledby="home-cta-heading"
+        >
+          <div className="container">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2
+                id="home-cta-heading"
+                className="text-3xl font-bold leading-tight tracking-tight md:text-5xl"
+              >
+                Pick the task you are tired of redoing.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                You do not need to know which tool to use, or how any of it
+                works, before you start. That is the whole point.
+              </p>
+              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button
+                  asChild
+                  variant="primary"
+                  size="lg"
+                  className="h-auto min-h-12 w-full whitespace-normal px-6 py-3 text-center sm:w-auto"
+                >
+                  <Link href="/pilot">
+                    See the Pilot <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="secondary"
+                  size="lg"
+                  className="h-auto min-h-12 w-full whitespace-normal px-6 py-3 text-center sm:w-auto"
+                >
+                  <Link href="/book">Book a short call</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

@@ -28,9 +28,9 @@ type Booked = {
 
 export default function BookAppointment() {
   useSEO({
-    title: "Talk With EaseIntoAI",
+    title: "Discuss a Pilot",
     description:
-      "Start a focused conversation about practical AI education, implementation, or an organizational partnership.",
+      "A short, no-pitch call. Bring the task you keep redoing, or the members you want to reach, and we will tell you honestly whether the Pilot is the right next step.",
     type: "website",
   });
 
@@ -129,13 +129,25 @@ export default function BookAppointment() {
                   Free 30-minute intro call
                 </p>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
-                  Let&apos;s find the right next step for your AI goal
+                  Discuss a Pilot
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Bring a question, a repeated task, or a goal for your team or
-                  community. We&apos;ll identify whether a course, workflow,
-                  assistant, or organization program is the most useful next
-                  step. No pitch and no technical preparation.
+                  <span className="font-semibold text-foreground">
+                    If you run a business:
+                  </span>{" "}
+                  bring the task you keep redoing. We will tell you honestly
+                  whether the Pilot is right, whether a course would serve you
+                  better, or whether AI is the wrong tool for it.
+                </p>
+                <p className="text-lg text-muted-foreground">
+                  <span className="font-semibold text-foreground">
+                    If you are with an organization:
+                  </span>{" "}
+                  bring the people you want to reach and what a useful result
+                  would look like for them.
+                </p>
+                <p className="text-base text-muted-foreground">
+                  No pitch, and no technical preparation needed.
                 </p>
                 <div className="flex items-center justify-center gap-5 pt-2 text-sm text-muted-foreground">
                   <span>{slotMinutes} minutes</span>

@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input";
 import { submitLead } from "@/lib/leads";
 
 const footerLinks = [
-  ["Solutions", "/#solutions"],
-  ["For Organizations", "/for-organizations"],
+  ["The Pilot", "/pilot"],
+  ["How It Works", "/how-it-works"],
+  ["Results", "/results"],
   ["Courses", "/courses"],
   ["Custom AI Assistants", "/custom-ai-assistant"],
   ["Insights", "/insights"],
   ["Past Webinars", "/past-webinars"],
+  ["For Organizations", "/for-organizations"],
   ["About", "/#about"],
   ["Contact", "/book"],
 ] as const;
@@ -53,9 +55,9 @@ export default function Footer() {
               className="h-12 w-auto"
             />
             <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70">
-              EaseIntoAI helps people find the few places AI genuinely helps
-              them—then put it to work on something they already do, with a
-              person still responsible for what goes out.
+              EaseIntoAI helps small-business owners get AI working on the work
+              they already repeat every week—built with them, in plain language,
+              with a person still approving what goes out.
             </p>
             <p className="mt-4 text-xs leading-relaxed text-white/50">
               Based in Delaware · Virtual learning and partnership conversations

@@ -1,25 +1,29 @@
 # EaseIntoAI
 
-> Practical AI education, workflow support, and organization programs for people who want to use AI well in real work.
+> Practical AI education and hands-on implementation for small-business owners who want AI working on real work, without the tech overwhelm.
 
-EaseIntoAI helps individuals, professionals, businesses, and organizations understand where AI is useful, apply it to real work, evaluate its results, and keep human judgment in control. The company is based in Delaware, with virtual learning and partnership conversations available more broadly.
+EaseIntoAI helps small-business owners — salons, coaches, boutiques, local service providers — put AI to work on the tasks they already repeat every week, and keep a person responsible for what goes out. Organizations such as chambers, libraries, nonprofits, and workforce boards partner with EaseIntoAI to bring this to the owners and residents they serve. Founded by Emmanuel Kerkulah and based in Delaware, with virtual delivery available more broadly.
 
 ## Main pages
 
-- [Home](https://easeintoai.co/): Audience pathways, practical AI solutions, founder story, and current learning opportunities
-- [For Organizations](https://easeintoai.co/for-organizations): Hands-on AI programs and focused pilots for chambers, libraries, nonprofits, employers, workforce groups, and public organizations
+- [Home](https://easeintoai.co/): Owner-focused overview of how EaseIntoAI helps, where to start, and who it is for
+- [Small Business AI Readiness Pilot](https://easeintoai.co/pilot): The paid starting point for owners — bring one repeated task and leave with it running as a process. Also covers done-for-you builds (AI receptionist, website, follow-up automation)
+- [How It Works](https://easeintoai.co/how-it-works): The method — start with real work, keep a human in control — including the SAFE Check
+- [Results](https://easeintoai.co/results): Session recaps and case studies. Currently near-empty by design; entries are added only when real
+- [For Organizations](https://easeintoai.co/for-organizations): The partner door — host a session, bring this to your members, or sponsor a cohort. For chambers, libraries, nonprofits, employers, workforce groups, and public organizations
 - [Courses](https://easeintoai.co/courses): Available self-paced courses and a concise view of programs in development
 - [Custom AI Assistants](https://easeintoai.co/custom-ai-assistant): Guided implementation using approved information and human review
 - [Past Webinars](https://easeintoai.co/past-webinars): Archive of completed sessions and documented learning outcomes
 - [Insights](https://easeintoai.co/insights): Plain-language explanations, business examples, workshop lessons, updates, and webinar recaps
-- [Contact](https://easeintoai.co/book): Schedule a conversation or use the email fallback
+- [Discuss a Pilot](https://easeintoai.co/book): Book a short call — works for an owner considering the pilot or an organization exploring a partnership
 
 ## Approach
 
-- Start with real work and real community needs
+- The paying customer is the small-business owner; organizations are a channel to reach them
+- Start with real work the owner already repeats
 - Explain AI in plain language
 - Support implementation, not awareness alone
-- Protect sensitive information and maintain human review
+- Protect sensitive information and maintain human review (the SAFE Check: Safe to share, Accurate, Fair to send, Edited by me)
 - Begin with a focused task or pilot and expand only when useful
 
 Frameworks and external resources may be referenced for education. References do not imply endorsement, certification, affiliation, or partnership.
