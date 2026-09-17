@@ -17,6 +17,13 @@ const WEBINAR = {
   title: "Stop Creating Content After Work",
   startsAt: new Date("2026-09-10T20:00:00-04:00"),
   whenLabel: "Thursday, September 10 at 8:00 PM Eastern Time",
+  slug: "ai-for-women-entrepreneurs-july-2026",
+  title: "AI for Women Entrepreneurs and Small Business Owners",
+  startsAt: new Date("2026-07-28T19:00:00-04:00"),
+  whenLabel: "Tuesday, July 28 at 7:00 PM New York Time",
+  title: "You Run the Business. Who Handles Everything Behind It?",
+  startsAt: new Date("2026-07-22T12:00:00-04:00"),
+  whenLabel: "Tuesday, July 22 at 12:00 PM New York Time",
 };
 
 type ReminderKind = "day_before" | "hour_before";

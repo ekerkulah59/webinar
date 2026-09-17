@@ -6,6 +6,150 @@ import { Button } from "@/components/ui/button";
 import OfferLadder from "@/components/OfferLadder";
 import ProcessInfographicSection from "@/components/ProcessInfographicSection";
 import { useSEO } from "@/hooks/useSEO";
+
+const UPCOMING_WORKSHOP = {
+  slug: "two-weeks-marketing-content-september-2026",
+  title: "Stop Creating Content After Work",
+  startsAt: "2026-09-10T20:00:00-04:00",
+  timeZone: "America/New_York",
+  slug: "ai-for-women-entrepreneurs-july-2026",
+  dateLabel: "July 28, 2026",
+  startIso: "2026-07-28T19:00:00-04:00",
+  timeLabel: "7:00 PM New York Time",
+  dateLabel: "July 31, 2026",
+  startIso: "2026-07-31T20:00:00-04:00",
+  timeLabel: "8:00 PM New York time",
+};
+
+const individualAudiences = [
+  "People curious about using AI",
+  "Professionals applying AI at work",
+  "Entrepreneurs and small-business owners",
+  "Women building businesses alongside full-time work",
+  "Coaches, consultants, and creators",
+  "Local, service, and product businesses",
+];
+
+const organizationAudiences = [
+  "Teams and employers",
+  "Nonprofits and community organizations",
+  "Chambers and business associations",
+  "Libraries and educational institutions",
+  "Workforce and economic-development organizations",
+  "Cities, towns, and state agencies",
+];
+
+const pathways = [
+  {
+    eyebrow: "If you're figuring this out on your own",
+    title: "I want to stop guessing and start using it well",
+    copy: "Courses and workshops in plain language: what AI is genuinely good at, how to ask for what you actually want, and how to spot the answers you shouldn't trust. No technical background assumed. No question too basic.",
+    ctaLabel: "See the courses",
+    href: "/courses",
+    external: false,
+    variant: "secondary",
+  },
+  {
+    eyebrow: "If you're applying it at work or in your business",
+    title: "I want a few hours back every week",
+    copy: "Take the work you keep redoing—the same drafts, the same follow-ups, the same setup every time—and turn it into a process that runs the way you would run it. Your voice, your standards, your approval before anything goes out.",
+    ctaLabel: "Compare the two ways to start",
+    href: "#business-solutions",
+    external: true,
+    variant: "secondary",
+  },
+  {
+    eyebrow: "If you're responsible for other people's readiness",
+    title: "I want my people ready — and careful about it",
+    copy: "Workshops, learning series, and pilots scoped to the employees, members, business owners, students, or residents you serve. Built to be reported on: what people learned, what they built, and what you should do next.",
+    ctaLabel: "See program options",
+    href: "/for-organizations",
+    external: false,
+    variant: "secondary",
+  },
+] as const;
+
+const solutions = [
+  {
+    number: "01",
+    title: "Learn what AI is actually good for",
+    copy: "Clear learning experiences that show where AI helps, how to give it direction, and how to judge what comes back before you rely on it.",
+    examples: [
+      "Workshops and webinars",
+      "Cohort-based programs",
+      "Workforce AI literacy",
+      "Small-business AI readiness",
+      "Role-based training",
+    ],
+  },
+  {
+    number: "02",
+    title: "Get repeated work off your plate",
+    copy: "Turn the drafting and setup you rebuild every week into a workflow that runs on your own approved information, with clear steps and a review point before anything goes out.",
+    examples: [
+      "Custom AI Assistants",
+      "Content and communication workflows",
+      "Internal knowledge assistants",
+      "Customer-response systems",
+      "Administrative automation",
+    ],
+  },
+  {
+    number: "03",
+    title: "Prepare the people you serve",
+    copy: "Give employees, members, business owners, or residents a structured way to learn, practice on their own tasks, and leave with something they keep using.",
+    examples: [
+      "AI-readiness assessments",
+      "Community pilot programs",
+      "Responsible-use guidance",
+      "Adoption roadmaps",
+      "Program evaluation",
+    ],
+  },
+];
+
+function Countdown({ startsAt }: { startsAt: string }) {
+  const target = useMemo(() => new Date(startsAt).getTime(), [startsAt]);
+  const [remaining, setRemaining] = useState(() =>
+    Math.max(0, target - Date.now())
+  );
+
+  useEffect(() => {
+    const timer = window.setInterval(
+      () => setRemaining(Math.max(0, target - Date.now())),
+      1000
+    );
+    return () => window.clearInterval(timer);
+  }, [target]);
+
+  const parts = [
+    [Math.floor(remaining / 86_400_000), "Days"],
+    [Math.floor((remaining / 3_600_000) % 24), "Hours"],
+    [Math.floor((remaining / 60_000) % 60), "Min"],
+    [Math.floor((remaining / 1_000) % 60), "Sec"],
+  ] as const;
+
+  return (
+    <div
+      className="grid grid-cols-4 gap-2"
+      aria-label="Time remaining until the workshop"
+      aria-live="polite"
+    >
+      {parts.map(([value, label]) => (
+        <div
+          key={label}
+          className="rounded-lg bg-white/10 px-2 py-3 text-center"
+        >
+          <p className="text-xl font-bold">{String(value).padStart(2, "0")}</p>
+          <p className="mt-1 text-[10px] uppercase tracking-wider text-white/65">
+            {label}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   useSEO({
     title: "Practical AI for Small-Business Owners",
