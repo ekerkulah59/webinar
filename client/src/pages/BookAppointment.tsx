@@ -7,6 +7,7 @@ import { SlotPicker } from "@/components/booking/SlotPicker";
 import { BookingForm } from "@/components/booking/BookingForm";
 import { BookingConfirmation } from "@/components/booking/BookingConfirmation";
 import { TimezoneSelect } from "@/components/booking/TimezoneSelect";
+import { isMeetingUrl } from "../../../supabase/functions/appointments/safety";
 import {
   bookAppointment,
   browserTimeZone,
@@ -30,7 +31,7 @@ export default function BookAppointment() {
   useSEO({
     title: "Discuss a Pilot",
     description:
-      "A short, no-pitch call. Bring the task you keep redoing, or the members you want to reach, and we will tell you honestly whether the Pilot is the right next step.",
+      "A practical conversation. Bring the task you keep redoing, or the members you want to reach, and we will tell you honestly whether the Pilot is the right next step.",
     type: "website",
   });
 
@@ -126,7 +127,7 @@ export default function BookAppointment() {
             <>
               <div className="mx-auto max-w-2xl space-y-4 text-center">
                 <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-                  Free 30-minute intro call
+                  An introductory conversation
                 </p>
                 <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
                   Discuss a Pilot
@@ -147,12 +148,18 @@ export default function BookAppointment() {
                   would look like for them.
                 </p>
                 <p className="text-base text-muted-foreground">
-                  No pitch, and no technical preparation needed.
+                  No technical preparation needed.
                 </p>
-                <div className="flex items-center justify-center gap-5 pt-2 text-sm text-muted-foreground">
-                  <span>{slotMinutes} minutes</span>
-                  <span>Video or phone</span>
-                </div>
+                {!loading && !loadError && (
+                  <div className="flex items-center justify-center gap-5 pt-2 text-sm text-muted-foreground">
+                    <span>{slotMinutes} minutes</span>
+                    <span>
+                      {isMeetingUrl(videoMeetingUrl)
+                        ? "Video or phone"
+                        : "Phone call"}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="mx-auto mt-12 max-w-4xl rounded-2xl border border-border bg-background p-4 shadow-sm sm:p-6 md:p-8">
@@ -201,6 +208,7 @@ export default function BookAppointment() {
                     </div>
 
                     <BookingForm
+                      videoAvailable={isMeetingUrl(videoMeetingUrl)}
                       onSubmit={handleSubmit}
                       submitting={submitting}
                       error={submitError}

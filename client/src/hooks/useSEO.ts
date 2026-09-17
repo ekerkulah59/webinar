@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 const SITE_URL = "https://easeintoai.co";
-const DEFAULT_TITLE =
-  "EaseIntoAI — Practical AI for People, Businesses & Organizations";
+const DEFAULT_TITLE = "EaseIntoAI — Practical AI for Small-Business Owners";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 interface SEOProps {
@@ -17,6 +16,7 @@ interface SEOProps {
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
+  privatePage?: boolean;
 }
 
 /**
@@ -34,6 +34,7 @@ export function useSEO({
   publishedTime,
   modifiedTime,
   author,
+  privatePage = false,
 }: SEOProps) {
   useEffect(() => {
     const fullTitle = `${title} — EaseIntoAI`;
@@ -61,7 +62,13 @@ export function useSEO({
     }
 
     // Canonical URL — always absolute, no hash or query
-    const pageUrl = url || `${SITE_URL}${window.location.pathname}`;
+    const pageUrl = privatePage
+      ? `${SITE_URL}/book`
+      : url || `${SITE_URL}${window.location.pathname}`;
+    if (privatePage) {
+      setMeta("name", "robots", "noindex, nofollow");
+      setMeta("name", "referrer", "no-referrer");
+    }
     let canonical = document.querySelector(
       'link[rel="canonical"]'
     ) as HTMLLinkElement | null;
@@ -107,6 +114,10 @@ export function useSEO({
     // Cleanup: restore defaults on unmount
     return () => {
       document.title = DEFAULT_TITLE;
+      if (privatePage) {
+        removeMeta("name", "robots");
+        removeMeta("name", "referrer");
+      }
     };
   }, [
     title,
@@ -119,5 +130,6 @@ export function useSEO({
     publishedTime,
     modifiedTime,
     author,
+    privatePage,
   ]);
 }

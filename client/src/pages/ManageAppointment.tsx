@@ -40,6 +40,7 @@ export default function ManageAppointment() {
 
   useSEO({
     title: "Manage Your Appointment",
+    privatePage: true,
     description: "Reschedule or cancel your booked call.",
     type: "website",
   });

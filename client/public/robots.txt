@@ -1,6 +1,7 @@
 # EaseIntoAI — all crawlers welcome, including AI search crawlers
 # (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.)
 User-agent: *
+Disallow: /appointment/
 Allow: /
 
 Sitemap: https://easeintoai.co/sitemap.xml

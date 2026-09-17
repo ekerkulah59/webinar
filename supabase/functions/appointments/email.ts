@@ -8,6 +8,7 @@
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { getSecret } from "./secrets.ts";
 import { BOOKING } from "./config.ts";
+import { escapeHtml } from "./safety.ts";
 
 const RESEND_URL = "https://api.resend.com/emails";
 
@@ -131,12 +132,12 @@ export async function sendConfirmation(
 
   const howWeMeet =
     appt.meeting_mode === "video"
-      ? `<p style="margin:0 0 16px">We'll meet by video: <a href="${BOOKING.videoMeetingUrl}">${BOOKING.videoMeetingUrl}</a></p>`
-      : `<p style="margin:0 0 16px">I'll call you at <strong>${appt.phone}</strong> at that time.</p>`;
+      ? `<p style="margin:0 0 16px">We'll meet by video: <a href="${escapeHtml(BOOKING.videoMeetingUrl)}">${escapeHtml(BOOKING.videoMeetingUrl)}</a></p>`
+      : `<p style="margin:0 0 16px">I'll call you at <strong>${escapeHtml(appt.phone ?? "")}</strong> at that time.</p>`;
 
   const html = `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:520px;color:#1a1a1a;line-height:1.6">
-      <p style="margin:0 0 16px">Hi ${firstName},</p>
+      <p style="margin:0 0 16px">Hi ${escapeHtml(firstName)},</p>
       <p style="margin:0 0 16px">You're booked. Here are the details:</p>
       <div style="border-left:3px solid #333;padding:12px 16px;margin:0 0 20px;background:#fafafa">
         <p style="margin:0 0 4px"><strong>${BOOKING.appointmentTitle}</strong></p>
@@ -145,7 +146,7 @@ export async function sendConfirmation(
       ${howWeMeet}
       <p style="margin:0 0 16px">
         The calendar invite is attached, or
-        <a href="${googleCalendarUrl(appt)}">add it to Google Calendar</a>.
+        <a href="${escapeHtml(googleCalendarUrl(appt))}">add it to Google Calendar</a>.
       </p>
       <p style="margin:0 0 16px">
         Need to change it? <a href="${manageUrl(appt)}">Reschedule or cancel here</a>.
@@ -178,12 +179,12 @@ export async function sendOwnerNotification(
     subject: `New booking: ${appt.name} — ${when}`,
     html: `
       <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6">
-        <p style="margin:0 0 12px"><strong>${appt.name}</strong> booked a call.</p>
+        <p style="margin:0 0 12px"><strong>${escapeHtml(appt.name)}</strong> booked a call.</p>
         <p style="margin:0 0 4px">When: ${when}</p>
         <p style="margin:0 0 4px">Mode: ${appt.meeting_mode}</p>
-        <p style="margin:0 0 4px">Email: ${appt.email}</p>
-        <p style="margin:0 0 4px">Phone: ${appt.phone ?? "—"}</p>
-        <p style="margin:12px 0 0">Wants to talk about: ${appt.topic || "—"}</p>
+        <p style="margin:0 0 4px">Email: ${escapeHtml(appt.email)}</p>
+        <p style="margin:0 0 4px">Phone: ${escapeHtml(appt.phone ?? "—")}</p>
+        <p style="margin:12px 0 0">Wants to talk about: ${escapeHtml(appt.topic || "—")}</p>
       </div>
     `,
   });
@@ -197,6 +198,6 @@ export async function sendCancellation(
   await send(supabase, {
     to: BOOKING.ownerEmail,
     subject: `Cancelled: ${appt.name} — ${when}`,
-    html: `<p>${appt.name} (${appt.email}) cancelled their ${when} call.</p>`,
+    html: `<p>${escapeHtml(appt.name)} (${escapeHtml(appt.email)}) cancelled their ${when} call.</p>`,
   });
 }

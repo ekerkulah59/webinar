@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
-import { pastWebinars } from "@/lib/webinarData";
 import { useSEO } from "@/hooks/useSEO";
 
 /*
@@ -103,13 +102,12 @@ export default function Results() {
                 id="results-heading"
                 className="mt-5 text-balance text-[1.75rem] font-bold leading-[1.12] tracking-[-0.035em] text-foreground sm:text-4xl md:text-5xl lg:leading-[1.06]"
               >
-                What actually happened, once it has actually happened.
+                Session recaps and case studies, as they’re ready.
               </h1>
               <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-                This page is new, and it is nearly empty on purpose. We would
-                rather show you a short honest list than a wall of stock
-                testimonials. Recaps and case studies get posted here as real
-                ones come in, with names attached and permission given.
+                Recaps and case studies will show the work, the setup, and the
+                result. They will be published only after the people involved
+                have confirmed the details and agreed to share them.
               </p>
             </div>
           </div>
@@ -237,7 +235,7 @@ export default function Results() {
               ) : (
                 <EmptyState
                   label="Nothing posted yet"
-                  heading="No case studies here yet — the pilot is how they get made."
+                  heading="Case studies are forthcoming."
                   copy="A case study needs a real business, a real task, something built, and a result the owner confirms in their own words. The first pilots are where those come from. When one is ready, it goes here with a name on it."
                 />
               )}
@@ -259,9 +257,9 @@ export default function Results() {
                   Here is what does exist.
                 </h2>
                 <p className="mt-5 leading-relaxed text-muted-foreground">
-                  {pastWebinars.length} live sessions taught, with the topics
-                  and outcomes written up, and one piece of feedback from an
-                  organizer who was in the room.
+                  One piece of feedback from an organizer who attended a
+                  session. Session recaps and case studies will be added as they
+                  are confirmed.
                 </p>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <Button asChild variant="secondary">

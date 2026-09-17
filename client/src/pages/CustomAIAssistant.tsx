@@ -76,9 +76,9 @@ const faqs = [
 
 export default function CustomAIAssistant() {
   useSEO({
-    title: "Custom AI Assistants With Human Oversight",
+    title: "Custom AI Assistants for Your Business",
     description:
-      "Custom AI Assistants built around approved business or organizational information, clear workflows, and human review.",
+      "Project-based AI assistants built around your approved business information and human review. Part of EaseIntoAI’s done-for-you services.",
     url: "https://easeintoai.co/custom-ai-assistant",
     type: "website",
   });

@@ -5,37 +5,58 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { submitLead } from "@/lib/leads";
 
-const footerLinks = [
-  ["The Pilot", "/pilot"],
-  ["How It Works", "/how-it-works"],
-  ["Results", "/results"],
-  ["Courses", "/courses"],
-  ["Custom AI Assistants", "/custom-ai-assistant"],
-  ["Insights", "/insights"],
-  ["Past Webinars", "/past-webinars"],
-  ["For Organizations", "/for-organizations"],
-  ["About", "/#about"],
-  ["Contact", "/book"],
-] as const;
+const footerGroups = [
+  {
+    title: "Work together",
+    links: [
+      ["The Pilot", "/pilot"],
+      ["Ways to work together", "/offers"],
+      ["How it works", "/how-it-works"],
+      ["Discuss a Pilot", "/book"],
+    ],
+  },
+  {
+    title: "Explore",
+    links: [
+      ["Individual learning", "/individual-learning"],
+      ["Courses", "/courses"],
+      ["Insights", "/insights"],
+      ["Resources", "/resources"],
+    ],
+  },
+  {
+    title: "EaseIntoAI",
+    links: [
+      ["About Emmanuel", "/about"],
+      ["Results", "/results"],
+      ["For organizations", "/for-organizations"],
+      ["Past webinars", "/past-webinars"],
+    ],
+  },
+];
 
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState("");
 
   const subscribe = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!email.trim()) return;
     try {
       setIsSubmitting(true);
+      setStatus("");
       await submitLead({ source: "newsletter", email });
       setEmail("");
       toast.success("You're on the list!");
+      setStatus("You’re on the list. Thank you for subscribing.");
     } catch (error) {
-      toast.error(
+      const message =
         error instanceof Error
           ? error.message
-          : "Unable to subscribe right now."
-      );
+          : "Unable to subscribe. Please email hello@easeintoai.co.";
+      toast.error(message);
+      setStatus(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -47,7 +68,7 @@ export default function Footer() {
       className="border-t-2 border-accent/50 bg-[#071027] text-white"
     >
       <div className="container py-14 md:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.35fr_.8fr_1fr]">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.7fr]">
           <div>
             <img
               src="/logo-full-dark.svg"
@@ -59,29 +80,32 @@ export default function Footer() {
               they already repeat every week—built with them, in plain language,
               with a person still approving what goes out.
             </p>
-            <p className="mt-4 text-xs leading-relaxed text-white/50">
-              Based in Delaware · Virtual learning and partnership conversations
-              available more broadly
+            <p className="mt-4 text-xs leading-relaxed text-white/65">
+              Smyrna, Delaware · Local and virtual support
             </p>
           </div>
 
-          <div>
-            <h2 className="text-sm font-bold">Explore</h2>
-            <ul className="mt-4 grid grid-cols-2 gap-x-5 gap-y-3 lg:grid-cols-1">
-              {footerLinks.map(([label, href]) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-sm text-white/65 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3">
+            {footerGroups.map(group => (
+              <div key={group.title}>
+                <h2 className="text-sm font-bold">{group.title}</h2>
+                <ul className="mt-4 space-y-3">
+                  {group.links.map(([label, href]) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        className="inline-block py-1 text-sm text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          <div>
+          <div className="border-t border-white/15 pt-8 lg:col-span-2">
             <h2 className="text-sm font-bold">Stay informed</h2>
             <p className="mt-3 text-sm leading-relaxed text-white/65">
               A short note when there's something worth using: a new workshop
@@ -90,7 +114,7 @@ export default function Footer() {
             </p>
             <form
               onSubmit={subscribe}
-              className="mt-5 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row"
+              className="mt-5 flex max-w-xl flex-col gap-3 sm:flex-row"
             >
               <label className="sr-only" htmlFor="footer-email">
                 Email address
@@ -103,13 +127,26 @@ export default function Footer() {
                 required
                 autoComplete="email"
                 placeholder="Email address"
-                className="h-11 border-white/20 bg-white/10 text-white placeholder:text-white/45"
+                className="h-11 border-white/20 bg-white/10 text-white placeholder:text-white/65"
                 disabled={isSubmitting}
               />
               <Button type="submit" variant="primary" disabled={isSubmitting}>
                 {isSubmitting ? "Subscribing…" : "Subscribe"}
               </Button>
             </form>
+            <p role="status" className="mt-3 text-sm text-white/85">
+              {status}
+            </p>
+            <p className="mt-2 text-xs text-white/65">
+              We use your email to send the updates you request. Read our{" "}
+              <Link
+                href="/privacy"
+                className="underline underline-offset-4 hover:text-white"
+              >
+                privacy notice
+              </Link>
+              .
+            </p>
             <a
               href="mailto:hello@easeintoai.co"
               className="mt-5 inline-block text-sm font-semibold text-indigo-300 hover:text-white"
@@ -119,8 +156,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-7 text-xs text-white/45">
-          © {new Date().getFullYear()} EaseIntoAI. All rights reserved.
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-7 text-xs text-white/65">
+          <p>© {new Date().getFullYear()} EaseIntoAI. All rights reserved.</p>
+          <div className="flex gap-5">
+            <Link href="/privacy" className="py-2 hover:text-white">
+              Privacy
+            </Link>
+            <Link href="/terms" className="py-2 hover:text-white">
+              Website terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

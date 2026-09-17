@@ -46,7 +46,7 @@ export default function Courses() {
           <div className="container grid gap-8 lg:grid-cols-[1fr_.7fr] lg:items-end">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
-                Learn at your own pace
+                Individual learning · self-paced courses
               </p>
               <h1
                 id="courses-heading"
@@ -58,8 +58,9 @@ export default function Courses() {
             </div>
             <p className="text-lg leading-relaxed text-muted-foreground">
               You do not need to become a technology expert to use AI well.
-              Learn at your own pace, practice with familiar tasks, and build a
-              foundation you can apply to everyday life, work, or business.
+              Individual learning · self-paced courses, practice with familiar
+              tasks, and build a foundation you can apply to everyday life,
+              work, or business.
             </p>
           </div>
         </section>

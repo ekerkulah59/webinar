@@ -2,12 +2,12 @@
 
 > Practical AI education and hands-on implementation for small-business owners who want AI working on real work, without the tech overwhelm.
 
-EaseIntoAI helps small-business owners — salons, coaches, boutiques, local service providers — put AI to work on the tasks they already repeat every week, and keep a person responsible for what goes out. Organizations such as chambers, libraries, nonprofits, and workforce boards partner with EaseIntoAI to bring this to the owners and residents they serve. Founded by Emmanuel Kerkulah and based in Delaware, with virtual delivery available more broadly.
+EaseIntoAI helps small-business owners — salons, coaches, boutiques, local service providers — put AI to work on the tasks they already repeat every week, and keep a person responsible for what goes out. Organizations such as chambers, libraries, nonprofits, and workforce boards partner with EaseIntoAI to bring this to the owners and residents they serve. Founded by Emmanuel Kerkulah and based in Smyrna, Delaware, with virtual delivery available more broadly.
 
 ## Main pages
 
 - [Home](https://easeintoai.co/): Owner-focused overview of how EaseIntoAI helps, where to start, and who it is for
-- [Small Business AI Readiness Pilot](https://easeintoai.co/pilot): The paid starting point for owners — bring one repeated task and leave with it running as a process. Also covers done-for-you builds (AI receptionist, website, follow-up automation)
+- [Small Business AI Readiness Pilot](https://easeintoai.co/pilot): The paid starting point for owners — bring one repeated task and leave with it running as a process. Pricing and delivery details are not published; the next step is a conversation at /book
 - [How It Works](https://easeintoai.co/how-it-works): The method — start with real work, keep a human in control — including the SAFE Check
 - [Results](https://easeintoai.co/results): Session recaps and case studies. Currently near-empty by design; entries are added only when real
 - [For Organizations](https://easeintoai.co/for-organizations): The partner door — host a session, bring this to your members, or sponsor a cohort. For chambers, libraries, nonprofits, employers, workforce groups, and public organizations
@@ -17,10 +17,15 @@ EaseIntoAI helps small-business owners — salons, coaches, boutiques, local ser
 - [Insights](https://easeintoai.co/insights): Plain-language explanations, business examples, workshop lessons, updates, and webinar recaps
 - [Discuss a Pilot](https://easeintoai.co/book): Book a short call — works for an owner considering the pilot or an organization exploring a partnership
 
+- [Ways to work together](https://easeintoai.co/offers): Learn, paid Pilot, and project-based builds: AI receptionist, AI-powered website and Google Business Profile, lead follow-up automation, content systems
+- [Individual Learning](https://easeintoai.co/individual-learning): Public workshops, self-paced courses, and the SAFE Check
+- [About](https://easeintoai.co/about): Meet Emmanuel Kerkulah in Smyrna, Delaware
+- [Resources](https://easeintoai.co/resources): Forthcoming guides and checklists; no downloads yet
+
 ## Approach
 
 - The paying customer is the small-business owner; organizations are a channel to reach them
-- Start with real work the owner already repeats
+- EASE: Examine your real work; Apply the right tool; Set up & Safeguard; Evaluate the result
 - Explain AI in plain language
 - Support implementation, not awareness alone
 - Protect sensitive information and maintain human review (the SAFE Check: Safe to share, Accurate, Fair to send, Edited by me)

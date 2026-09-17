@@ -9,6 +9,7 @@
 
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { BOOKING } from "./config.ts";
+import { isMeetingUrl } from "./safety.ts";
 import { computeSlots, type Interval, type Rule } from "./slots.ts";
 import { createEvent, deleteEvent, getBusy } from "./google.ts";
 import {
@@ -134,7 +135,7 @@ async function handleSlots(supabase: SupabaseClient, body: Record<string, unknow
     slots,
     slotMinutes: BOOKING.slotMinutes,
     timeZone: BOOKING.ownerTimeZone,
-    videoMeetingUrl: BOOKING.videoMeetingUrl,
+    videoMeetingUrl: isMeetingUrl(BOOKING.videoMeetingUrl) ? BOOKING.videoMeetingUrl : "",
     appointmentTitle: BOOKING.appointmentTitle,
   });
 }
@@ -158,6 +159,9 @@ async function handleBook(supabase: SupabaseClient, body: Record<string, unknown
   if (!EMAIL_RE.test(email)) return fail("invalid_email");
   if (meetingMode !== "video" && meetingMode !== "phone") {
     return fail("invalid_meeting_mode");
+  }
+  if (meetingMode === "video" && !isMeetingUrl(BOOKING.videoMeetingUrl)) {
+    return fail("video_unavailable");
   }
   if (meetingMode === "phone" && phone.replace(/\D/g, "").length < 7) {
     return fail("phone_required");
@@ -335,10 +339,11 @@ async function releaseAppointment(
 ) {
   // Free the DB slot first so it's immediately rebookable; the exclusion
   // constraint only considers confirmed rows.
-  await supabase
+  const { error } = await supabase
     .from("appointments")
     .update({ status: "cancelled" })
     .eq("id", appt.id);
+  if (error) throw error;
 
   if (appt.google_event_id) {
     try {
@@ -368,31 +373,20 @@ async function handleCancel(supabase: SupabaseClient, body: Record<string, unkno
 async function handleReschedule(supabase: SupabaseClient, body: Record<string, unknown>) {
   const existing = await findByToken(supabase, String(body.token ?? ""));
   if (!existing) return fail("not_found", 404);
+  if (existing.status !== "confirmed") return fail("not_found", 404);
 
   const startsAt = new Date(String(body.startsAt ?? ""));
   if (Number.isNaN(startsAt.getTime())) return fail("invalid_start");
   const endsAt = new Date(startsAt.getTime() + BOOKING.slotMinutes * 60_000);
 
-  // The row is UPDATED in place rather than replaced. Inserting a new row would
-  // collide with the UNIQUE constraint on manage_token, which the old cancelled
-  // row still holds — and keeping one row means the person's existing link and
-  // id survive a reschedule.
-  //
-  // Release first, so the booking's own current time doesn't count as a conflict
-  // when the requested time overlaps it.
-  await releaseAppointment(supabase, existing);
-
-  const restore = async () => {
-    await supabase
-      .from("appointments")
-      .update({ status: "confirmed", google_event_id: null })
-      .eq("id", existing.id);
-    await syncToGoogle(supabase, existing);
-  };
-
+  if (startsAt.getTime() === new Date(existing.starts_at).getTime()) {
+    return json({ ok: true, startsAt: existing.starts_at });
+  }
+  // Keep the original booking and calendar event until a replacement time is
+  // secured. A failed availability request must never cancel a real booking.
+  // The picker only offers times outside the existing appointment and buffer.
   const slots = await availableSlots(supabase, startsAt, endsAt);
   if (!slots.some((s) => s.startsAt === startsAt.toISOString())) {
-    await restore();
     return fail("slot_unavailable", 409);
   }
 
@@ -406,17 +400,25 @@ async function handleReschedule(supabase: SupabaseClient, body: Record<string, u
       google_sync_error: null,
     })
     .eq("id", existing.id)
+    .eq("status", "confirmed")
+    .eq("starts_at", existing.starts_at)
     .select("id, name, email, phone, meeting_mode, topic, starts_at, ends_at, manage_token")
     .single();
 
   if (error) {
     if (error.code === "23P01") {
-      await restore();
       return fail("slot_taken", 409);
     }
-    return fail(error.message, 500);
+    return fail("slot_unavailable", 409);
   }
 
+  if (existing.google_event_id) {
+    try {
+      await deleteEvent(supabase, existing.google_event_id);
+    } catch (err) {
+      console.error(`old calendar event cleanup failed for ${existing.id}:`, err);
+    }
+  }
   await syncToGoogle(supabase, appt as Appointment);
   await sendEmails(
     supabase,

@@ -10,17 +10,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-// Owner-first ordering. The pilot is the primary call-to-action button, so it
-// is deliberately not repeated in this list. "For Organizations" stays
-// findable — it is the link we hand a chamber director — but sits last.
+// Keep the owner journey visible; supporting destinations live in the footer.
 const navLinks = [
-  { label: "The Pilot", href: "/pilot" },
-  { label: "How It Works", href: "/how-it-works" },
+  { label: "Ways to work together", href: "/offers" },
+  { label: "How it works", href: "/how-it-works" },
   { label: "Results", href: "/results" },
-  { label: "Courses", href: "/courses" },
-  { label: "Insights", href: "/insights" },
-  { label: "About", href: "/#about" },
-  { label: "For Organizations", href: "/for-organizations" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navigation() {
@@ -54,6 +49,12 @@ export default function Navigation() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-200 ${scrolled ? "border-border bg-background/95 shadow-sm backdrop-blur-md" : "border-transparent bg-background/90 backdrop-blur-sm"}`}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded-md focus:bg-background focus:p-3 focus:text-foreground"
+      >
+        Skip to content
+      </a>
       <nav
         className="container flex min-h-16 items-center justify-between gap-4 xl:gap-6"
         aria-label="Primary navigation"
@@ -72,13 +73,14 @@ export default function Navigation() {
             <Link
               key={link.label}
               href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
               className={`rounded-sm text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${isActive(link.href) ? "text-accent" : "text-muted-foreground hover:text-foreground"}`}
             >
               {link.label}
             </Link>
           ))}
           <Button asChild size="sm" variant="primary">
-            <Link href="/pilot">Join the Pilot</Link>
+            <Link href="/pilot">Explore the Pilot</Link>
           </Button>
         </div>
 
@@ -94,7 +96,10 @@ export default function Navigation() {
               <Menu className="size-5" aria-hidden />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[min(88vw,22rem)] p-0">
+          <SheetContent
+            side="right"
+            className="w-[min(88vw,22rem)] overflow-y-auto p-0 [&>button]:top-2 [&>button]:right-2 [&>button]:flex [&>button]:size-11 [&>button]:items-center [&>button]:justify-center"
+          >
             <SheetTitle className="sr-only">Site navigation</SheetTitle>
             <SheetDescription className="sr-only">
               Explore EaseIntoAI solutions, programs, and resources.
@@ -108,6 +113,7 @@ export default function Navigation() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
                   className={`rounded-lg px-4 py-3 text-base font-semibold transition-colors ${isActive(link.href) ? "bg-accent/10 text-accent" : "text-foreground hover:bg-secondary"}`}
                 >
                   {link.label}
@@ -120,7 +126,7 @@ export default function Navigation() {
                 variant="primary"
               >
                 <Link href="/pilot" onClick={() => setMobileOpen(false)}>
-                  Join the Pilot
+                  Explore the Pilot
                 </Link>
               </Button>
               <div className="mt-6 border-t border-border pt-5">
@@ -132,14 +138,21 @@ export default function Navigation() {
                   onClick={() => setMobileOpen(false)}
                   className="mt-2 block rounded-lg px-4 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
                 >
-                  Book an intro call
+                  Discuss a Pilot
                 </Link>
                 <Link
-                  href="/custom-ai-assistant"
+                  href="/individual-learning"
                   onClick={() => setMobileOpen(false)}
                   className="block rounded-lg px-4 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
                 >
-                  Custom AI Assistants
+                  Individual learning
+                </Link>
+                <Link
+                  href="/for-organizations"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg px-4 py-3 text-sm font-semibold text-foreground hover:bg-secondary"
+                >
+                  For organizations
                 </Link>
               </div>
             </nav>

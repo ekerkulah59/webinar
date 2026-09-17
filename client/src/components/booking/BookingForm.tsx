@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from "wouter";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2 } from "lucide-react";
@@ -18,7 +19,8 @@ const schema = z
     email: z.string().email("Enter a valid email"),
     meetingMode: z.enum(["video", "phone"]),
     phone: z.string().optional(),
-    topic: z.string().max(500, "Keep it under 500 characters").optional(),
+    topic: z.string().max(450, "Keep it under 450 characters").optional(),
+    audience: z.enum(["owner", "organization"]),
     website: z.string().optional(), // honeypot
   })
   .refine(
@@ -34,6 +36,7 @@ type BookingFormProps = {
   onSubmit: (input: Omit<BookingInput, "startsAt">) => Promise<void>;
   submitting: boolean;
   error: string | null;
+  videoAvailable?: boolean;
 };
 
 const MEETING_MODES: {
@@ -53,15 +56,25 @@ const MEETING_MODES: {
   },
 ];
 
-export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
+export function BookingForm({
+  onSubmit,
+  submitting,
+  error,
+  videoAvailable = false,
+}: BookingFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
-      meetingMode: "video",
+      meetingMode: videoAvailable ? "video" : "phone",
       phone: "",
       topic: "",
+      audience:
+        new URLSearchParams(window.location.search).get("audience") ===
+        "organization"
+          ? "organization"
+          : "owner",
       website: "",
     },
   });
@@ -83,7 +96,7 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
       email: values.email,
       meetingMode: values.meetingMode,
       phone: values.meetingMode === "phone" ? values.phone : undefined,
-      topic: values.topic,
+      topic: `${values.audience === "owner" ? "Business owner" : "Organization partner"}: ${values.topic || "Introductory conversation"}`,
     });
   };
 
@@ -105,12 +118,20 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
         </Label>
         <Input
           id="booking-name"
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "booking-name-error" : undefined}
           autoComplete="name"
           disabled={submitting}
           {...register("name")}
         />
         {errors.name && (
-          <p className="text-xs text-destructive">{errors.name.message}</p>
+          <p
+            id="booking-name-error"
+            role="alert"
+            className="text-xs text-destructive"
+          >
+            {errors.name.message}
+          </p>
         )}
       </div>
 
@@ -120,13 +141,21 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
         </Label>
         <Input
           id="booking-email"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "booking-email-error" : undefined}
           type="email"
           autoComplete="email"
           disabled={submitting}
           {...register("email")}
         />
         {errors.email && (
-          <p className="text-xs text-destructive">{errors.email.message}</p>
+          <p
+            id="booking-email-error"
+            role="alert"
+            className="text-xs text-destructive"
+          >
+            {errors.email.message}
+          </p>
         )}
         <p className="text-xs text-muted-foreground">
           Your confirmation and calendar invite go here.
@@ -134,8 +163,10 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
       </div>
 
       <div className="space-y-2">
-        <Label>How should we meet?</Label>
+        <Label id="meeting-mode-label">How should we meet?</Label>
         <RadioGroup
+          aria-labelledby="meeting-mode-label"
+          disabled={submitting}
           value={meetingMode}
           onValueChange={value =>
             setValue("meetingMode", value as MeetingMode, {
@@ -144,7 +175,9 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
           }
           className="grid gap-3 sm:grid-cols-2"
         >
-          {MEETING_MODES.map(({ value, label, hint }) => (
+          {MEETING_MODES.filter(
+            mode => mode.value !== "video" || videoAvailable
+          ).map(({ value, label, hint }) => (
             <Label
               key={value}
               htmlFor={`mode-${value}`}
@@ -178,17 +211,37 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
           </Label>
           <Input
             id="booking-phone"
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "booking-phone-error" : undefined}
             type="tel"
             autoComplete="tel"
             disabled={submitting}
             {...register("phone")}
           />
           {errors.phone && (
-            <p className="text-xs text-destructive">{errors.phone.message}</p>
+            <p
+              id="booking-phone-error"
+              role="alert"
+              className="text-xs text-destructive"
+            >
+              {errors.phone.message}
+            </p>
           )}
         </div>
       )}
 
+      <div className="space-y-2">
+        <Label htmlFor="booking-audience">I’m here as a</Label>
+        <select
+          id="booking-audience"
+          className="h-11 w-full rounded-md border border-border bg-background px-3 text-sm"
+          disabled={submitting}
+          {...register("audience")}
+        >
+          <option value="owner">Small-business owner</option>
+          <option value="organization">Organization partner</option>
+        </select>
+      </div>
       <div className="space-y-2">
         <Label htmlFor="booking-topic">
           What would you like to talk about?{" "}
@@ -196,18 +249,38 @@ export function BookingForm({ onSubmit, submitting, error }: BookingFormProps) {
         </Label>
         <Textarea
           id="booking-topic"
+          aria-invalid={!!errors.topic}
+          aria-describedby={errors.topic ? "booking-topic-error" : undefined}
           rows={3}
-          placeholder="Tell us what you want to learn, improve, or help your team accomplish."
+          placeholder="Owners: tell us about your business and one repeated task. Partners: tell us who you serve and whether you want to host a session or sponsor a cohort."
           disabled={submitting}
           {...register("topic")}
         />
         {errors.topic && (
-          <p className="text-xs text-destructive">{errors.topic.message}</p>
+          <p
+            id="booking-topic-error"
+            role="alert"
+            className="text-xs text-destructive"
+          >
+            {errors.topic.message}
+          </p>
         )}
       </div>
 
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
+      <p className="text-xs leading-relaxed text-muted-foreground">
+        We use these details to arrange your appointment. Please do not include
+        sensitive customer or account information.{" "}
+        <Link href="/privacy" className="underline underline-offset-4">
+          Privacy notice
+        </Link>
+        .
+      </p>
       <Button
         type="submit"
         size="lg"

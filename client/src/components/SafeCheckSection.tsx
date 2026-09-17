@@ -15,7 +15,7 @@ const safeItems = [
     letterClassName: "text-chart-2",
     question: "Accurate?",
     description:
-      "Have you verified the key facts? AI can sound completely certain while being completely wrong.",
+      "Have you verified the key facts? Check names, dates, claims, and other details against reliable information.",
   },
   {
     letter: "F",
@@ -29,27 +29,26 @@ const safeItems = [
     letterClassName: "text-chart-1",
     question: "Edited by me?",
     description:
-      "Have you reviewed and personalized it? Your business's name is on it. You own the outcome.",
+      "Have you reviewed and personalized it? Make sure it reflects your voice and judgment.",
   },
 ];
 
 export default function SafeCheckSection() {
   return (
-    <section id="safe-check" className="py-20 bg-foreground">
+    <section id="safe-check" className="scroll-mt-24 py-20 bg-foreground">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-5">
             <p className="text-sm font-semibold text-accent uppercase tracking-widest">
-              Original Framework
+              A review habit for everyday work
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-background leading-tight tracking-tight">
               The SAFE Check
             </h2>
             <p className="text-base md:text-lg text-background/75 leading-relaxed">
-              Before you send anything AI helped you create, run it through
-              these four questions. It takes about thirty seconds, and it is the
-              habit that lets you use AI on customer-facing work without lying
-              awake about it.
+              Before you use or share anything AI helped you create, work
+              through these four questions. Protect sensitive information before
+              entering it into a tool, too.
             </p>
             <p className="text-base md:text-lg text-background/75 leading-relaxed">
               AI can be confidently wrong. Your name goes on the work. The SAFE
