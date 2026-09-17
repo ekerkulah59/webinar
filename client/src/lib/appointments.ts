@@ -53,6 +53,7 @@ const ERROR_COPY: Record<string, string> = {
     "You've already booked a few calls today. Email us if you need another.",
   invalid_email: "Enter a valid email address.",
   phone_required: "A phone number is required for a phone call.",
+  video_unavailable: "Video calls are not available right now. Please choose a phone call.",
   name_required: "Name is required.",
   not_found: "We couldn't find that appointment. The link may have expired.",
   google_not_configured:
@@ -62,7 +63,7 @@ const ERROR_COPY: Record<string, string> = {
 function humanize(code: string): string {
   if (ERROR_COPY[code]) return ERROR_COPY[code];
   if (code.startsWith("google_")) return ERROR_COPY.google_not_configured;
-  return "Something went wrong. Please try again.";
+  return "We couldn’t complete that request. Please try again or email hello@easeintoai.co.";
 }
 
 export function browserTimeZone(): string {
@@ -76,7 +77,7 @@ export function browserTimeZone(): string {
 async function callFunction<T>(body: Record<string, unknown>): Promise<T> {
   if (!isSupabaseConfigured()) {
     throw new Error(
-      "Scheduling is not configured yet. Add Supabase keys to .env.local (see supabase/README.md)."
+      "Online scheduling is currently unavailable. Please email hello@easeintoai.co to arrange a conversation."
     );
   }
 
@@ -114,10 +115,7 @@ export type SlotsResponse = {
 };
 
 /** Bookable slots between two instants. Defaults to the full booking window. */
-export async function getSlots(
-  from?: Date,
-  to?: Date
-): Promise<SlotsResponse> {
+export async function getSlots(from?: Date, to?: Date): Promise<SlotsResponse> {
   const result = await callFunction<SlotsResponse>({
     action: "slots",
     from: from?.toISOString(),
@@ -211,5 +209,5 @@ export function timeZoneOptions(): string[] {
     "Australia/Sydney",
   ];
   const mine = browserTimeZone();
-  return [mine, ...common.filter((tz) => tz !== mine)];
+  return [mine, ...common.filter(tz => tz !== mine)];
 }

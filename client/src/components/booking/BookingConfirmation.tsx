@@ -31,7 +31,9 @@ export function BookingConfirmation({
   const firstName = name.trim().split(/\s+/)[0];
 
   const location =
-    meetingMode === "video" ? videoMeetingUrl : `Phone call to ${phone ?? "you"}`;
+    meetingMode === "video"
+      ? videoMeetingUrl
+      : `Phone call to ${phone ?? "you"}`;
   const description =
     meetingMode === "video"
       ? `Join here: ${videoMeetingUrl}`
@@ -45,7 +47,15 @@ export function BookingConfirmation({
         You're booked, {firstName}
       </h2>
       <p className="mt-2 text-muted-foreground">
-        A confirmation is on its way to your inbox.
+        Save the details below and your appointment management link. If a
+        confirmation email does not arrive, contact{" "}
+        <a
+          href="mailto:hello@easeintoai.co"
+          className="underline underline-offset-4"
+        >
+          hello@easeintoai.co
+        </a>
+        .
       </p>
 
       <div className="mt-6 rounded-xl border border-border bg-muted/30 p-5 text-left">

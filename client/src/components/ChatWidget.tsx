@@ -303,10 +303,6 @@ export function ChatWidget() {
                 className="relative flex items-center justify-center min-w-14 h-14 px-4 rounded-full bg-primary text-primary-foreground text-sm font-semibold shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all"
               >
                 Ask
-
-                {/* Pulsing ring — draws attention */}
-                <span className="absolute inset-0 rounded-full bg-primary/25 animate-ping" />
-
                 {/* Unread badge */}
                 {hasUnread && (
                   <span className="absolute top-0.5 right-0.5 w-3 h-3 rounded-full bg-red-500 border-2 border-white" />

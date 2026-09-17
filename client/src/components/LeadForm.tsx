@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -108,7 +109,7 @@ export function LeadForm({
           )}
         >
           {isWebinar
-            ? "Check your email for the webinar link and calendar details. We'll also text you a confirmation and a reminder before the session."
+            ? "Your registration has been saved. If you need the joining details, email hello@easeintoai.co."
             : "We'll send updates on webinars, courses, and AI insights — no spam."}
         </p>
         <button
@@ -250,6 +251,7 @@ export function LeadForm({
 
       {errors.root && (
         <p
+          role="alert"
           className={cn(
             "text-xs",
             inverted ? "text-red-200" : "text-destructive"
@@ -258,6 +260,23 @@ export function LeadForm({
           {errors.root.message}
         </p>
       )}
+
+      <p
+        className={cn(
+          "text-xs leading-relaxed",
+          inverted ? "text-background/80" : "text-muted-foreground"
+        )}
+      >
+        We use these details to{" "}
+        {isWebinar
+          ? "manage your registration and event updates"
+          : "send the updates you request"}
+        .{" "}
+        <Link href="/privacy" className="underline underline-offset-4">
+          Privacy notice
+        </Link>
+        .
+      </p>
 
       <Button
         type="submit"

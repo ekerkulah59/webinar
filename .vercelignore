@@ -1,0 +1,10 @@
+.env*
+.git
+.claude
+.agents
+.codex
+marketing
+docs
+supabase/**/*service-account*.json
+supabase/functions/*-booking-*.json
+*.log

@@ -24,7 +24,7 @@ export const BOOKING = {
   maxBookingsPerEmailPerDay: 3,
 
   /** Shown to people who choose "video call". Your permanent meeting room. */
-  videoMeetingUrl: "https://zoom.us/my/REPLACE_ME",
+  videoMeetingUrl: Deno.env.get("BOOKING_VIDEO_URL")?.trim() ?? "",
 
   /** Where the "new booking" notification goes. */
   ownerEmail: "hello@easeintoai.co",

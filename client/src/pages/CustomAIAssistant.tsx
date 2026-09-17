@@ -29,6 +29,24 @@ const uses = [
   },
 ];
 
+// The wider done-for-you menu. An assistant is one of several things we build
+// for owners who would rather not build it themselves.
+// TODO: confirm scope and pricing for each before publishing specifics.
+const alsoBuilt = [
+  {
+    title: "AI receptionist",
+    copy: "Answers the routine questions that arrive after hours and hands the real conversations to you.",
+  },
+  {
+    title: "Website",
+    copy: "A clear, fast site that says what you do and lets someone book you, built so you can update it yourself.",
+  },
+  {
+    title: "Follow-up automation",
+    copy: "The quote nobody chased, the customer who has not been back, the review never asked for.",
+  },
+];
+
 const safeguards = [
   "A person reviews important outputs before they are used",
   "Only approved source material belongs in the assistant",
@@ -58,9 +76,9 @@ const faqs = [
 
 export default function CustomAIAssistant() {
   useSEO({
-    title: "Custom AI Assistants With Human Oversight",
+    title: "Custom AI Assistants for Your Business",
     description:
-      "Custom AI Assistants built around approved business or organizational information, clear workflows, and human review.",
+      "Project-based AI assistants built around your approved business information and human review. Part of EaseIntoAI’s done-for-you services.",
     url: "https://easeintoai.co/custom-ai-assistant",
     type: "website",
   });
@@ -372,6 +390,57 @@ export default function CustomAIAssistant() {
                   {CONTACT}
                 </a>
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="border-t border-border py-16 md:py-20"
+          aria-labelledby="also-built-heading"
+        >
+          <div className="container">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-accent">
+                Also built for you
+              </p>
+              <h2
+                id="also-built-heading"
+                className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-4xl"
+              >
+                An assistant is one option. It is not the only one.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                Sometimes the thing eating your week is not a question that
+                needs answering. It is a phone nobody picks up, a site nobody
+                books through, or a follow-up nobody sends.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              {alsoBuilt.map(({ title, copy }) => (
+                <article
+                  key={title}
+                  className="rounded-2xl border border-border p-7 transition-colors hover:border-accent/45 md:p-8"
+                >
+                  <h3 className="text-xl font-bold leading-snug">{title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">
+                    {copy}
+                  </p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-9 flex flex-col gap-4 rounded-2xl bg-secondary p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+              <p className="max-w-2xl leading-relaxed text-muted-foreground">
+                <span className="font-bold text-foreground">
+                  Would rather build it yourself?
+                </span>{" "}
+                The Pilot walks you through it so you own the process end to
+                end.
+              </p>
+              <Button asChild variant="primary" className="shrink-0">
+                <Link href="/pilot">
+                  See the Pilot <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>

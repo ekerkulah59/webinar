@@ -41,12 +41,6 @@ export default function PastWebinars() {
                 <p className="text-sm text-muted-foreground">Sessions</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-bold text-accent">100+</p>
-                <p className="text-sm text-muted-foreground">
-                  Recorded attendances
-                </p>
-              </div>
-              <div className="text-center">
                 <p className="text-3xl font-bold text-accent">Free</p>
                 <p className="text-sm text-muted-foreground">Early Sessions</p>
               </div>
@@ -89,7 +83,7 @@ export default function PastWebinars() {
                       <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
                         <span>{webinar.date}</span>
                         <span>{webinar.duration}</span>
-                        <span>{webinar.attendees} attendees</span>
+                        {/* TODO: Restore attendance figures only after confirming the records. */}
                       </div>
                     </div>
 

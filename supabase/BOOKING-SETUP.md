@@ -96,7 +96,7 @@ SQL Editor → run `supabase/setup-booking-secrets.sql` with your real values:
 
 Open `supabase/functions/appointments/config.ts` and set at minimum:
 
-- `videoMeetingUrl` — your permanent Zoom/Meet room
+- `BOOKING_VIDEO_URL` — set this Edge Function environment variable to your actual HTTPS Zoom/Meet room. If absent or still a placeholder, the site offers phone calls only. Do not add a made-up meeting link.
 - `ownerEmail` — where booking notifications go
 - `fromEmail` — must be on your Resend-verified domain
 - `siteUrl` — used to build the cancel/reschedule links in emails

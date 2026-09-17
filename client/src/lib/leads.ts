@@ -13,7 +13,7 @@ export type SubmitLeadInput = {
 export async function submitLead(input: SubmitLeadInput): Promise<void> {
   if (!isSupabaseConfigured()) {
     throw new Error(
-      "Form storage is not configured yet. Add Supabase keys to .env.local (see supabase/README.md)."
+      "We couldn’t save your details. Please try again or email hello@easeintoai.co."
     );
   }
 
@@ -31,6 +31,8 @@ export async function submitLead(input: SubmitLeadInput): Promise<void> {
   });
 
   if (error) {
-    throw new Error(error.message);
+    throw new Error(
+      "We couldn’t save your details. Please try again or email hello@easeintoai.co."
+    );
   }
 }
